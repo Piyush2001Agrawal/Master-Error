@@ -1,9 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container-fluid px-0">
+
 
 </div>
-<div class="container py-5">
+<div class="background">
+    <div class="login-container">
+      <h1>Master Error</h1>
+      <p>Your go-to platform for identifying, understanding, and resolving programming errors efficiently.</p>
+      
+      <form>
+        <div class="form-group">
+            <label for="email">Userame</label>
+            <input type="username" id="Userame" placeholder="Enter your username" required>
+          </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+        <div class="form-group">
+          <label for="user-type">Are you a student or professional?</label>
+          <select id="user-type">
+            <option value="student">Student</option>
+            <option value="professional">Professional</option>
+          </select>
+        </div>
+        <button type="submit" class="btn">Login</button>
+      </form>
+
+      <div class="new-user">
+        New user? <a href="#">Sign up here</a>
+      </div>
+
+      <div class="contact-details">
+        Need help? <a href="mailto:support@mastererror.com">Contact us</a>
+      </div>
+    </div>
+  </div>
 
 </div>
 {% endblock %}
@@ -14,7 +50,140 @@
 {% endblock %}
 {% block css %}
 <style>
-
+    <style>
+        /* General Styles */
+        body, html {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          font-family: 'Arial', sans-serif;
+          background-color: #1e1e1e;
+          color: #ffffff;
+        }
+    
+        /* Background Image */
+        .background {
+          background-image: url('https://plus.unsplash.com/premium_photo-1664299294853-75ee24042e87?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+          background-size: cover;
+          background-position: center;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+    
+        /* Login Container */
+        .login-container {
+          background: rgba(30, 30, 30, 0.9);
+          padding: 40px;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+          width: 350px;
+          text-align: center;
+        }
+    
+        .login-container h1 {
+          margin-bottom: 20px;
+          font-size: 2rem;
+          color: #00ffcc;
+        }
+    
+        .login-container p {
+          margin-bottom: 30px;
+          font-size: 0.9rem;
+          color: #cccccc;
+        }
+    
+        /* Form Styles */
+        .form-group {
+          margin-bottom: 20px;
+          text-align: left;
+        }
+    
+        .form-group label {
+          display: block;
+          margin-bottom: 5px;
+          font-size: 0.9rem;
+          color: #cccccc;
+        }
+    
+        .form-group input {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #444;
+          border-radius: 5px;
+          background: #333;
+          color: #ffffff;
+          font-size: 1rem;
+        }
+    
+        .form-group input:focus {
+          outline: none;
+          border-color: #00ffcc;
+        }
+    
+        .form-group select {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #444;
+          border-radius: 5px;
+          background: #333;
+          color: #ffffff;
+          font-size: 1rem;
+        }
+    
+        .form-group select:focus {
+          outline: none;
+          border-color: #00ffcc;
+        }
+    
+        .btn {
+          width: 100%;
+          padding: 10px;
+          background: #00ffcc;
+          border: none;
+          border-radius: 5px;
+          color: #1e1e1e;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background 0.3s ease;
+        }
+    
+        .btn:hover {
+          background: #00ccaa;
+        }
+    
+        .new-user {
+          margin-top: 20px;
+          font-size: 0.9rem;
+          color: #cccccc;
+        }
+    
+        .new-user a {
+          color: #00ffcc;
+          text-decoration: none;
+        }
+    
+        .new-user a:hover {
+          text-decoration: underline;
+        }
+    
+        /* Contact Details */
+        .contact-details {
+          margin-top: 30px;
+          font-size: 0.9rem;
+          color: #cccccc;
+        }
+    
+        .contact-details a {
+          color: #00ffcc;
+          text-decoration: none;
+        }
+    
+        .contact-details a:hover {
+          text-decoration: underline;
+        }
+      </style>
 </style>
 {% endblock %}
 {% block head %}{% endblock %}
