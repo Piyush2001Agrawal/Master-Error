@@ -1,0 +1,110 @@
+<style>
+    .alert {
+        position: fixed;
+        top: 5%;
+        right: 10px;
+        z-index: 9999;
+        width: 400px;
+        margin: 10px;
+    }
+</style>
+/* States */
+@custom-variant hs-success {
+
+  &.success {
+    @slot;
+  }
+
+  .success & {
+    @slot;
+  }
+}
+
+@custom-variant hs-error {
+
+  &.error {
+    @slot;
+  }
+
+  .error & {
+    @slot;
+  }
+}
+
+/* Preline */
+@import './src/plugins/dropdown/variants.css';
+@import './src/plugins/remove-element/variants.css';
+@import './src/plugins/tooltip/variants.css';
+@import './src/plugins/accordion/variants.css';
+@import './src/plugins/tree-view/variants.css';
+@import './src/plugins/collapse/variants.css';
+@import './src/plugins/tabs/variants.css';
+@import './src/plugins/overlay/variants.css';
+@import './src/plugins/scrollspy/variants.css';
+@import './src/plugins/carousel/variants.css';
+@import './src/plugins/select/variants.css';
+@import './src/plugins/input-number/variants.css';
+@import './src/plugins/pin-input/variants.css';
+@import './src/plugins/strong-password/variants.css';
+@import './src/plugins/stepper/variants.css';
+@import './src/plugins/combobox/variants.css';
+@import './src/plugins/layout-splitter/variants.css';
+@import './src/plugins/scroll-nav/variants.css';
+@import './src/plugins/datatable/variants.css';
+@import './src/plugins/range-slider/variants.css';
+@import './src/plugins/file-upload/variants.css';
+@import './src/plugins/datepicker/variants.css';
+@import './src/plugins/theme-switch/variants.css';
+
+/* Apexcharts */
+@custom-variant hs-apexcharts-tooltip-dark {
+  &.dark {
+    @slot;
+  }
+}
+
+/* Sortable.js */
+@custom-variant hs-dragged {
+  &.dragged {
+    @slot;
+  }
+}
+
+/* Toastify */
+@custom-variant hs-toastify-on {
+
+  &.toastify.on {
+    @slot;
+  }
+
+  .toastify.on & {
+    @slot;
+  }
+}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{category }} alert-dismissible fade show" role="alert">
+    {% if category == 'success' %}
+    <strong>
+        <i class="fas fa-check-circle"></i>
+    </strong>
+    {% elif category == 'danger' %}
+    <strong>
+        <i class="fas fa-exclamation-triangle"></i>
+    </strong>
+    {% endif %}
+    <strong>{{message|safe}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+
+<script>
+    var alertList = document.querySelectorAll('.alert');
+    alertList.forEach(function (alert) {
+        new bootstrap.Alert(alert)
+    })
+</script>
+
+{% endwith %}
