@@ -1,7 +1,93 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<header>
+  <div class="container">
+    <nav>
+      <div class="logo">Master Error</div>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#solutions">Solutions</a></li>
+        
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#login-signup">Login/Signup</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
+<section class="hero">
+  <div class="container">
+    <h1>Master Error: Debug Smarter, Not Harder</h1>
+    <p>Your ultimate tool for identifying, analyzing, and resolving errors in real-time.</p>
+    <a href="#cta" class="cta-button">Start Debugging Now</a>
+  </div>
+</section>
+
+<section id="features" class="features">
+  <div class="container">
+    <h2>Key Features</h2>
+    <div class="feature-list">
+      <div class="feature-item">
+        <h3>Real-Time Error Detection</h3>
+        <p>Instantly identify errors as they occur in your applications.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Detailed Error Reports</h3>
+        <p>Get comprehensive insights into error causes and solutions.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Automated Fixes</h3>
+        <p>Let our AI suggest and apply fixes for common errors.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="solutions" class="solutions">
+  <div class="container">
+    <h2>Solutions for Every Developer</h2>
+    <p>Whether you're a beginner or an expert, Master Error adapts to your needs.</p>
+    <div class="solution-list">
+      <div class="solution-item">
+        <h3>For Individuals</h3>
+        <p>Perfect for freelancers and solo developers.</p>
+      </div>
+      <div class="solution-item">
+        <h3>For Teams</h3>
+        <p>Collaborate seamlessly with your team on error resolution.</p>
+      </div>
+      <div class="solution-item">
+        <h3>For Enterprises</h3>
+        <p>Scalable solutions for large organizations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="contact" class="contact">
+  <div class="container">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+<section id="login-signup" class="login-signup">
+  <div class="container">
+    <h2>Login/Signup</h2>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2025 Master Error. All rights reserved.</p>
+  </div>
+</footer>
 </div>
 <div class="background">
     <div class="login-container">
@@ -10,8 +96,8 @@
       
       <form>
         <div class="form-group">
-            <label for="email">Userame</label>
-            <input type="username" id="Userame" placeholder="Enter your username" required>
+            <label for="email">Username</label>
+            <input type="username" id="Username" placeholder="Enter your username" required>
           </div>
         <div class="form-group">
           <label for="email">Email</label>
@@ -50,7 +136,196 @@
 {% endblock %}
 {% block css %}
 <style>
+
     <style>
+      /* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  h1, h2, h3 {
+    font-family: 'Roboto Mono', monospace;
+  }
+  
+  /* Header */
+  header {
+    background: #2c3e50;
+    color: #fff;
+    padding: 20px 0;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .nav-links a:hover {
+    color: #f4c10f;
+  }
+  
+  /* Hero Section */
+  .hero {
+    background: #34495e;
+    color: #fff;
+    padding: 100px 0;
+    text-align: center;
+  }
+  
+  .hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+  .hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  
+  .cta-button {
+    background: #f4c10f;
+    color: #333;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 5px;
+  }
+  
+  .cta-button:hover {
+    background: #e0b10e;
+  }
+  
+  /* Features Section */
+  .features {
+    padding: 80px 0;
+    text-align: center;
+  }
+  
+  .features h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+  
+  .feature-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .feature-item {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .feature-item h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  /* Solutions Section */
+  .solutions {
+    background: #f4f4f4;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.solution-list {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.solution-item {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+}
+
+  
+  
+  
+  /* Contact Section */
+  .contact {
+    padding: 80px 0;
+    text-align: center;
+  }
+  
+  .contact h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .contact input, .contact textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .contact button {
+    background: #f4c10f;
+    color: #333;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .contact button:hover {
+    background: #e0b10e;
+  }
+  
+  /* Footer */
+  footer {
+    background: #2c3e50;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+  }
         /* General Styles */
         body, html {
           margin: 0;
@@ -183,6 +458,7 @@
         .contact-details a:hover {
           text-decoration: underline;
         }
+        
       </style>
 </style>
 {% endblock %}
