@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="dashboard">
+    <h2>Welcome, {{ current_user.username }}!</h2>
+    <p>You are logged in as a {{ current_user.user_type }}.</p>
+    <div class="dashboard-actions">
+        <a href="{{ url_for('features') }}" class="btn-primary">Explore Features</a>
+        <a href="{{ url_for('logout') }}" class="btn-secondary">Logout</a>
+    </div>
+</section>
+{% endblock %}
