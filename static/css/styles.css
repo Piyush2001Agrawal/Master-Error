@@ -143,3 +143,55 @@ footer {
 .contact-info {
     margin-top: 1.5rem;
 }
+/* Auth Forms */
+.auth-form {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 2rem auto;
+    text-align: center;
+    color: #333;
+    background-image: url('static/images/auth-bg1.jpg'); /* Add background image */
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for inputs */
+}
+
+.auth-form button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    background: #573b8a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.auth-form button:hover {
+    background: #6d44b8;
+}
+
+.auth-form p {
+    margin-top: 1rem;
+    color: #333;
+}
+
+.auth-form a {
+    color: #573b8a;
+    text-decoration: none;
+}
+
+.auth-form a:hover {
+    text-decoration: underline;
+}
