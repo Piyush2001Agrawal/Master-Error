@@ -17,7 +17,7 @@
     <form method="POST" action="{{ url_for('signup') }}">
         <h3>Sign Up Here</h3>
 
-        <label for="username">Username</label>
+        <label for="username" style="color: rgb(255, 255, 255);">Username</label>
         <input type="text" name="username" placeholder="Username" id="username" required>
 
         <label for="email">Email</label>
@@ -26,11 +26,12 @@
         <label for="password">Password</label>
         <input type="password" name="password" placeholder="Password" id="password" required>
 
-        <label for="user_type">User Type</label>
-        <select name="user_type" id="user_type" required>
-            <option value="beginner">Beginner</option>
-            <option value="experienced">Experienced</option>
-        </select>
+        <label for="user_type" style="color: black;">User Type</label>
+<select name="user_type" id="user_type" required style="color: black;">
+    <option value="beginner" style="color: black;">Beginner</option>
+    <option value="experienced" style="color: black;">Experienced</option>
+</select>
+
 
         <button type="submit">Sign Up</button>
         <p style="text-align: center; margin-top: 20px;">
