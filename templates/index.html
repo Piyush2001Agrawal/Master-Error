@@ -1,37 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% block content %}
 
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
-
-  <title>Master Error</title>
-
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
-
-
-  <!-- Additional CSS Files -->
-
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo-tale-seo-agency.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
-  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-  <!--
-
-TemplateMo 582 Tale SEO Agency
-
-https://templatemo.com/tm-582-tale-seo-agency
-
--->
-</head>
-
-<body>
 
   <!-- ***** Preloader Start ***** -->
   <!-- <div id="js-preloader" class="js-preloader">
@@ -47,11 +16,11 @@ https://templatemo.com/tm-582-tale-seo-agency
   <!-- ***** Preloader End ***** -->
 
   <!-- ***** Pre-Header Area Start ***** -->
-  <div class="pre-header">
+  <!--<div class="pre-header">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-sm-9">
-          <!--<div class="left-info">
+          <div class="left-info">
             <ul>
               <li><a href="#"><i class="fa fa-phone"></i>+000 1234 5678</a></li>
               <li><a href="#"><i class="fa fa-envelope"></i>infocompany@email.com</a></li>
@@ -67,51 +36,15 @@ https://templatemo.com/tm-582-tale-seo-agency
               <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
               <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
             </ul>
-          </div>-->
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
   <!-- ***** Pre-Header Area End ***** -->
 
   <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <nav class="main-nav">
-            <!-- ***** Logo Start ***** -->
-            <a href="index.html" class="logo">
-              <img src="static\images\logo.png" alt="" style="max-width: 112px;">
-            </a>
-            <!-- ***** Logo End ***** -->
-            <!-- ***** Menu Start ***** -->
-            <ul class="nav">
-              <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-              <li class="scroll-to-section"><a href="#services">Services</a></li>
-              <li class="scroll-to-section"><a href="#projects">Projects</a></li>
-              <li class="has-sub">
-                <a href="javascript:void(0)">Pages</a>
-                <ul class="sub-menu">
-                  <li><a href="about.html">About Us</a></li>
-                  <li><a href="faqs.html">FAQs</a></li>
-                </ul>
-                
-              </li>
-              <li class="scroll-to-section"><a href="#infos">Infos</a></li>
-              <li class="scroll-to-section"><a href="#contact">Contact</a></li>
-              <li><a href="/login">Login</a></li>
-              <li><a href="/signup">Signup</a></li>
-            </ul>
-            <a class='menu-trigger'>
-              <span>Menu</span>
-            </a>
-            <!-- ***** Menu End ***** -->
-          </nav>
-        </div>
-      </div>
-    </div>
-  </header>
+  
   <!-- ***** Header Area End ***** -->
 
   <div class="main-banner" id="top">
@@ -122,11 +55,11 @@ https://templatemo.com/tm-582-tale-seo-agency
             <h6>Master Error</h6>
             <div class="line-dec"></div>
             <h4>Dive <em>Into The Code</em> World <span>With Master Error</span></h4>
-            <p> <a href="index.html">Home</a>, <a
-                href="about.html">About</a>, and <a href="faqs.html">FAQ</a>.</p>
+            <p> <a href="/">Home</a>, <a
+                href="/about">About</a>, and <a href="/faqs">FAQ</a>.</p>
             <div class="main-button scroll-to-section"><a href="#services">Discover More</a></div>
-            <span>or</span>
-            <div class="second-button"><a href="faqs.html">Check our FAQs</a></div>
+           <!--<span>or</span>--> 
+            <!--<div class="second-button"><a href="faqs.html">Check our FAQs</a></div>-->
           </div>
         </div>
       </div>
@@ -140,45 +73,46 @@ https://templatemo.com/tm-582-tale-seo-agency
           <div class="row">
             <div class="col-lg-12">
               <div class="section-heading">
-                <h2>We Provide <em>Different Services</em> &amp;
-                  <span>Features</span> For Your Agency
+                <h2>Master Error <em>Identify, understand, and resolve programming errors with ease</em> 
+                  Whether you're a beginner or an experienced developer, Master Error is here to help.
                 </h2>
                 <div class="line-dec"></div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doers eiusmod.</p>
+                <h3><em>Why Choose Master Error?.</em></h3>
               </div>
             </div>
             <div class="col-lg-6 col-sm-6">
               <div class="service-item">
-                <div class="icon">
+                <!--<div class="icon">
                   <img src="static\images\services-01.jpg" alt="discover SEO" class="templatemo-feature">
-                </div>
-                <h4>Discover More on Latest SEO Trends</h4>
+                </div>-->
+                <h4>Advanced Error Detection,
+                  
               </div>
             </div>
             <div class="col-lg-6 col-sm-6">
               <div class="service-item">
-                <div class="icon">
+                <!--<div class="icon">
                   <img src="static\images\services-02.jpg" alt="data analysis" class="templatemo-feature">
-                </div>
-                <h4>Real-Time Big Data Analysis</h4>
+                </div>-->
+                <h4>Detailed Explanations</h4>
               </div>
             </div>
             <div class="col-lg-6 col-sm-6">
               <div class="service-item">
-                <div class="icon">
+                <!--<div class="icon">
                   <img src="static\images\services-03.jpg" alt="precise data" class="templatemo-feature">
-                </div>
-                <h4>Precise Data Analysis &amp; Prediction</h4>
+                </div>-->
+                <h4>Multi-Language Support</h4>
               </div>
             </div>
-            <div class="col-lg-6 col-sm-6">
+            <!--<div class="col-lg-6 col-sm-6">
               <div class="service-item">
                 <div class="icon">
                   <img src="static\images\services-04.jpg" alt="SEO marketing" class="templatemo-feature">
                 </div>
                 <h4>SEO Marketing &amp; Social Media</h4>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
@@ -190,7 +124,7 @@ https://templatemo.com/tm-582-tale-seo-agency
       <div class="row">
         <div class="col-lg-6">
           <div class="section-heading">
-            <h2>Discover Our <em>Work</em> &amp; <span>Projects</span></h2>
+            <!--<h2>Discover Our <em>Work</em> &amp; <span>Projects</span></h2>
             <div class="line-dec"></div>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doers eiusmod.</p>
           </div>
@@ -244,7 +178,7 @@ https://templatemo.com/tm-582-tale-seo-agency
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
@@ -262,16 +196,27 @@ https://templatemo.com/tm-582-tale-seo-agency
               </div>
               <div class="col-lg-6">
                 <div class="section-heading">
-                  <h2>More <em>About Us</em> &amp; What <span>We Offer</span></h2>
+                  <h2><em>Features</em></h2>
                   <div class="line-dec"></div>
-                  <p>You are free to use this template for any purpose. You are not allowed to redistribute the
-                    downloadable ZIP file of Tale SEO Template on any other template website. Please contact us. Thank
-                    you.</p>
+                  <div class="feature-list">
+                    <div class="feature-item">
+                        <h3 style="color: black;">Advanced Error Detection</h3>
+                        <p style="color: black;">Pinpoint issues in your code with our advanced error detection mechanisms.</p>
+                    </div>
+        
                 </div>
-                <div class="skills">
-                  <div class="skill-slide marketing">
-                    <div class="fill"></div>
-                    <h6>Marketing</h6>
+                <div class="feature-item">
+                  <h3 style="color: black;">Detailed Explanations</h3>
+                  <p style="color: black;">Get detailed explanations for each fix to enhance your understanding.</p>
+              </div>
+              <div class="feature-item">
+                <h3 style="color: black;">Multi-Language Support</h3>
+                <p style="color: black;">Supports multiple programming languages for seamless switching.</p>
+            </div>
+        
+                  <!--<div class="skill-slide marketing">
+                    <div class="fill"></div>-->
+                    <!--<h6>Marketing</h6>
                     <span>90%</span>
                   </div>
                   <div class="skill-slide digital">
@@ -282,12 +227,13 @@ https://templatemo.com/tm-582-tale-seo-agency
                   <div class="skill-slide media">
                     <div class="fill"></div>
                     <h6>Social Media Managing</h6>
-                    <span>95%</span>
+                    <span>95%</span>-->
+                    
                   </div>
                 </div>
-                <p class="more-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doers eiusmod tempor
+                <!--<p class="more-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doers eiusmod tempor
                   incididunt ut labore et dolore dolor dolor sit amet, consectetur adipiscing elit, sed doers eiusmod.
-                </p>
+                </p>-->
               </div>
             </div>
           </div>
@@ -357,14 +303,14 @@ https://templatemo.com/tm-582-tale-seo-agency
                     <div class="col-lg-4">
                       <div class="info-item">
                         <i class="fa fa-phone"></i>
-                        <h4><a href="#">010-020-0340</a></h4>
+                        <h4><a href="#">7355995211 or 8840402886</a></h4>
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="info-item">
                         <i class="fa fa-envelope"></i>
-                        <h4><a href="#">info@company.com</a></h4>
-                        <h4><a href="#">hello@company.com</a></h4>
+                        <h4><a href="#">mastererror@email.com</a></h4>
+                        
                       </div>
                     </div>
                     <div class="col-lg-4">
@@ -382,31 +328,11 @@ https://templatemo.com/tm-582-tale-seo-agency
       </div>
     </div>
   </div>
+ 
+{% endblock %}
+{% block css %}
 
-  <footer>
-    <div class="container">
-      <div class="col-lg-12">
-        <p>Copyright © 2036 <a href="#">Tale SEO Agency</a>. All rights reserved.
+{% endblock %}
+{% block js %}
 
-          <br>Design: <a href="https://templatemo.com" target="_blank">TemplateMo</a>
-        </p>
-      </div>
-    </div>
-  </footer>
-
-
-  <!-- Scripts -->
-  <!-- Bootstrap core JavaScript -->
-  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/isotope.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/owl-carousel.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/tabs.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
-
-
-</body>
-
-</html>
+{% endblock %}
