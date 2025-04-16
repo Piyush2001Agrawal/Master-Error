@@ -50,6 +50,17 @@ def about():
 def features():
     return render_template('features.html')
 
+# Faqs Route
+@app.route('/faqs') 
+def faqs():
+    return render_template('faqs.html')
+
+# Executor Route
+@app.route('/executor')
+def executor():
+    return render_template('executor.html')
+
+
 # Signup Route
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -115,3 +126,4 @@ def logout():
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
+    

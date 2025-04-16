@@ -1,0 +1,338 @@
+{% extends "base.html" %}
+{% block title %}Master Error IDE{% endblock %}
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Master Error IDE</h1>
+            <p>Write and execute your code below:</p>
+        </div>
+    <div class="container">
+        <h1>Master Error IDE</h1>
+        <p>Write and execute your code below:</p>
+    </div>
+
+    <!-- IDE Container -->
+
+<div class="ide-container">
+    <!-- IDE Header -->
+    <div class="ide-header">
+        <div class="logo">Master Error IDE</div>
+        <div class="ide-controls">
+            
+            <button id="run-btn" class="ide-btn run-btn">
+                <i class="fas fa-play"></i> Run
+            </button>
+            <button id="analyze-btn" class="ide-btn analyze-btn">
+                <i class="fas fa-search"></i> Analyze
+            </button>
+            <button id="clear-btn" class="ide-btn clear-btn">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+            <button id="save-btn" class="ide-btn save-btn">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </div>
+    </div>
+
+    <!-- Editor + Output Panels -->
+    <div class="ide-panels">
+        <!-- Editor Panel -->
+        <div class="editor-panel">
+            <div id="code-editor"></div>
+        </div>
+        
+        <!-- Output Panel -->
+        <div class="output-panel">
+            <div class="panel-tabs">
+                <button class="tab-btn active" data-tab="output">Output</button>
+                <button class="tab-btn" data-tab="errors">Errors</button>
+                <button class="tab-btn" data-tab="suggestions">Suggestions</button>
+            </div>
+            <div class="panel-content">
+                <div id="output-content" class="tab-content active" data-tab="output">
+                    <p>Code output will appear here...</p>
+                </div>
+                <div id="errors-content" class="tab-content" data-tab="errors">
+                    <p>Error analysis will appear here...</p>
+                </div>
+                <div id="suggestions-content" class="tab-content" data-tab="suggestions">
+                    <p>Optimization suggestions will appear here...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+        </section>
+
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+<style>
+/* IDE Container */
+.ide-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: #282a36;
+    color: #f8f8f2;
+}
+
+/* IDE Header */
+.ide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #956ada;
+    border-bottom: 1px solid #333;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4ec9b0;
+}
+
+.ide-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+
+
+.ide-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.ide-btn:hover {
+    transform: translateY(-2px);
+}
+
+.run-btn { background: #4caf50; color: white; }
+.analyze-btn { background: #2196f3; color: white; }
+.clear-btn { background: #f44336; color: white; }
+.save-btn { background: #ff9800; color: white; }
+
+/* IDE Panels */
+.ide-panels {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.editor-panel {
+    flex: 1;
+    position: relative;
+}
+
+.output-panel {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    background: #f8f7fa;
+    border-left: 2px solid #0f0e0e;
+}
+
+/* CodeMirror Overrides */
+.CodeMirror {
+    height: 100% !important;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Panel Tabs */
+.panel-tabs {
+    display: flex;
+    border-bottom: 1px solid #333;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    background: transparent;
+    border: none;
+    color: #1c1b1b;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.tab-btn.active {
+    color: rgb(202, 199, 199);
+    border-bottom: 2px solid #077660;
+}
+
+.tab-content {
+    display: none;
+    padding: 15px;
+    overflow-y: auto;
+    height: calc(100% - 40px);
+    font-family: 'Consolas', monospace;
+    white-space: pre-wrap;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .ide-panels {
+        flex-direction: column;
+    }
+    
+    .output-panel {
+        width: 100%;
+        height: 40%;
+    }
+}
+</style>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/htmlmixed/htmlmixed.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/css/css.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize CodeMirror
+    const editor = CodeMirror(document.getElementById('code-editor'), {
+        lineNumbers: true,
+        theme: 'dracula',
+        mode: 'python',
+        indentUnit: 4,
+        tabSize: 4,
+        lineWrapping: true,
+        autoCloseBrackets: true,
+        matchBrackets: true,
+        extraKeys: {
+            "Ctrl-Enter": runCode,
+            "Shift-Enter": analyzeCode
+        }
+    });
+
+    // Set initial code
+    editor.setValue(`# Welcome to Master Error IDE\n# Try writing some code and click "Run"\n\ndef greet(name):\n    print(f"Hello, {name}!")\n\ngreet("Developer")`);
+
+    // Language selector
+    const languageSelector = document.getElementById('language-selector');
+    languageSelector.addEventListener('change', function() {
+        const modeMap = {
+            'python': 'python',
+            'javascript': 'javascript',
+            'java': 'text/x-java',
+            'cpp': 'text/x-c++src',
+            'htmlmixed': 'htmlmixed',
+            'css': 'css'
+        };
+        editor.setOption('mode', modeMap[this.value]);
+    });
+
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            this.classList.add('active');
+            document.getElementById(`${this.dataset.tab}-content`).classList.add('active');
+        });
+    });
+
+    // Button event handlers
+    document.getElementById('run-btn').addEventListener('click', runCode);
+    document.getElementById('analyze-btn').addEventListener('click', analyzeCode);
+    document.getElementById('clear-btn').addEventListener('click', clearCode);
+    document.getElementById('save-btn').addEventListener('click', saveCode);
+
+    async function runCode() {
+        const code = editor.getValue();
+        if (!code.trim()) return;
+        
+        document.querySelector('[data-tab="output"]').click();
+        document.getElementById('output-content').textContent = 'Executing code...';
+        
+        try {
+            const response = await fetch('/execute', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code, language: languageSelector.value })
+            });
+            
+            const data = await response.json();
+            document.getElementById('output-content').innerHTML = data.output;
+        } catch (error) {
+            document.getElementById('output-content').textContent = 'Error: ' + error.message;
+        }
+    }
+
+    async function analyzeCode() {
+        const code = editor.getValue();
+        if (!code.trim()) return;
+        
+        document.querySelector('[data-tab="errors"]').click();
+        document.getElementById('errors-content').textContent = 'Analyzing code...';
+        
+        try {
+            const response = await fetch('/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code, language: languageSelector.value })
+            });
+            
+            const data = await response.json();
+            document.getElementById('errors-content').innerHTML = data.errors;
+            document.getElementById('suggestions-content').innerHTML = data.suggestions;
+        } catch (error) {
+            document.getElementById('errors-content').textContent = 'Error: ' + error.message;
+        }
+    }
+
+    function clearCode() {
+        if (confirm('Are you sure you want to clear the editor?')) {
+            editor.setValue('');
+        }
+    }
+
+    function saveCode() {
+        const code = editor.getValue();
+        const blob = new Blob([code], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `code-${new Date().toISOString().slice(0,10)}.${languageSelector.value}`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+});
+</script>
+{% endblock %}

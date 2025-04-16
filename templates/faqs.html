@@ -1,162 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-  <head>
+{% block navbar %}{% endblock %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <title>Tale SEO Agency - FAQ Page</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-tale-seo-agency.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-<!--
-
-TemplateMo 582 Tale SEO Agency
-
-https://templatemo.com/tm-582-tale-seo-agency
-
--->
-  </head>
-
-<body>
-
-  <!-- ***** Preloader Start ***** -->
-  <div id="js-preloader" class="js-preloader">
-    <div class="preloader-inner">
-      <span class="dot"></span>
-      <div class="dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </div>
-  <!-- ***** Preloader End ***** -->
-
-  <!-- ***** Pre-Header Area Start ***** -->
-  <div class="pre-header" id="top">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-sm-9">
-          <div class="left-info">
-            <ul>
-              <li><a href="#"><i class="fa fa-phone"></i>+000 1234 5678</a></li>
-              <li><a href="#"><i class="fa fa-envelope"></i>infocompany@email.com</a></li>
-              <li><a href="#"><i class="fa fa-map-marker"></i>St. London 54th Bull</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-3">
-          <div class="social-icons">
-            <ul>
-              <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-              <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- ***** Pre-Header Area End ***** -->
-
-  <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
-                        <img src="assets/images/logo.png" alt="" style="max-width: 112px;">
-                    </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                      <li><a href="index.html">Home</a></li>
-                      <li><a href="index.html">Services</a></li>
-                      <li><a href="index.html">Projects</a></li>
-                      <li class="has-sub">
-                          <a href="javascript:void(0)">Pages</a>
-                          <ul class="sub-menu">
-                              <li><a href="about.html">About Us</a></li>
-                              <li><a href="faqs.html">FAQs</a></li>
-                          </ul>
-                      </li>
-                      <li><a href="index.html">Infos</a></li>
-                      <li><a href="index.html">Contact</a></li>
-                  </ul>   
-                    <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a>
-                    <!-- ***** Menu End ***** -->
-                </nav>
-            </div>
-        </div>
-    </div>
-  </header>
-  <!-- ***** Header Area End ***** -->
-
-  <div class="page-heading">
+{% block content %}
+<div class="page-heading">
     <div class="container">
       <div class="row">
         <div class="col-lg-7 align-self-center">
-          <div class="caption  header-text">
-            <h6>SEO DIGITAL AGENCY</h6>
+          <div class="caption header-text">
+            <h6>DEBUGGING ASSISTANCE PLATFORM</h6>
             <div class="line-dec"></div>
-            <h4>Most Frequently Asked <em>Questions</em> Here <em>?</em></h4>
+            <h4>Get Answers to <em>Common Questions</em> About <em>Master Error</em></h4>
           </div>
         </div>
         <div class="col-lg-5">
-          <img src="assets/images/faqs-image.jpg" alt="">
+          <img src="{{ url_for('static', filename='images/faqs-image.jpg') }}" alt="Programming FAQ Illustration">
         </div>
       </div>
     </div>
-  </div>
+</div>
 
-  <div class="happy-steps">
+<div class="happy-steps">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <h2>Our 4 Steps To Success &amp; Happy Clients</h2>
+          <h2>Our 4-Step Process to Error Resolution</h2>
         </div>
         <div class="col-lg-12">
           <div class="steps">
             <div class="row">
               <div class="col-lg-3">
                 <div class="item">
-                  <img src="assets/images/services-01.jpg" alt="" style="max-width: 66px; border-radius: 50%; margin: 0 auto;">
-                  <h4>Project Introduction</h4>
+                  <img src="{{ url_for('static', filename='images/code-analysis.png') }}" alt="Code Analysis" style="max-width: 66px; border-radius: 50%; margin: 0 auto;">
+                  <h4>Code Analysis</h4>
+                  <p>AI-powered scanning of your code</p>
                 </div>
               </div>
               <div class="col-lg-3">
                 <div class="item">
-                  <img src="assets/images/services-02.jpg" alt="" style="max-width: 66px; border-radius: 50%; margin: 0 auto;">
-                  <h4>Work Development</h4>
+                  <img src="{{ url_for('static', filename='images/error-detection.png') }}" alt="Error Detection" style="max-width: 66px; border-radius: 50%; margin: 0 auto;">
+                  <h4>Error Detection</h4>
+                  <p>Precise identification of issues</p>
                 </div>
               </div>
               <div class="col-lg-3">
                 <div class="item">
-                  <img src="assets/images/services-03.jpg" alt="" style="max-width: 66px; border-radius: 50%; margin: 0 auto;">
-                  <h4>Data Analysis</h4>
+                  <img src="{{ url_for('static', filename='images/solution-generation.png') }}" alt="Solution Generation" style="max-width: 66px; border-radius: 50%; margin: 0 auto;">
+                  <h4>Solution Generation</h4>
+                  <p>Multiple approaches to fix problems</p>
                 </div>
               </div>
               <div class="col-lg-3">
                 <div class="item last-item">
-                  <img src="assets/images/services-04.jpg" alt="" style="max-width: 66px; border-radius: 50%; margin: 0 auto;">
-                  <h4>Project Finishing</h4>
+                  <img src="{{ url_for('static', filename='images/learning.png') }}" alt="Learning" style="max-width: 66px; border-radius: 50%; margin: 0 auto;">
+                  <h4>Learning</h4>
+                  <p>Understand to prevent future errors</p>
                 </div>
               </div>
             </div>
@@ -164,16 +62,16 @@ https://templatemo.com/tm-582-tale-seo-agency
         </div>
       </div>
     </div>
-  </div>
+</div>
 
-  <div class="most-asked section">
+<div class="most-asked section">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <div class="section-heading">
-            <h2>Most <em>Frequently</em> Asked <span>Questions</span> ?</h2>
+            <h2>Most <em>Frequently</em> Asked <span>Questions</span></h2>
             <div class="line-dec"></div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doers.</p>
+            <p>Find answers to common questions about using Master Error to debug your code.</p>
           </div>
         </div>
       </div>
@@ -182,139 +80,224 @@ https://templatemo.com/tm-582-tale-seo-agency
           <div class="accordions is-first-expanded">
             <article class="accordion">
               <div class="accordion-head">
-                  <span>Sartorial Butcher Humblebrag</span>
+                  <span>What programming languages does Master Error support?</span>
                   <span class="icon">
                       <i class="icon fa fa-chevron-right"></i>
                   </span>
               </div>
               <div class="accordion-body">
                   <div class="content">
-                      <p>Tale is the best SEO agency website template using Bootstrap v5.2.2 CSS for your company. It is a free download provided by TemplateMo. There are 3 HTML pages, <a href="index.html">Home</a>, <a href="about.html">About</a>, and <a href="faqs.html">FAQ</a>.</p>
+                      <p>Master Error currently supports Python, JavaScript, Java, C++, and HTML/CSS. We're continuously adding support for more languages. Our AI-powered analysis can often provide helpful insights even for languages not fully supported yet.</p>
                   </div>
               </div>
-          </article>
-          <article class="accordion">
-            <div class="accordion-head">
-                <span>Jean Shorts Microdosing</span>
-                <span class="icon">
-                    <i class="icon fa fa-chevron-right"></i>
-                </span>
-            </div>
-            <div class="accordion-body">
-                <div class="content">
-                    <p>You are free to use this template for any purpose. You are not allowed to redistribute the downloadable ZIP file of Tale SEO Template on any other template website. Please contact us. Thank you.
-                    <br><br>
-                    Semiotics blog cray letterpress lo-fi vexillologist before they sold out swag YOLO schlitz. Coloring book roof party gentrify brunch.</p>
-                </div>
-            </div>
-          </article>
-          <article class="accordion">
-            <div class="accordion-head">
-                <span>Waistcoat Aesthetic Polaroid</span>
-                <span class="icon">
-                    <i class="icon fa fa-chevron-right"></i>
-                </span>
-            </div>
-            <div class="accordion-body">
-                <div class="content">
-                    <p>Semiotics blog cray letterpress lo-fi vexillologist before they sold out swag YOLO schlitz. Coloring book roof party gentrify brunch.<br><br>
-                    Fingerstache cronut taxidermy, echo park quinoa tumblr activated charcoal before they sold out.</p>
-                </div>
-            </div>
-          </article>
-          <article class="accordion">
-            <div class="accordion-head">
-                <span>Dolores Accordion HTML5</span>
-                <span class="icon">
-                    <i class="icon fa fa-chevron-right"></i>
-                </span>
-            </div>
-            <div class="accordion-body">
-                <div class="content">
-                  <p>Pickled succulents bitters  belly direct trade, shaman iceland raw denim kombucha cray offal. Food truck swag hell of tumblr poutine tilde live-edge shorts microdosing fixie succulents, viral everyday carry tattooed.</p>
-                </div>
-            </div>
-          </article>
+            </article>
+            <article class="accordion">
+              <div class="accordion-head">
+                  <span>How accurate are the error detections?</span>
+                  <span class="icon">
+                      <i class="icon fa fa-chevron-right"></i>
+                  </span>
+              </div>
+              <div class="accordion-body">
+                  <div class="content">
+                      <p>Our AI achieves approximately 92% accuracy in error detection for supported languages. For complex or ambiguous cases, we provide multiple potential solutions with confidence ratings. We recommend reviewing all suggestions and testing them in your environment.</p>
+                  </div>
+              </div>
+            </article>
+            <article class="accordion">
+              <div class="accordion-head">
+                  <span>Can Master Error help me learn programming concepts?</span>
+                  <span class="icon">
+                      <i class="icon fa fa-chevron-right"></i>
+                  </span>
+              </div>
+              <div class="accordion-body">
+                  <div class="content">
+                      <p>Absolutely! Master Error is designed not just to fix errors but to help you understand them. Each solution includes explanations of:
+                      <br><br>
+                      1. What caused the error<br>
+                      2. Why our solution works<br>
+                      3. How to avoid similar issues in the future<br>
+                      4. Related programming concepts to explore</p>
+                  </div>
+              </div>
+            </article>
+            <article class="accordion">
+              <div class="accordion-head">
+                  <span> Is my code stored or analyzed for other purposes?</span>
+                  <span class="icon">
+                      <i class="icon fa fa-chevron-right"></i>
+                  </span>
+              </div>
+              <div class="accordion-body">
+                  <div class="content">
+                      <p>No, we prioritize your privacy. Code processed through Master Error is used solely for generating your immediate debugging solutions and is not stored or used for any other purposes. We don't collect or analyze your code for any secondary uses.</p>
+                  </div>
+              </div>
+            </article>
+          </div>
         </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="get-free-quote">
-          <form id="free-quote" method="submit" role="search" action="#">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="section-heading">
-                  <h2>Get a <em>Free Quote</em> Now</h2>
+        <div class="col-lg-6">
+          <div class="get-free-quote">
+            <form id="free-quote" method="POST" action="/contact">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="section-heading">
+                    <h2>Still Have <em>Questions?</em></h2>
+                    <p>Contact our support team</p>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <input type="text" name="name" id="name" placeholder="Your Name" required>
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <input type="email" name="email" id="email" placeholder="Your Email" required>
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <select name="question-type" id="question-type" required>
+                      <option value="">Select question type</option>
+                      <option value="technical">Technical Support</option>
+                      <option value="account">Account Help</option>
+                      <option value="feature">Feature Request</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <textarea name="message" id="message" placeholder="Your Question" required></textarea>
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <button type="submit" id="form-submit" class="orange-button">Submit Question</button>
+                  </fieldset>
                 </div>
               </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail" required="">
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <input type="website" name="website" id="website" placeholder="Website URL" autocomplete="on" required>
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <input type="phone-number" name="phone-number" id="phone-number" placeholder="Phone Number" autocomplete="on" required>
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <input type="full-name" name="full-name" id="full-name" placeholder="Full Name" autocomplete="on" >
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <button type="submit" id="form-submit" class="orange-button">Get Your Free Quote</button>
-                </fieldset>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cta section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8">
-          <h4>Are You Ready To Work &amp; Develop With Us ?<br>Don't Hesitate &amp; Contact Us !</h4>
-        </div>
-        <div class="col-lg-4">
-          <div class="main-button">
-            <a href="#">Contact Us Now!</a>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <footer>
-    <div class="container">
-      <div class="col-lg-12">
-        <p>Copyright © 2036 <a href="#">Tale SEO Agency</a>. All rights reserved. 
-        
-        <br>Design: <a href="https://templatemo.com" target="_blank">TemplateMo</a></p>
-      </div>
-    </div>
-  </footer>
+</div>
 
 
-  <!-- Scripts -->
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+{% endblock %}
 
-  <script src="assets/js/isotope.min.js"></script>
-  <script src="assets/js/owl-carousel.js"></script>
-  <script src="assets/js/tabs.js"></script>
-  <script src="assets/js/popup.js"></script>
-  <script src="assets/js/custom.js"></script>
+{% block css %}
+<style>
+.page-heading {
+  background: linear-gradient(135deg, #accced 0%, #4ca1af 100%);
+  padding: 120px 0px;
+  text-align: left;
+  color: #fff;
+}
 
-  </body>
-</html>
+.line-dec {
+  width: 100px;
+  height: 3px;
+  background-color: #4ec9b0;
+  margin: 15px 0px;
+}
+
+.happy-steps {
+  padding: 60px 0px;
+  background-color: #f7f7f7;
+}
+
+.happy-steps .item {
+  padding: 30px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+}
+
+.most-asked {
+  padding: 80px 0px;
+}
+
+.accordion {
+  margin-bottom: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+}
+
+.accordion-head {
+  padding: 20px;
+  background-color: #549de6;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion-body {
+  padding: 20px;
+  background-color: #fff;
+  display: none;
+}
+
+.accordion-body .content {
+  line-height: 1.8;
+}
+
+.get-free-quote {
+  background-color: #f7f7f7;
+  padding: 40px;
+  border-radius: 10px;
+}
+
+.cta {
+  background: linear-gradient(135deg, #4ca1af 0%, #2c3e50 100%);
+  padding: 60px 0px;
+  color: #fff;
+}
+
+.orange-button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.orange-button:hover {
+  background-color: #c0392b;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Accordion functionality
+    const accordions = document.querySelectorAll('.accordion-head');
+    accordions.forEach(accordion => {
+        accordion.addEventListener('click', function() {
+            const icon = this.querySelector('.icon i');
+            const body = this.nextElementSibling;
+            
+            if (body.style.display === 'block') {
+                body.style.display = 'none';
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-right');
+            } else {
+                body.style.display = 'block';
+                icon.classList.remove('fa-chevron-right');
+                icon.classList.add('fa-chevron-down');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

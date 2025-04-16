@@ -1,20 +1,161 @@
 {% extends 'base.html' %}
 {% block content %}
-<section class="features">
-    <h1 style="color: rgb(165, 98, 10);"><u>Features</u></h1>
-    <div class="feature-list">
-        <div class="feature-item">
-            <h3 style="color: black;">Advanced Error Detection</h3>
-            <p style="color: black;">Pinpoint issues in your code with our advanced error detection mechanisms.</p>
+<section>
+<div class="infos section" id="infos">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="main-content">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="left-image">
+                  <img src="static\images\feature.jpg" alt="">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="section-heading">
+                  <h2><em>Features</em></h2>
+                  <div class="line-dec"></div>
+                  <div class="feature-list">
+                    <div class="feature-item">
+                        <h3 style="color: black;">Advanced Error Detection</h3>
+                        <p style="color: black;">Pinpoint issues in your code with our advanced error detection mechanisms.</p>
+                    </div>
+        
+                </div>
+                <div class="feature-item">
+                  <h3 style="color: black;">Detailed Explanations</h3>
+                  <p style="color: black;">Get detailed explanations for each fix to enhance your understanding.</p>
+              </div>
+              <div class="feature-item">
+                <h3 style="color: black;">Multi-Language Support</h3>
+                <p style="color: black;">Supports multiple programming languages for seamless switching.</p>
+            </div>
+            </div>
+            </div>
+            </div>
+        </section>
+        <div class="col-lg-12">
+          <div class="main-content">
+        
+        
+    <section>
+        <div class="container">
+            <h1>Master Error vs. Competitors</h1>
+            
+            <div class="table-responsive">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th class="feature-col">Feature</th>
+                            <th class="master-error-col">Master Error 🚀</th>
+                            <th>Traditional Debuggers (VS Code, PyCharm)</th>
+                            <th>Stack Overflow</th>
+                            <th>Other AI Tools (GitHub Copilot)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="feature-col">Error Detection</td>
+                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> AI-powered, real-time analysis</td>
+                            <td>Basic syntax highlighting</td>
+                            <td>Manual search required</td>
+                            <td>Limited to suggestions</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-col">Multi-Language Support</td>
+                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Python, JavaScript, Java, C++, etc.</td>
+                            <td>Language-specific plugins needed</td>
+                            <td>Varies by question</td>
+                            <td>Primarily focused on popular languages</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-col">Beginner Explanations</td>
+                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Simple, jargon-free breakdowns</td>
+                            <td>Technical documentation only</td>
+                            <td>Complex answers</td>
+                            <td>Minimal explanation</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-col">Multiple Solutions</td>
+                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> 3-5 fixes per error with pros/cons</td>
+                            <td>Single solution (if any)</td>
+                            <td>Depends on responses</td>
+                            <td>1-2 suggestions</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-col">Learning Tools</td>
+                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Linked programming concepts + examples</td>
+                            <td>None</td>
+                            <td>No structured learning</td>
+                            <td>No educational focus</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-col">Code Privacy</td>
+                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> No storage, optional offline mode</td>
+                            <td>Local but may collect analytics</td>
+                            <td>Public posts</td>
+                            <td>Cloud-based processing</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-col">Collaboration</td>
+                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Team workspaces & shared debugging</td>
+                            <td>Limited to IDE features</td>
+                            <td>Forum-style</td>
+                            <td>Individual use only</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-col">Performance Tips</td>
+                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Optimized code suggestions</td>
+                            <td>Basic linting</td>
+                            <td>Rarely addressed</td>
+                            <td>Occasional optimizations</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-col">Cost</td>
+                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Freemium model</td>
+                            <td>Free (with paid IDE tiers)</td>
+                            <td>Free</td>
+                            <td>Paid subscription</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="feature-item">
-            <h3 style="color: black;">Detailed Explanations</h3>
-            <p style="color: black;">Get detailed explanations for each fix to enhance your understanding.</p>
-        </div>
-        <div class="feature-item">
-            <h3 style="color: black;">Multi-Language Support</h3>
-            <p style="color: black;">Supports multiple programming languages for seamless switching.</p>
-        </div>
-    </div>
-</section>
+    </section>
+            
+            <p>Master Error stands out as a comprehensive solution for developers, offering advanced error detection, multi-language support, and a focus on learning. While traditional tools and platforms have their strengths, they often lack the depth and breadth of features that Master Error provides.</p>
+    </section>
+{% endblock %}
+
+{% block css%}
+<style>
+    .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    
+    .comparison-table th, .comparison-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .comparison-table th {
+        background-color: #f2f2f2;
+    }
+    
+    .feature-col {
+        width: 30%;
+    }
+    
+    .master-error-col {
+        background-color: #e0ffe0;
+    }
+    
+    .icon-check {
+        color: green;
+    }
+</style> 
 {% endblock %}
