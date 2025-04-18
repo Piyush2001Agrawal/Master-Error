@@ -1,9 +1,17 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from geminiapi import executor, analyzer
+import markdown
 
-app = Flask(__name__, static_url_path='/static')
+
+chat_sessions = {}
+error_detector_model = analyzer()
+executor_model = executor()
+
+
+app = Flask(__name__)
 app.secret_key = 'supersecretmre'
 
 # Database Configuration
@@ -59,6 +67,90 @@ def faqs():
 @app.route('/executor')
 def executor():
     return render_template('executor.html')
+
+
+@app.route("/analyze", methods=["POST"])
+def analyze_code():
+    code = request.json.get("code", "")
+    session_id = request.json.get("session_id", "default")
+
+    if not code.strip():
+        return jsonify({"error": "Please enter code for analysis."})
+
+    try:
+        # Create or get chat session
+        if session_id not in chat_sessions:
+            chat_sessions[session_id] = {
+                "error_detector": error_detector_model.start_chat(),
+                "executor": executor_model.start_chat(),
+            }
+
+        # Send message to error detector
+        response = chat_sessions[session_id]["error_detector"].send_message(code)
+
+        # Convert markdown to HTML with extensions
+        html_response = markdown.markdown(
+            response.text,
+            extensions=[
+                "fenced_code",  # For code blocks
+                "tables",  # For tables
+                "nl2br",  # For converting newlines to line breaks
+                "sane_lists",  # For cleaner lists
+            ],
+        )
+
+        return jsonify({"text": response.text, "html": html_response})
+    except Exception as e:
+        return jsonify({"error": f"Error during analysis: {str(e)}"})
+
+
+@app.route("/execute", methods=["POST"])
+def execute_code():
+    code = request.json.get("code", "")
+    session_id = request.json.get("session_id", "default")
+
+    if not code.strip():
+        return jsonify({"error": "Please enter code for execution."})
+
+    try:
+        # Create or get chat session
+        if session_id not in chat_sessions:
+            chat_sessions[session_id] = {
+                "error_detector": error_detector_model.start_chat(),
+                "executor": executor_model.start_chat(),
+            }
+
+        # Send message to executor
+        response = chat_sessions[session_id]["executor"].send_message(code)
+
+        # Convert markdown to HTML with extensions
+        html_response = markdown.markdown(
+            response.text,
+            extensions=[
+                "fenced_code",  # For code blocks
+                "tables",  # For tables
+                "nl2br",  # For converting newlines to line breaks
+                "sane_lists",  # For cleaner lists
+            ],
+        )
+
+        return jsonify({"text": response.text, "html": html_response})
+    except Exception as e:
+        return jsonify({"error": f"Error during execution: {str(e)}"})
+
+
+@app.route("/clear", methods=["POST"])
+def clear_history():
+    session_id = request.json.get("session_id", "default")
+
+    # Reset the chat sessions
+    if session_id in chat_sessions:
+        chat_sessions[session_id] = {
+            "error_detector": error_detector_model.start_chat(),
+            "executor": executor_model.start_chat(),
+        }
+
+    return jsonify({"message": "History cleared successfully"})
 
 
 # Signup Route
