@@ -1,234 +1,244 @@
 {% extends "base.html" %}
-
 {% block content %}
+
 <div class="hero-content">
-  <h1>Master Error IDE</h1>
-  <p>Write and execute your code below:</p>
+    <h1>Master Error IDE</h1>
+    <p>Write and execute your code below:</p>
 </div>
 <div class="container">
-  <h1>Master Error IDE</h1>
-  <p>Write and execute your code below:</p>
+    <h1>Master Error IDE</h1>
+    <p>Write and execute your code below:</p>
 </div>
 
 <!-- IDE Container -->
-
 <div class="ide-container">
-  <!-- IDE Header -->
-  <div class="ide-header">
-    <div class="logo">Master Error IDE</div>
-    <div class="ide-controls">
-      <button id="run-btn" class="ide-btn run-btn">
-        <i class="fas fa-play"></i> Run
-      </button>
-      <button id="analyze-btn" class="ide-btn analyze-btn">
-        <i class="fas fa-search"></i> Analyze
-      </button>
-      <button id="clear-btn" class="ide-btn clear-btn">
-        <i class="fas fa-trash"></i> Clear
-      </button>
-      <button id="save-btn" class="ide-btn save-btn">
-        <i class="fas fa-save"></i> Save
-      </button>
-    </div>
-  </div>
-
-  <!-- Editor + Output Panels -->
-  <div class="ide-panels">
-    <!-- Editor Panel -->
-    <div class="editor-panel">
-      <div id="code-editor"></div>
+    <!-- IDE Header -->
+    <div class="ide-header">
+        <div class="logo">Master Error IDE</div>
+        <div class="ide-controls">
+            <button id="analyze-btn" class="ide-btn analyze-btn">
+                <i class="fas fa-search"></i> Analyze
+            </button>
+            <button id="execute-btn" class="ide-btn execute-btn">
+                <i class="fas fa-play"></i> Execute
+            </button>
+            <button id="clear-btn" class="ide-btn clear-btn">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+        </div>
     </div>
 
-    <!-- Output Panel -->
-    <div class="output-panel">
-      <div class="panel-tabs">
-        <button class="tab-btn active" data-tab="output">Output</button>
-        <button class="tab-btn" data-tab="errors">Errors</button>
-        <button class="tab-btn" data-tab="suggestions">Suggestions</button>
-      </div>
-      <div class="panel-content">
-        <div id="output-content" class="tab-content active" data-tab="output">
-          <p>Code output will appear here...</p>
+    <!-- Editor + Output Panels -->
+    <div class="ide-panels">
+        <!-- Editor Panel -->
+        <div class="editor-panel">
+            <textarea id="code-editor"># Start coding here...
+def example():
+    print("Hello Master Error!")
+</textarea>
         </div>
-        <div id="errors-content" class="tab-content" data-tab="errors">
-          <p>Error analysis will appear here...</p>
+
+        <!-- Output Panel -->
+        <div class="output-panel">
+            <div class="panel-tabs">
+                <button class="tab-btn active" data-tab="analysis">Analysis</button>
+                <button class="tab-btn" data-tab="execution">Execution</button>
+            </div>
+            <div class="panel-content">
+                <div id="analysis-output" class="tab-content active" data-tab="analysis">
+                    <p>Code analysis will appear here...</p>
+                </div>
+                <div id="execution-output" class="tab-content" data-tab="execution">
+                    <p>Execution results will appear here...</p>
+                </div>
+            </div>
         </div>
-        <div
-          id="suggestions-content"
-          class="tab-content"
-          data-tab="suggestions"
-        >
-          <p>Optimization suggestions will appear here...</p>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 {% endblock %}
 
-{% block js %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/codemirror.min.js"></script>
-        
-    <!-- Language modes -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/python/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/clike/clike.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/ruby/ruby.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/htmlmixed/htmlmixed.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/xml/xml.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/css/css.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/shell/shell.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
-{% endblock %}
-
 {% block css %}
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css"
-/>
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css"
-/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css"/>
 <style>
-  /* IDE Container */
-  .ide-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background: #282a36;
-    color: #f8f8f2;
-  }
+    /* IDE Container */
+    .ide-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background: #282a36;
+        color: #f8f8f2;
+    }
 
-  /* IDE Header */
-  .ide-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background: #956ada;
-    border-bottom: 1px solid #333;
-  }
+    /* IDE Header */
+    .ide-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: #956ada;
+        border-bottom: 1px solid #333;
+    }
 
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #4ec9b0;
-  }
+    .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #4ec9b0;
+    }
 
-  .ide-controls {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
+    .ide-controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
 
-  .ide-btn {
-    padding: 8px 16px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: "Segoe UI", sans-serif;
-    font-weight: 600;
-    transition: all 0.2s;
-  }
+    .ide-btn {
+        padding: 8px 16px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Segoe UI", sans-serif;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
 
-  .ide-btn:hover {
-    transform: translateY(-2px);
-  }
+    .ide-btn:hover {
+        transform: translateY(-2px);
+    }
 
-  .run-btn {
-    background: #4caf50;
-    color: white;
-  }
-  .analyze-btn {
-    background: #2196f3;
-    color: white;
-  }
-  .clear-btn {
-    background: #f44336;
-    color: white;
-  }
-  .save-btn {
-    background: #ff9800;
-    color: white;
-  }
+    .analyze-btn {
+        background: #2196f3;
+        color: white;
+    }
+    
+    .execute-btn {
+        background: #4caf50;
+        color: white;
+    }
+    
+    .clear-btn {
+        background: #f44336;
+        color: white;
+    }
 
-  /* IDE Panels */
-  .ide-panels {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-  }
-
-  .editor-panel {
-    flex: 1;
-    position: relative;
-  }
-
-  .output-panel {
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    background: #f8f7fa;
-    border-left: 2px solid #0f0e0e;
-  }
-
-  /* CodeMirror Overrides */
-  .CodeMirror {
-    height: 100% !important;
-    font-family: "Fira Code", monospace;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  /* Panel Tabs */
-  .panel-tabs {
-    display: flex;
-    border-bottom: 1px solid #333;
-  }
-
-  .tab-btn {
-    padding: 10px 20px;
-    background: transparent;
-    border: none;
-    color: #1c1b1b;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s;
-  }
-
-  .tab-btn.active {
-    color: rgb(202, 199, 199);
-    border-bottom: 2px solid #077660;
-  }
-
-  .tab-content {
-    display: none;
-    padding: 15px;
-    overflow-y: auto;
-    height: calc(100% - 40px);
-    font-family: "Consolas", monospace;
-    white-space: pre-wrap;
-  }
-
-  .tab-content.active {
-    display: block;
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
+    /* IDE Panels */
     .ide-panels {
-      flex-direction: column;
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .editor-panel {
+        flex: 1;
+        position: relative;
     }
 
     .output-panel {
-      width: 100%;
-      height: 40%;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        background: #f8f7fa;
+        border-left: 2px solid #0f0e0e;
     }
-  }
+
+    /* CodeMirror Overrides */
+    .CodeMirror {
+        height: 100% !important;
+        font-family: "Fira Code", monospace;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* Panel Tabs */
+    .panel-tabs {
+        display: flex;
+        border-bottom: 1px solid #333;
+    }
+
+    .tab-btn {
+        padding: 10px 20px;
+        background: transparent;
+        border: none;
+        color: #1c1b1b;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+        color: rgb(202, 199, 199);
+        border-bottom: 2px solid #077660;
+    }
+
+    .tab-content {
+        display: none;
+        padding: 15px;
+        overflow-y: auto;
+        height: calc(100% - 40px);
+        font-family: "Consolas", monospace;
+        white-space: pre-wrap;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+    
+    .error {
+        color: #ff5555;
+        padding: 10px;
+        margin: 5px 0;
+        border-left: 3px solid #ff5555;
+        background: rgba(255, 85, 85, 0.1);
+    }
+    
+    .success {
+        color: #50fa7b;
+        padding: 10px;
+        margin: 5px 0;
+        border-left: 3px solid #50fa7b;
+        background: rgba(80, 250, 123, 0.1);
+    }
+    
+    .execution-result-item {
+        border-bottom: 1px solid #44475a;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .ide-panels {
+            flex-direction: column;
+        }
+
+        .output-panel {
+            width: 100%;
+            height: 40%;
+        }
+    }
 </style>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/python/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+<script src="/static/js/script.js"></script>
+<script>
+    // Tab switching functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                this.classList.add('active');
+                document.getElementById(`${this.dataset.tab}-output`).classList.add('active');
+            });
+        });
+    });
+</script>
 {% endblock %}
