@@ -1,63 +1,89 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Error</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/theme/dracula.min.css">
-    <!-- Base CodeMirror -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/codemirror.min.js"></script>
-    
-    <!-- Language modes -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/python/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/clike/clike.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/ruby/ruby.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/htmlmixed/htmlmixed.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/xml/xml.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/css/css.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/shell/shell.min.js"></script>
-    
-    
-    <!-- UUID generator -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+    <title>Master Error IDE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body class="dark-mode">
+<body>
     <div class="container">
         <header>
-            <h1>Master Error</h1>
+            <h1>Master Error IDE</h1>
+            <p>Write and execute your code below:</p>
         </header>
-        
+
         <main>
             <div class="code-section">
-                <h2>Code Input</h2>
-                <textarea id="code-editor"></textarea>
-                <div class="button-group">
-                    <button id="analyze-btn" class="btn">Analyze Code</button>
-                    <button id="execute-btn" class="btn">Execute Code</button>
-                    <button id="clear-btn" class="btn">Clear History</button>
+                <div class="ide-container">
+                    <div class="ide-header">
+                        <div class="logo">Master Error IDE</div>
+                        <div class="ide-controls">
+                            <button id="analyze-btn" class="ide-btn analyze-btn">
+                                <i class="fas fa-search"></i> Analyze
+                            </button>
+                            <button id="execute-btn" class="ide-btn run-btn">
+                                <i class="fas fa-play"></i> Execute
+                            </button>
+                            <button id="clear-btn" class="ide-btn clear-btn">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="editor-panel">
+                        <textarea id="code-editor"># Start coding here...
+def example():
+    print("Hello Master Error!")
+</textarea>
+                    </div>
                 </div>
             </div>
-            
+
             <div class="result-section">
                 <div class="analysis-result">
-                    <h2>Analysis Result</h2>
-                    <div id="analysis-output" class="output-area"></div>
+                    <h2>Analysis Results</h2>
+                    <div id="analysis-output" class="output-area cm-s-dracula">
+                        <div class="analysis-header">
+                            <span class="language-tag">Python</span>
+                            <span class="status-indicator"></span>
+                        </div>
+                        <div class="analysis-content">
+                            <p>Code analysis will appear here...</p>
+                        </div>
+                    </div>
                 </div>
-                
                 <div class="execution-result">
                     <h2>Execution Results</h2>
-                    <div id="execution-output" class="output-area"></div>
+                    <div id="execution-output" class="output-area cm-s-dracula">
+                        <div class="execution-header">
+                            <span class="language-tag">Output</span>
+                            <span class="status-indicator"></span>
+                        </div>
+                        <pre class="execution-content"><code>Results will appear here...</code></pre>
+                    </div>
                 </div>
             </div>
-        </main>
+        </div>
         
+        </main>
 
+        <footer>
+            <p>Master Error IDE &copy; 2023 | Powered by Gemini AI</p>
+        </footer>
     </div>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+    <script src="/static/js/script.js"></script>
 </body>
 </html>
