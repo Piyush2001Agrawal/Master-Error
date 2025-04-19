@@ -1,16 +1,74 @@
-<!-- templates/index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Error</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/theme/dracula.min.css">
-    <!-- Base CodeMirror -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-content">
+  <h1>Master Error IDE</h1>
+  <p>Write and execute your code below:</p>
+</div>
+<div class="container">
+  <h1>Master Error IDE</h1>
+  <p>Write and execute your code below:</p>
+</div>
+
+<!-- IDE Container -->
+
+<div class="ide-container">
+  <!-- IDE Header -->
+  <div class="ide-header">
+    <div class="logo">Master Error IDE</div>
+    <div class="ide-controls">
+      <button id="run-btn" class="ide-btn run-btn">
+        <i class="fas fa-play"></i> Run
+      </button>
+      <button id="analyze-btn" class="ide-btn analyze-btn">
+        <i class="fas fa-search"></i> Analyze
+      </button>
+      <button id="clear-btn" class="ide-btn clear-btn">
+        <i class="fas fa-trash"></i> Clear
+      </button>
+      <button id="save-btn" class="ide-btn save-btn">
+        <i class="fas fa-save"></i> Save
+      </button>
+    </div>
+  </div>
+
+  <!-- Editor + Output Panels -->
+  <div class="ide-panels">
+    <!-- Editor Panel -->
+    <div class="editor-panel">
+      <div id="code-editor"></div>
+    </div>
+
+    <!-- Output Panel -->
+    <div class="output-panel">
+      <div class="panel-tabs">
+        <button class="tab-btn active" data-tab="output">Output</button>
+        <button class="tab-btn" data-tab="errors">Errors</button>
+        <button class="tab-btn" data-tab="suggestions">Suggestions</button>
+      </div>
+      <div class="panel-content">
+        <div id="output-content" class="tab-content active" data-tab="output">
+          <p>Code output will appear here...</p>
+        </div>
+        <div id="errors-content" class="tab-content" data-tab="errors">
+          <p>Error analysis will appear here...</p>
+        </div>
+        <div
+          id="suggestions-content"
+          class="tab-content"
+          data-tab="suggestions"
+        >
+          <p>Optimization suggestions will appear here...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/codemirror.min.js"></script>
-    
+        
     <!-- Language modes -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/python/python.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/javascript/javascript.min.js"></script>
@@ -20,44 +78,157 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/xml/xml.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/css/css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/shell/shell.min.js"></script>
-    
-    
-    <!-- UUID generator -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
-</head>
-<body class="dark-mode">
-    <div class="container">
-        <header>
-            <h1>Master Error</h1>
-        </header>
-        
-        <main>
-            <div class="code-section">
-                <h2>Code Input</h2>
-                <textarea id="code-editor"></textarea>
-                <div class="button-group">
-                    <button id="analyze-btn" class="btn">Analyze Code</button>
-                    <button id="execute-btn" class="btn">Execute Code</button>
-                    <button id="clear-btn" class="btn">Clear History</button>
-                </div>
-            </div>
-            
-            <div class="result-section">
-                <div class="analysis-result">
-                    <h2>Analysis Result</h2>
-                    <div id="analysis-output" class="output-area"></div>
-                </div>
-                
-                <div class="execution-result">
-                    <h2>Execution Results</h2>
-                    <div id="execution-output" class="output-area"></div>
-                </div>
-            </div>
-        </main>
-        
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}
 
-    </div>
+{% block css %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css"
+/>
+<style>
+  /* IDE Container */
+  .ide-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: #282a36;
+    color: #f8f8f2;
+  }
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-</body>
-</html>
+  /* IDE Header */
+  .ide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #956ada;
+    border-bottom: 1px solid #333;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4ec9b0;
+  }
+
+  .ide-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .ide-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .ide-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .run-btn {
+    background: #4caf50;
+    color: white;
+  }
+  .analyze-btn {
+    background: #2196f3;
+    color: white;
+  }
+  .clear-btn {
+    background: #f44336;
+    color: white;
+  }
+  .save-btn {
+    background: #ff9800;
+    color: white;
+  }
+
+  /* IDE Panels */
+  .ide-panels {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .editor-panel {
+    flex: 1;
+    position: relative;
+  }
+
+  .output-panel {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    background: #f8f7fa;
+    border-left: 2px solid #0f0e0e;
+  }
+
+  /* CodeMirror Overrides */
+  .CodeMirror {
+    height: 100% !important;
+    font-family: "Fira Code", monospace;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Panel Tabs */
+  .panel-tabs {
+    display: flex;
+    border-bottom: 1px solid #333;
+  }
+
+  .tab-btn {
+    padding: 10px 20px;
+    background: transparent;
+    border: none;
+    color: #1c1b1b;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .tab-btn.active {
+    color: rgb(202, 199, 199);
+    border-bottom: 2px solid #077660;
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+    overflow-y: auto;
+    height: calc(100% - 40px);
+    font-family: "Consolas", monospace;
+    white-space: pre-wrap;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .ide-panels {
+      flex-direction: column;
+    }
+
+    .output-panel {
+      width: 100%;
+      height: 40%;
+    }
+  }
+</style>
+{% endblock %}
