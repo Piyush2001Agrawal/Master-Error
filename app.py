@@ -15,9 +15,6 @@ executor_model = executor()
 app = Flask(__name__)
 app.secret_key = 'supersecretmre'
 
-# OpenAI API Key (replace with your actual key)
-openai.api_key = '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'
-
 # Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -306,12 +303,6 @@ def logout():
     # logout_user()
     flash('You have been successfully logged out', 'success')
     return redirect(url_for('login'))
-
-# Profile Route
-@app.route('/profile')
-@login_required
-def profile():
-    return render_template('profile.html')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
