@@ -1,6 +1,12 @@
 import google.generativeai as genai
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-genai.configure(api_key ="AIzaSyByu3LRbXKPdVeaELIjnJAOC3jGNFYMp38")
+# Set the environment variable for the API key
+os.environ["API_KEY"] = os.getenv("API_KEY")
+
+genai.configure(api_key = os.getenv("API_KEY"))
 generation_config =  dict(
     temperature= 1,
     max_output_tokens=8192,
