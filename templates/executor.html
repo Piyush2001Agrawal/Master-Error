@@ -1,15 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="hero-content">
-    <h1>Master Error IDE</h1>
-    <p>Write and execute your code below:</p>
-</div>
-<div class="container">
-    <h1>Master Error IDE</h1>
-    <p>Write and execute your code below:</p>
-</div>
 
+
+<section>
 <!-- IDE Container -->
 <div class="ide-container">
     <!-- IDE Header -->
@@ -37,7 +31,11 @@ def example():
     print("Hello Master Error!")
 </textarea>
         </div>
-
+    
+    
+        </div>
+    </section>
+    <section>    
         <!-- Output Panel -->
         <div class="output-panel">
             <div class="panel-tabs">
@@ -45,29 +43,42 @@ def example():
                 <button class="tab-btn" data-tab="execution">Execution</button>
             </div>
             <div class="panel-content">
-                <div id="analysis-output" class="tab-content active" data-tab="analysis">
+                <div id="analysis-output" class="tab-content active" data-tab="analysis" style="border: 2px solid #4caf50; border-radius: 5px; padding: 10px;">
+                    <h4>Code Analysis</h4>
+                    <pre id="analysis-code-block">
+                      
+                    </pre>
                     <p>Code analysis will appear here...</p>
                 </div>
-                <div id="execution-output" class="tab-content" data-tab="execution">
-                    <p>Execution results will appear here...</p>
+                <div id="execution-output" class="tab-content" data-tab="execution" style="border: 2px solid #2196f3; border-radius: 5px; padding: 10px;">
+                    
                 </div>
             </div>
         </div>
     </div>
 </div>
+</section>
 {% endblock %}
 
 {% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/hint/show-hint.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/lint/lint.min.css"/>    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/dialog/dialog.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/scroll/simplescrollbars.min.css"/>
 <style>
     /* IDE Container */
     .ide-container {
         display: flex;
         flex-direction: column;
         height: 100vh;
-        background: #282a36;
-        color: #f8f8f2;
+        background: #2f47cb;
+        color: #171715;
+        font-family: "Fira Code", monospace;
+        
     }
 
     /* IDE Header */
@@ -76,14 +87,14 @@ def example():
         justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
-        background: #956ada;
+        background: #28065f;
         border-bottom: 1px solid #333;
     }
 
     .logo {
         font-size: 1.5rem;
         font-weight: bold;
-        color: #4ec9b0;
+        color: #f8fbfa;
     }
 
     .ide-controls {
@@ -137,11 +148,87 @@ def example():
     }
 
     .output-panel {
-        width: 40%;
+        width: 100%;
         display: flex;
         flex-direction: column;
-        background: #f8f7fa;
+        background: #ece7f8;
         border-left: 2px solid #0f0e0e;
+        border: 5px solid #b2dab2; /* Add a green border for code suggestions */
+    }
+
+    /* Output Panel Enhancements */
+    .output-panel .suggested-code {
+        background: #1e1e2e;
+        border: 2px solid #4caf50;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 10px;
+        font-family: "Consolas", monospace;
+        font-size: 14px;
+        color: #e0e0e0;
+        white-space: pre-wrap;
+        overflow-x: auto;
+    }
+
+    .output-panel .suggested-code h4 {
+        color: #8be9fd;
+        margin-bottom: 5px;
+    }
+
+    .output-panel .suggested-code pre {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+    }
+
+    .output-panel .suggested-code code {
+        background: #44475a;
+        padding: 5px;
+        border-radius: 3px;
+        display: inline-block;
+    }
+
+    .output-panel .suggested-code .error-snippet {
+        color: #ff5555;
+        background: rgba(255, 85, 85, 0.1);
+        padding: 5px;
+        border-radius: 3px;
+        margin: 5px 0;
+    }
+
+    .output-panel .suggested-code .success-snippet {
+        color: #50fa7b;
+        background: rgba(80, 250, 123, 0.1);
+        padding: 5px;
+        border-radius: 3px;
+        margin: 5px 0;
+    }
+
+    /* Suggested Code Block with Border */
+    .output-panel .suggested-code {
+        background: #2d2d2d; /* Dark background */
+        border: 1px solid #4caf50; /* Green border */
+        border-radius: 8px; /* Rounded corners */
+        padding: 15px; /* Padding inside the block */
+        margin: 10px 0; /* Space around the block */
+        font-family: "Consolas", monospace; /* Monospace font */
+        font-size: 14px; /* Font size */
+        color: #f8f8f2; /* Light text color */
+        overflow-x: auto; /* Horizontal scrolling for long lines */
+        white-space: pre-wrap; /* Preserve whitespace and wrap lines */
+    }
+
+    .output-panel .suggested-code h4 {
+        color: #8be9fd; /* Highlighted title color */
+        margin-bottom: 10px; /* Space below the title */
+    }
+
+    .output-panel .suggested-code code {
+        display: block; /* Block display for code */
+        background: #44475a; /* Slightly lighter background for code */
+        padding: 10px; /* Padding inside the code block */
+        border-radius: 5px; /* Rounded corners for code block */
+        color: #f8f8f2; /* Code text color */
     }
 
     /* CodeMirror Overrides */
@@ -169,7 +256,7 @@ def example():
     }
 
     .tab-btn.active {
-        color: rgb(202, 199, 199);
+        color: rgb(67, 56, 56);
         border-bottom: 2px solid #077660;
     }
 
@@ -203,9 +290,46 @@ def example():
     }
     
     .execution-result-item {
-        border-bottom: 1px solid #44475a;
-        padding: 10px;
-        margin-bottom: 10px;
+        background: #e6e3e3; /* Dark background for output */
+        border: 1px solid #4caf50; /* Green border */
+        border-radius: 8px; /* Rounded corners */
+        padding: 15px; /* Padding inside the block */
+        margin: 10px 0; /* Space around the block */
+        font-family: "Consolas", monospace; /* Monospace font */
+        font-size: 14px; /* Font size */
+        color: #0c0c0c; /* Light text color */
+        overflow-x: auto; /* Horizontal scrolling for long lines */
+        white-space: pre-wrap; /* Preserve whitespace and wrap lines */
+    }
+    .panel-content{
+        height: 100vh;
+        
+    }
+
+    pre code {
+        font-size: inherit;
+        color: inherit;
+        font-family: inherit;
+        word-break: normal;
+        background: #dbd9d9; /* Dark background for code block */
+        border: 1px solid #4caf50; /* Green border */
+        border-radius: 8px; /* Rounded corners */
+        padding: 15px; /* Padding inside the block */
+        display: block; /* Ensure block display */
+        overflow-x: auto; /* Horizontal scrolling for long lines */
+        white-space: pre-wrap; /* Preserve whitespace and wrap lines */
+    }
+
+    pre {
+        display: block;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        overflow: auto;
+        font-size: large;
+       /* Match background with code block */
+        border: 1px solid #4caf50; /* Green border for pre block */
+        border-radius: 8px; /* Rounded corners */
+        padding: 15px; /* Padding inside the block */
     }
 
     /* Responsive Design */
@@ -216,7 +340,7 @@ def example():
 
         .output-panel {
             width: 100%;
-            height: 40%;
+            height: 100vh;
         }
     }
 </style>

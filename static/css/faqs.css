@@ -1,0 +1,119 @@
+.page-heading {
+    background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+    padding: 120px 0px;
+    text-align: left;
+    color: #fff;
+}
+
+.line-dec {
+    width: 100px;
+    height: 3px;
+    background-color: #4ec9b0;
+    margin: 15px 0px;
+}
+
+.happy-steps {
+    padding: 60px 0px;
+    background-color: #f7f7f7;
+}
+
+.happy-steps .item {
+    padding: 30px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+}
+
+.most-asked {
+    padding: 80px 0px;
+}
+
+/* Bootstrap-style accordion customized */
+.accordion-item {
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+}
+
+.accordion-button {
+    padding: 20px;
+    background-color: #2c3e50;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px !important;
+    font-weight: 500;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #34495e;
+    color: #fff;
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    border-color: #4ec9b0;
+    box-shadow: 0 0 0 0.25rem rgba(78, 201, 176, 0.25);
+}
+
+.accordion-button::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.accordion-body {
+    background-color: #fff;
+    padding: 20px;
+    line-height: 1.8;
+}
+
+.get-free-quote {
+    background-color: #f7f7f7;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.cta {
+    background: linear-gradient(135deg, #4ca1af 0%, #2c3e50 100%);
+    padding: 60px 0px;
+    color: #fff;
+}
+
+.orange-button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.orange-button:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .accordion-button {
+        font-size: 16px;
+        padding: 15px;
+    }
+
+    .accordion-body {
+        padding: 15px;
+    }
+}
+
+/* Print styles to ensure answers are visible when printed */
+@media print {
+    .accordion-collapse {
+        display: block !important;
+    }
+}

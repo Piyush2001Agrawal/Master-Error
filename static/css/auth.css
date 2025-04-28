@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #080710;
+    background-color: #e7e5f5;
 }
 
 .background {
@@ -41,7 +41,7 @@ body {
 form {
     height: 520px;
     width: 400px;
-    background-color: rgba(255, 255, 255, 0.13);
+    background-color: rgba(45, 38, 38, 0.13);
     position: absolute;
     transform: translate(-50%, -50%);
     top: 50%;
@@ -55,7 +55,7 @@ form {
 
 form * {
     font-family: 'Poppins', sans-serif;
-    color: #ffffff;
+    color: #141414;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
@@ -88,13 +88,13 @@ input {
 }
 
 ::placeholder {
-    color: #e5e5e5;
+    color: #161515;
 }
 
 button {
     margin-top: 50px;
     width: 100%;
-    background-color: #ffffff;
+    background-color: #858383;
     color: #080710;
     padding: 15px 0;
     font-size: 18px;
@@ -128,4 +128,47 @@ button {
 
 .social i {
     margin-right: 4px;
+}
+
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    background: #ff4b4b;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.logout-btn:hover {
+    background: #ff3333;
+}
+.logout-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.logout-btn {
+    padding: 10px 20px;
+    background: #ff4b4b;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logout-btn:hover {
+    background: #ff3333;
+    color: white;
+}
+
+.logout-btn i {
+    font-size: 1.1em;
 }

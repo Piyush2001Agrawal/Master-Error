@@ -7,9 +7,9 @@
       <div class="row">
         <div class="col-lg-7">
           <div class="caption header-text">
-            <h6>Master Error</h6>
+            <h1 style="color: rgb(224, 15, 144);">Master Error</h1>
             <div class="line-dec"></div>
-            <h4>Dive <em>Into The Code</em> World <span>With Master Error</span></h4>
+            <h4 style="color: rgb(165, 42, 97);">Dive <em>Into The Code</em> World <span>With Master Error</span></h4>
             <p> <a href="/">Home</a>, <a
                 href="/about">About</a>, and <a href="/faqs">FAQ</a>.</p>
             <div class="main-button scroll-to-section"><a href="#services">Discover More</a></div>
@@ -77,12 +77,32 @@
             <p><b><i>Master Error's code editor is designed to provide a seamless coding experience. With features like syntax highlighting, auto-completion, and real-time error detection, you can write and debug your code efficiently.</p>
             <p><b><i>Whether you're working on a small script or a large project, our code editor is equipped to handle it all. Plus, with support for multiple programming languages, you can switch between languages effortlessly.</p>
             <p><b><i>Experience the power of Master Error's code editor and take your coding skills to the next level.</p>
-            <div class="col-lg-4">
+            <div class="col-lg-4 text-end">
               <div class="main-button">
-                <a href="/executor">Lets_Code</a>
+                <a href="/executor" class="btn btn-primary btn-lg" style="position: relative; overflow: hidden;">
+                  Let's Code
+                  <span class="btn-hover-effect" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.2); transform: scale(0); transition: transform 0.3s ease; border-radius: inherit;"></span>
+                </a>
               </div>
             </div>
 
+            <script>
+              const letsCodeButton = document.querySelector('.main-button a');
+
+              if (letsCodeButton) {
+                letsCodeButton.addEventListener('mouseover', function() {
+                  const hoverEffect = this.querySelector('.btn-hover-effect');
+                  if (hoverEffect) hoverEffect.style.transform = 'scale(1)';
+                });
+
+                letsCodeButton.addEventListener('mouseout', function() {
+                  const hoverEffect = this.querySelector('.btn-hover-effect');
+                  if (hoverEffect) hoverEffect.style.transform = 'scale(0)';
+                });
+              }
+            </script>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -174,11 +194,34 @@
       </div>
     </div>
   </div>
- 
+
 {% endblock %}
 {% block css %}
 
 {% endblock %}
 {% block js %}
 
+{% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Master Error</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">Signup</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 {% endblock %}
