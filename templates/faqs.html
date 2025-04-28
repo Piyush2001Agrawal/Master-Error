@@ -1,231 +1,428 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block navbar %}{% endblock %}
+{% block title %}Master Error - Frequently Asked Questions{% endblock %}
 
-{% block content %}
-<!-- Main Hero Section -->
-<div class="hero bg-blue py-5">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-6">
-        <h6 class="text-uppercase text-white-50 mb-3">DEBUGGING ASSISTANCE PLATFORM</h6>
-        <div class="divider bg-white mb-4"></div>
-        <h1 class="text-white mb-4">Get Answers to Common Questions About Master Error</h1>
-      </div>
-      <div class="col-md-6">
-        <img src="{{ url_for('static', filename='images/faqs-image.jpg') }}" 
-             alt="Programming FAQ Illustration" 
-             class="img-fluid rounded shadow">
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Process Steps -->
-<section class="process-steps py-5 bg-light">
-  <div class="container">
-    <h2 class="text-center mb-5">Our 4-Step Error Resolution Process</h2>
+{% block styles %}
     
-    <div class="row">
-      <div class="col-md-6 col-lg-3 mb-4">
-        <div class="card h-100 border-0 shadow-sm text-center p-4">
-          <img src="{{ url_for('static', filename='images/code-analysis.png') }}" 
-               alt="Code Analysis" 
-               class="img-fluid mb-3 mx-auto" 
-               style="width:70px;height:70px;object-fit:contain;">
-          <h5>Code Analysis</h5>
-          <p class="mb-0">AI-powered scanning of your code</p>
-        </div>
-      </div>
-      
-      <div class="col-md-6 col-lg-3 mb-4">
-        <div class="card h-100 border-0 shadow-sm text-center p-4">
-          <img src="{{ url_for('static', filename='images/error-detection.png') }}" 
-               alt="Error Detection" 
-               class="img-fluid mb-3 mx-auto" 
-               style="width:70px;height:70px;object-fit:contain;">
-          <h5>Error Detection</h5>
-          <p class="mb-0">Precise identification of issues</p>
-        </div>
-      </div>
-      
-      <div class="col-md-6 col-lg-3 mb-4">
-        <div class="card h-100 border-0 shadow-sm text-center p-4">
-          <img src="{{ url_for('static', filename='images/solution-generation.png') }}" 
-               alt="Solution Generation" 
-               class="img-fluid mb-3 mx-auto" 
-               style="width:70px;height:70px;object-fit:contain;">
-          <h5>Solution Generation</h5>
-          <p class="mb-0">Multiple approaches to fix problems</p>
-        </div>
-      </div>
-      
-      <div class="col-md-6 col-lg-3 mb-4">
-        <div class="card h-100 border-0 shadow-sm text-center p-4">
-          <img src="{{ url_for('static', filename='images/learning.png') }}" 
-               alt="Learning" 
-               class="img-fluid mb-3 mx-auto" 
-               style="width:70px;height:70px;object-fit:contain;">
-          <h5>Learning</h5>
-          <p class="mb-0">Understand to prevent future errors</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ Section -->
-<section class="faq-section py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 mb-4 mb-lg-0">
-        <h2 class="mb-4">Frequently Asked Questions</h2>
+    <style>
+        /* Additional custom styles for FAQ page */
+        .faq-section {
+            padding: 60px 0;
+            background-color: #f9f9f9;
+        }
         
-        <div class="accordion" id="faqAccordion">
-          <div class="accordion-item mb-3 border-0 shadow-sm">
-            <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                What languages does Master Error support?
-              </button>
-            </h3>
-            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                <p>Master Error currently supports Python, JavaScript, Java, C++, and HTML/CSS.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="accordion-item mb-3 border-0 shadow-sm">
-            <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                How accurate are the error detections?
-              </button>
-            </h3>
-            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                <p>Our AI achieves approximately 92% accuracy in error detection.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="accordion-item mb-3 border-0 shadow-sm">
-            <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                Can Master Error help me learn programming?
-              </button>
-            </h3>
-            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                <p>Yes! Master Error is designed to help you understand errors, not just fix them.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="accordion-item mb-3 border-0 shadow-sm">
-            <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-                Is my code stored or analyzed for other purposes?
-              </button>
-            </h3>
-            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-              <div class="accordion-body">
-                <p>No, we prioritize your privacy. Your code is only used for debugging.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-6">
-        <div class="card border-0 shadow-sm h-100">
-          <div class="card-body p-4">
-            <h3 class="mb-4">Still Have Questions?</h3>
-            <p class="mb-4">Contact our support team</p>
-            
-            <form method="POST" action="/contact">
-              <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Your Name" required>
-              </div>
-              
-              <div class="mb-3">
-                <input type="email" class="form-control" placeholder="Your Email" required>
-              </div>
-              
-              <div class="mb-3">
-                <select class="form-select" required>
-                  <option value="">Select question type</option>
-                  <option>Technical Support</option>
-                  <option>Account Help</option>
-                  <option>Feature Request</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              
-              <div class="mb-3">
-                <textarea class="form-control" rows="4" placeholder="Your Question" required></textarea>
-              </div>
-              
-              <button type="submit" class="btn btn-primary w-100">Submit Question</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        .accordion-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .accordion-button {
+            background-color: #f5f5f5;
+            font-weight: 600;
+            padding: 15px 20px;
+            cursor: pointer; /* Make buttons visually appear clickable */
+        }
+        
+        /* Keep styled appearance but remove collapsible functionality */
+        .accordion-button::after {
+            display: none; /* Remove the dropdown arrow */
+        }
+        
+        .accordion-button:hover {
+            color: #ff6b00;
+            background-color: #fff0e6;
+        }
+        
+        .accordion-body {
+            padding: 20px;
+            background-color: #ffffff;
+            display: block !important; /* Ensure content is always displayed */
+        }
+        
+        .featured-faq {
+            background-color: #e9f7ff;
+            border-left: 4px solid #0088cc;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .contact-form {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .category-selector {
+            margin-bottom: 30px;
+        }
+        
+        .category-btn {
+            padding: 8px 15px;
+            margin-right: 10px;
+            border-radius: 20px;
+            background-color: #f0f0f0;
+            color: #333;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active {
+            background-color: #ff6b00;
+            color: white;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.25rem;
+            z-index: 1000;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+    </style>
 {% endblock %}
 
-{% block css %}
-<style>
-.bg-blue {
-  background: linear-gradient(135deg, #4a6cf7 0%, #2541b2 100%);
-}
+{% block content %}
+    <main>
+        <!-- Hero Section -->
+        <div class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 align-self-center">
+                        <div class="caption header-text">
+                            <h6>DEBUGGING MADE SIMPLE</h6>
+                            <div class="line-dec"></div>
+                            <h4>Frequently Asked Questions About <em>Master Error</em></h4>
+                            <p>Find comprehensive answers to common questions about our AI-powered debugging platform.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <img src="static/images/faqs-image.jpg" alt="Master Error FAQ Illustration">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-.divider {
-  width: 60px;
-  height: 3px;
-}
+        <!-- Featured FAQ -->
+        <div class="container mt-5">
+            <div class="featured-faq">
+                <h3>🌟 Most Popular Question</h3>
+                <h5>How does Master Error differ from other debugging tools?</h5>
+                <p>Unlike traditional debugging tools that simply highlight errors, Master Error uses advanced AI to analyze your code holistically, providing not just error detection but comprehensive explanations and multiple solution options. Our platform examines the context of your code, identifies potential logical flaws, and offers educational resources to help you understand the underlying concepts. This approach makes debugging an opportunity for learning rather than just fixing immediate issues.</p>
+            </div>
+        </div>
 
-.card {
-  transition: transform 0.3s ease;
-}
+        <!-- Category Selector -->
+        <div class="container">
+            <div class="category-selector">
+                <h5>Filter by Category:</h5>
+                <div class="d-flex flex-wrap mt-3">
+                    <button class="category-btn active" data-category="all">All Questions</button>
+                    <button class="category-btn" data-category="getting-started">Getting Started</button>
+                    <button class="category-btn" data-category="features">Features</button>
+                    <button class="category-btn" data-category="technical">Technical</button>
+                </div>
+                <div class="dropdown mt-3">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="faqDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Select FAQ Category
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="faqDropdown">
+                        <li><a class="dropdown-item" href="#getting-started">Getting Started</a></li>
+                        <li><a class="dropdown-item" href="#features">Features</a></li>
+                        <li><a class="dropdown-item" href="#technical">Technical</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-.card:hover {
-  transform: translateY(-5px);
-}
+        <!-- 4-Step Process Section -->
+        <div class="happy-steps">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>Our 4-Step Process to Error Resolution</h2>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="steps">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="item">
+                                        <img src="images/code-analysis.png" alt="Code Analysis" style="max-width: 66px; border-radius: 50%; margin: 0 auto;">
+                                        <h4>Code Analysis</h4>
+                                        <p>AI-powered scanning of your code identifies structure and patterns</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="item">
+                                        <img src="images/error-detection.png" alt="Error Detection" style="max-width: 66px; border-radius: 50%; margin: 0 auto;">
+                                        <h4>Error Detection</h4>
+                                        <p>Precise identification of syntax, logic, and runtime issues</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="item">
+                                        <img src="images/solution-generation.png" alt="Solution Generation" style="max-width: 66px; border-radius: 50%; margin: 0 auto;">
+                                        <h4>Solution Generation</h4>
+                                        <p>Multiple approaches to fix problems with explanation of each</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="item last-item">
+                                        <img src="images/learning.png" alt="Learning" style="max-width: 66px; border-radius: 50%; margin: 0 auto;">
+                                        <h4>Learning</h4>
+                                        <p>Educational resources to understand and prevent future errors</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-.accordion-button:not(.collapsed) {
-  background-color: #f8f9fa;
-  color: #4a6cf7;
-}
+        <!-- Main FAQ Section -->
+        <div class="faq-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-heading text-center mb-5">
+                            <h2>Our <em>Comprehensive</em> FAQ <span>Library</span></h2>
+                            <div class="line-dec mx-auto"></div>
+                            <p>Find answers to all your questions about Master Error's capabilities and features.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="accordion" id="faqAccordion">
+                            <!-- Getting Started Section -->
+                            <h3 class="mt-4 mb-3 category-header" data-category="getting-started">Getting Started</h3>
+                            
+                            <div class="accordion-item" data-category="getting-started">
+                                <div class="accordion-header" id="headingOne">
+                                    <div class="accordion-button">
+                                        What programming languages does Master Error support?
+                                    </div>
+                                </div>
+                                <div class="accordion-body">
+                                    <p>Master Error currently supports a wide range of programming languages, including:</p>
+                                    <ul>
+                                        <li><strong>Python</strong> - Full support for versions 2.7 through 3.11</li>
+                                        <li><strong>JavaScript/TypeScript</strong> - Including Node.js, React, Angular, and Vue frameworks</li>
+                                        <li><strong>Java</strong> - JDK 8 through 17</li>
+                                        <li><strong>C++</strong> - C++11 through C++20 standards</li>
+                                        <li><strong>HTML/CSS</strong> - Including CSS frameworks like Bootstrap and Tailwind</li>
+                                        <li><strong>PHP</strong> - Versions 7.x and 8.x</li>
+                                        <li><strong>Ruby</strong> - Including Rails framework</li>
+                                    </ul>
+                                    <p>We're continuously adding support for more languages based on user feedback. Our AI-powered analysis can often provide helpful insights even for languages not fully supported yet.</p>
+                                </div>
+                            </div>
 
-@media (max-width: 768px) {
-  .hero {
-    text-align: center;
-  }
-  
-  .divider {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-</style>
+                            <div class="accordion-item" data-category="getting-started">
+                                <div class="accordion-header" id="headingTwo">
+                                    <div class="accordion-button">
+                                        How do I get started with Master Error?
+                                    </div>
+                                </div>
+                                <div class="accordion-body">
+                                    <p>Getting started with Master Error is simple:</p>
+                                    <ol>
+                                        <li><strong>Create an account</strong> - Sign up using your email or GitHub account</li>
+                                        <li><strong>Upload your code</strong> - Either paste your code directly or upload a file</li>
+                                        <li><strong>Get instant analysis</strong> - Receive detailed error reports and solutions</li>
+                                    </ol>
+                                    <p>Our platform is designed to be intuitive with no setup required. You can also integrate with your IDE through our plugins for VSCode, JetBrains IDEs, and Sublime Text.</p>
+                                </div>
+                            </div>
+
+                            <!-- Features Section -->
+                            <h3 class="mt-4 mb-3 category-header" data-category="features">Features</h3>
+                            
+                            <div class="accordion-item" data-category="features">
+                                <div class="accordion-header" id="headingThree">
+                                    <div class="accordion-button">
+                                        How accurate are the error detections?
+                                    </div>
+                                </div>
+                                <div class="accordion-body">
+                                    <p>Our AI achieves approximately 92% accuracy in error detection for fully supported languages, with continuous improvements through our learning models. Here's how our accuracy breaks down:</p>
+                                    <ul>
+                                        <li><strong>Syntax errors</strong>: 99% accuracy</li>
+                                        <li><strong>Runtime errors</strong>: 95% accuracy</li>
+                                        <li><strong>Logical errors</strong>: 87% accuracy</li>
+                                        <li><strong>Performance issues</strong>: 85% accuracy</li>
+                                    </ul>
+                                    <p>For complex or ambiguous cases, we provide multiple potential solutions with confidence ratings. We recommend reviewing all suggestions and testing them in your environment. Each solution includes detailed explanations to help you understand the reasoning behind our recommendations.</p>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item" data-category="features">
+                                <div class="accordion-header" id="headingFour">
+                                    <div class="accordion-button">
+                                        Can Master Error help me learn programming concepts?
+                                    </div>
+                                </div>
+                                <div class="accordion-body">
+                                    <p>Absolutely! Master Error is designed not just to fix errors but to help you understand them. Each solution includes comprehensive explanations of:</p>
+                                    <ol>
+                                        <li><strong>Error cause</strong> - What happened in your code to trigger this error</li>
+                                        <li><strong>Solution rationale</strong> - Why our solution works to fix the issue</li>
+                                        <li><strong>Prevention tips</strong> - How to avoid similar issues in the future</li>
+                                        <li><strong>Related concepts</strong> - Programming principles and patterns to explore</li>
+                                    </ol>
+                                    <p>We also provide links to relevant documentation, tutorials, and examples to deepen your understanding. Our "Learning Path" feature can suggest personalized resources based on the types of errors you frequently encounter, helping you systematically improve your coding skills.</p>
+                                </div>
+                            </div>
+
+                            <!-- Technical Section -->
+                            <h3 class="mt-4 mb-3 category-header" data-category="technical">Technical Details</h3>
+                            
+                            <div class="accordion-item" data-category="technical">
+                                <div class="accordion-header" id="headingFive">
+                                    <div class="accordion-button">
+                                        Is my code stored or analyzed for other purposes?
+                                    </div>
+                                </div>
+                                <div class="accordion-body">
+                                    <p>We prioritize your privacy and security. Here's our approach to handling your code:</p>
+                                    <ul>
+                                        <li><strong>Temporary storage</strong>: Code is stored only for the duration needed to process your request</li>
+                                        <li><strong>Encryption</strong>: All code is encrypted in transit and at rest</li>
+                                        <li><strong>No sharing</strong>: Your code is never shared with third parties</li>
+                                        <li><strong>No training</strong>: We do not use your code to train our models unless you explicitly opt-in</li>
+                                    </ul>
+                                    <p>For enterprise customers, we offer additional privacy features including on-premises deployment options, data residency guarantees, and signed BAAs. Our security practices are SOC 2 Type II certified, ensuring comprehensive protection for your intellectual property.</p>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item" data-category="technical">
+                                <div class="accordion-header" id="headingSix">
+                                    <div class="accordion-button">
+                                        Can I integrate Master Error with my IDE or CI/CD pipeline?
+                                    </div>
+                                </div>
+                                <div class="accordion-body">
+                                    <p>Yes, Master Error offers robust integration options:</p>
+                                    <p><strong>IDE Extensions:</strong></p>
+                                    <ul>
+                                        <li>Visual Studio Code</li>
+                                        <li>JetBrains Suite (IntelliJ, PyCharm, WebStorm, etc.)</li>
+                                        <li>Sublime Text</li>
+                                        <li>Atom</li>
+                                    </ul>
+                                    <p><strong>CI/CD Integrations:</strong></p>
+                                    <ul>
+                                        <li>GitHub Actions</li>
+                                        <li>GitLab CI</li>
+                                        <li>Jenkins</li>
+                                        <li>CircleCI</li>
+                                        <li>Travis CI</li>
+                                    </ul>
+                                    <p>We also provide a comprehensive REST API for custom integrations, with client libraries available for Python, JavaScript, Java, and Ruby. Our webhook system allows you to trigger analysis and receive notifications based on custom events in your development workflow.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="contact-form">
+                            <form id="free-quote" method="POST" action="/contact">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="section-heading">
+                                            <h2>Still Have <em>Questions?</em></h2>
+                                            <p>Our support team is here to help</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <input type="text" name="name" id="name" placeholder="Your Name" required>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <input type="email" name="email" id="email" placeholder="Your Email" required>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <select name="question-type" id="question-type" required>
+                                                <option value="">Select question type</option>
+                                                <option value="technical">Technical Support</option>
+                                                <option value="account">Account Help</option>
+                                                <option value="feature">Feature Request</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <textarea name="message" id="message" placeholder="Your Question" required></textarea>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <button type="submit" id="form-submit" class="orange-button">Submit Question</button>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12 mt-4">
+                                        <p class="text-center mb-0">Or contact us directly:</p>
+                                        <p class="text-center"><strong>support@mastererror.com</strong></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h4>Ready to Transform Your Debugging Experience?<br>Join Master Error Today!</h4>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="main-button">
+                            <a href="/signup">Get Started Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}
 
 {% block scripts %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Form validation
-  const form = document.querySelector('form');
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      if (!form.checkValidity()) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      form.classList.add('was-validated');
-    });
-  }
-});
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ensure Bootstrap functionality is available globally
+            console.log('Bootstrap is loaded from base.html');
+
+            const dropdownToggle = document.getElementById('faqDropdown');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+
+            dropdownToggle.addEventListener('click', function(event) {
+                event.preventDefault();
+                dropdownMenu.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.dropdown')) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        });
+    </script>
 {% endblock %}

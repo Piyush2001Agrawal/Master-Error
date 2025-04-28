@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from geminiapi import executor, analyzer
 import markdown
+import openai
 
 
 chat_sessions = {}
@@ -13,6 +14,9 @@ executor_model = executor()
 
 app = Flask(__name__)
 app.secret_key = 'supersecretmre'
+
+# OpenAI API Key (replace with your actual key)
+openai.api_key = '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'
 
 # Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -42,6 +46,12 @@ with app.app_context():
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+@app.before_request
+def require_login():
+    allowed_routes = ['login', 'signup', 'forgot_password', 'update_password', 'static']
+    if not current_user.is_authenticated and request.endpoint not in allowed_routes:
+        return redirect(url_for('login'))
 
 # Home Route
 @app.route('/')
@@ -174,8 +184,10 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
 
-        flash('Account created successfully! Please log in.', 'success')
-        return redirect(url_for('login'))
+        # Log in the user immediately after signup
+        login_user(new_user)
+        flash('Account created successfully! You are now logged in.', 'success')
+        return redirect(url_for('home'))
 
     return render_template('signup.html')
 
@@ -196,26 +208,111 @@ def login():
     
     return render_template('login.html')
 
+def login():
+    if 'user' in session:
+        flash('Please log out first', 'warning')
+        return redirect(url_for('index'))
+    return render_template('login.html')
+
 # Forgot Password Route
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
+    email_provided = None
+
     if request.method == 'POST':
-        email = request.form['email']
-        user = User.query.filter_by(email=email).first()
-        if user:
-            flash('Password reset instructions have been sent to your email.', 'info')
-        else:
-            flash('No account found with that email.', 'danger')
-    return render_template('forgot_password.html')
+        if 'confirmed_email' in request.form:
+            # Handle password reset
+            email = request.form.get('confirmed_email')
+            new_password = request.form.get('new_password')
+            confirm_password = request.form.get('confirm_password')
+
+            if not email:
+                flash('Email is missing. Please try again.', 'danger')
+                return render_template('forgot_password.html', email_provided=None)
+
+            if not new_password or not confirm_password:
+                flash('Please fill out all password fields.', 'danger')
+                return render_template('forgot_password.html', email_provided=email)
+
+            if new_password != confirm_password:
+                flash('Passwords do not match!', 'danger')
+                return render_template('forgot_password.html', email_provided=email)
+
+            user = User.query.filter_by(email=email).first()
+            if user:
+                hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+                user.password = hashed_password
+                db.session.commit()
+                flash('Password has been reset successfully!', 'success')
+                return redirect(url_for('login'))
+            else:
+                flash('User not found!', 'danger')
+                return render_template('forgot_password.html', email_provided=None)
+
+        elif 'email' in request.form:
+            # Handle email verification
+            email = request.form.get('email')
+
+            if not email:
+                flash('Please provide an email address.', 'danger')
+                return render_template('forgot_password.html', email_provided=None)
+
+            user = User.query.filter_by(email=email).first()
+
+            if not user:
+                flash('Email not found in our system.', 'danger')
+                return render_template('forgot_password.html', email_provided=None)
+
+            email_provided = email
+            flash('Email verified. Set new password.', 'success')
+
+    return render_template('forgot_password.html', email_provided=email_provided)
+
+@app.route('/update_password', methods=['POST'])
+def update_password():
+    email = request.form.get('confirmed_email', None)
+    new_password = request.form.get('new_password', None)
+    confirm_password = request.form.get('confirm_password', None)
+
+    if not email:
+        flash('Email is missing. Please try again.', 'danger')
+        return redirect(url_for('forgot_password'))
+
+    if not new_password or not confirm_password:
+        flash('Please fill out all password fields.', 'danger')
+        return redirect(url_for('forgot_password', email_provided=email))
+
+    if new_password != confirm_password:
+        flash('Passwords do not match!', 'danger')
+        return redirect(url_for('forgot_password', email_provided=email))
+
+    user = User.query.filter_by(email=email).first()
+    if user:
+        hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        flash('Password has been reset successfully!', 'success')
+        return redirect(url_for('login'))
+    else:
+        flash('User not found!', 'danger')
+        return redirect(url_for('forgot_password'))
 
 # Logout Route
 @app.route('/logout')
-@login_required
 def logout():
-    logout_user()
-    flash('Logged out successfully.', 'info')
+    # Clear user session
+    session.clear()
+    # If using Flask-Login
+    # logout_user()
+    flash('You have been successfully logged out', 'success')
     return redirect(url_for('login'))
+
+# Profile Route
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
-    
+
