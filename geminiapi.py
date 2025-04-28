@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Set the environment variable for the API key
-os.environ["API_KEY"] = os.getenv("API_KEY")
+
 
 genai.configure(api_key = os.getenv("API_KEY"))
 generation_config =  dict(
