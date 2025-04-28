@@ -15,10 +15,6 @@ executor_model = executor()
 app = Flask(__name__)
 app.secret_key = 'supersecretmre'
 
-<<<<<<< HEAD
-=======
-
->>>>>>> bdba5fca31d809af721937d6558dae35ce00e308
 # Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SECRET_KEY'] = 'your_secret_key'
