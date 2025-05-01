@@ -1,16 +1,85 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4 text-center">
-            <i class="fa fa-user-circle" style="font-size: 3rem; margin-bottom: 10px;"></i>
+<style>
+  .profile-page {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    padding: 50px 0;
+    color: #0d47a1;
+    padding-top: 80px;
+    margin-bottom: 80px;
+    z-index: 100;
+    margin-top: 100px; /* Ensures the profile page starts below the navbar */
+}
+  .profile-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+  }
+  .profile-card h2 {
+    color: #007bff;
+  }
+  .profile-card p {
+    color: #6c757d;
+  }
+  .profile-card .btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+  .profile-card .btn:hover {
+    background: #0056b3;
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030;
+    background-color: #007bff;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .navbar.hidden {
+    transform: translateY(-100%);
+  }
+</style>
+
+<div class="profile-page">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="profile-card">
+          <img src="static/images/profile-placeholder.png" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+          <h2>{{ current_user.username }}</h2>
+          <p>Email: {{ current_user.email }}</p>
+          <p>Member since: {{ current_user.date_joined }}</p>
+          <button class="btn">Edit Profile</button>
         </div>
-        <div class="col-md-8">
-            <h1>Welcome, {{ current_user.username }}!</h1>
-            <p>Email: {{ current_user.email }}</p>
-            <p>User Type: {{ current_user.user_type }}</p>
-        </div>
+      </div>
     </div>
+  </div>
 </div>
+
+<script>
+  let lastScrollTop = 0;
+  const navbar = document.querySelector('.navbar');
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > lastScrollTop) {
+      // Scrolling down
+      navbar.classList.add('hidden');
+    } else {
+      // Scrolling up
+      navbar.classList.remove('hidden');
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For mobile or negative scrolling
+  });
+</script>
 {% endblock %}

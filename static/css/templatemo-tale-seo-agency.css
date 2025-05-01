@@ -825,6 +825,8 @@ Banner Style
 .main-banner {
   position: relative;
   padding: 295px 0px 185px 0px;
+  
+  
 }
 
 .main-banner:after {
@@ -835,6 +837,7 @@ Banner Style
   width: 861px;
   height: 746px;
   z-index: -1;
+  margin-top: 80px;
 }
 
 .main-banner::before {

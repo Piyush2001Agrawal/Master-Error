@@ -69,43 +69,93 @@
 <section>
   <div class="projects section" id="projects">
     <div class="container">
-      <div class="row">
+      <div class="row align-items-center">
         <div class="col-lg-6">
           <div class="section-heading">
             <h2>Master Error <em>Code Editor</em></h2>
             <div class="line-dec"></div>
-            <p><b><i>Master Error's code editor is designed to provide a seamless coding experience. With features like syntax highlighting, auto-completion, and real-time error detection, you can write and debug your code efficiently.</p>
-            <p><b><i>Whether you're working on a small script or a large project, our code editor is equipped to handle it all. Plus, with support for multiple programming languages, you can switch between languages effortlessly.</p>
-            <p><b><i>Experience the power of Master Error's code editor and take your coding skills to the next level.</p>
-            <div class="col-lg-4 text-end">
-              <div class="main-button">
-                <a href="/executor" class="btn btn-primary btn-lg" style="position: relative; overflow: hidden;">
-                  Let's Code
-                  <span class="btn-hover-effect" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.2); transform: scale(0); transition: transform 0.3s ease; border-radius: inherit;"></span>
-                </a>
-              </div>
-            </div>
-
-            <script>
-              const letsCodeButton = document.querySelector('.main-button a');
-
-              if (letsCodeButton) {
-                letsCodeButton.addEventListener('mouseover', function() {
-                  const hoverEffect = this.querySelector('.btn-hover-effect');
-                  if (hoverEffect) hoverEffect.style.transform = 'scale(1)';
-                });
-
-                letsCodeButton.addEventListener('mouseout', function() {
-                  const hoverEffect = this.querySelector('.btn-hover-effect');
-                  if (hoverEffect) hoverEffect.style.transform = 'scale(0)';
-                });
-              }
-            </script>
+            <p><b><i>Master Error's code editor is designed to provide a seamless coding experience. With features like syntax highlighting, auto-completion, and real-time error detection, you can write and debug your code efficiently.</i></b></p>
+            <p><b><i>Whether you're working on a small script or a large project, our code editor is equipped to handle it all. Plus, with support for multiple programming languages, you can switch between languages effortlessly.</i></b></p>
+            <p><b><i>Experience the power of Master Error's code editor and take your coding skills to the next level.</i></b></p>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <div class="code-editor-preview">
+            <img src="static/images/code-editor-preview.png" alt="Code Editor Preview" class="img-fluid rounded shadow">
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-lg-12 text-center">
+          <div class="main-button">
+            <a href="/executor" class="btn btn-primary btn-lg" style="position: relative; overflow: hidden;">
+              Let's Code
+              <span class="btn-hover-effect" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.2); transform: scale(0); transition: transform 0.3s ease; border-radius: inherit;"></span>
+            </a>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    const letsCodeButton = document.querySelector('.main-button a');
+
+    if (letsCodeButton) {
+      letsCodeButton.addEventListener('mouseover', function() {
+        const hoverEffect = this.querySelector('.btn-hover-effect');
+        if (hoverEffect) hoverEffect.style.transform = 'scale(1)';
+      });
+
+      letsCodeButton.addEventListener('mouseout', function() {
+        const hoverEffect = this.querySelector('.btn-hover-effect');
+        if (hoverEffect) hoverEffect.style.transform = 'scale(0)';
+      });
+    }
+  </script>
+
+  <style>
+    .projects.section {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      padding: 60px 0;
+    }
+
+    .section-heading h2 {
+      font-size: 2.5rem;
+      color: #343a40;
+    }
+
+    .section-heading p {
+      font-size: 1.1rem;
+      color: #6c757d;
+    }
+
+    .code-editor-preview img {
+      max-width: 80%;
+      border: 2px solid #dee2e6;
+      border-radius: 10px;
+    }
+
+    .main-button a {
+      background: #007bff;
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .main-button a:hover {
+      background: #0056b3;
+      transform: translateY(-3px);
+    }
+
+    .main-button {
+      text-align: right; /* Align the button to the right */
+    }
+
+    
+  </style>
 </section>
 
   <div class="contact-us section" id="contact">
