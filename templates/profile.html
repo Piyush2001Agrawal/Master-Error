@@ -3,20 +3,25 @@
 {% block content %}
 <style>
   .profile-page {
-    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    background: linear-gradient(135deg,#e3f2fd, #6336f7);
     padding: 50px 0;
     color: #0d47a1;
     padding-top: 80px;
     margin-bottom: 80px;
     z-index: 100;
     margin-top: 100px; /* Ensures the profile page starts below the navbar */
-}
+  }
   .profile-card {
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .profile-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
   }
   .profile-card h2 {
     color: #007bff;
@@ -30,23 +35,25 @@
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease;
   }
   .profile-card .btn:hover {
     background: #0056b3;
+    transform: scale(1.1);
   }
-
   .navbar {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1030;
-    background-color: #007bff;
-    transition: transform 0.3s ease-in-out;
+    background-color: #af74f1;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease;
   }
-
   .navbar.hidden {
     transform: translateY(-100%);
+  }
+  .navbar.scrolled {
+    background-color: af74f1;
   }
 </style>
 
@@ -55,12 +62,82 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="profile-card">
-          <img src="static/images/profile-placeholder.png" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+          <img src="{{ url_for('static', filename='images/' + (current_user.profile_picture or 'profile-placeholder.png')) }}" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
           <h2>{{ current_user.username }}</h2>
           <p>Email: {{ current_user.email }}</p>
           <p>Member since: {{ current_user.date_joined }}</p>
-          <button class="btn">Edit Profile</button>
+          <form method="POST" action="/update-profile" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" name="username" value="{{ current_user.username }}">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" value="{{ current_user.email }}">
+            </div>
+            <div class="form-group">
+              <label for="user_type">User Type</label>
+              <input type="text" class="form-control" id="user_type" name="user_type" value="{{ current_user.user_type }}" readonly>
+            </div>
+            <div class="form-group d-flex align-items-center">
+              <label for="profile_picture" class="me-3">Profile Picture</label>
+              <div class="d-flex align-items-center border p-2 rounded" style="border: 1px solid #ccc;">
+                <input type="file" class="form-control-file" id="profile_picture" name="profile_picture">
+                <span class="ms-3 text-muted">No file chosen</span>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for editing profile -->
+<div class="modal" id="editProfileModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" value="{{ current_user.username }}">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" value="{{ current_user.email }}">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Leave blank to keep current password">
+          </div>
+          <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" class="form-control" id="confirm_password" placeholder="Leave blank to keep current password">
+          </div>
+          <div class="form-group">
+            <label for="profile_picture">Profile Picture</label>
+            <input type="file" class="form-control-file" id="profile_picture">
+          </div>
+          <div class="form-group">
+            <label for="bio">Bio</label>
+            <textarea class="form-control" id="bio" rows="3">{{ current_user.bio }}</textarea>
+          </div>
+          <div class="form-group">
+            <label for="user_type">User Type</label>
+            <input type="text" class="form-control" id="user_type" value="{{ current_user.user_type }}" readonly>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -80,6 +157,63 @@
       navbar.classList.remove('hidden');
     }
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For mobile or negative scrolling
+
+    // Change navbar color on scroll
+    if (scrollTop > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const editProfileBtn = document.getElementById('editProfileBtn');
+    const saveChangesBtn = document.querySelector('.btn-primary');
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+
+    // Open the modal when Edit Profile button is clicked
+    editProfileBtn.addEventListener('click', () => {
+      const editProfileModal = document.getElementById('editProfileModal');
+      editProfileModal.style.display = 'block';
+    });
+
+    // Save changes when Save Changes button is clicked
+    saveChangesBtn.addEventListener('click', async () => {
+      const updatedUsername = usernameInput.value;
+      const updatedEmail = emailInput.value;
+
+      try {
+        const response = await fetch('/update-profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: updatedUsername,
+            email: updatedEmail,
+          }),
+        });
+
+        if (response.ok) {
+          alert('Profile updated successfully!');
+          location.reload(); // Reload the page to reflect changes
+        } else {
+          alert('Failed to update profile. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error updating profile:', error);
+        alert('An error occurred. Please try again later.');
+      }
+    });
+
+    // Close the modal when Close button is clicked
+    document.querySelectorAll('.close, .btn-secondary').forEach(button => {
+      button.addEventListener('click', () => {
+        const editProfileModal = document.getElementById('editProfileModal');
+        editProfileModal.style.display = 'none';
+      });
+    });
   });
 </script>
 {% endblock %}

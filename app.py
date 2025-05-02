@@ -4,6 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from geminiapi import executor, analyzer
 import markdown
+import os
 
 
 
@@ -30,6 +31,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     user_type = db.Column(db.String(20), nullable=False)
+    profile_picture = db.Column(db.String(255), nullable=True)
     
     def __init__(self, username, email, password, user_type):
         self.username = username
@@ -308,6 +310,39 @@ def logout():
 @login_required
 def profile():
     return render_template('profile.html')
+
+@app.route('/update-profile', methods=['POST'])
+def update_profile():
+    username = request.form.get('username')
+    email = request.form.get('email')
+    contact_no = request.form.get('contact_no')
+    bio = request.form.get('bio')
+    profile_picture = request.files.get('profile_picture')
+
+    if not username or not email:
+        flash('Username and email are required.', 'danger')
+        return redirect(url_for('profile'))
+
+    try:
+        # Update user details
+        current_user.username = username
+        current_user.email = email
+        current_user.contact_no = contact_no
+        current_user.bio = bio
+
+        # Handle profile picture upload
+        if profile_picture:
+            picture_path = os.path.join('static/images', profile_picture.filename)
+            profile_picture.save(picture_path)
+            current_user.profile_picture = profile_picture.filename
+
+        db.session.commit()
+        flash('Profile updated successfully!', 'success')
+        return redirect(url_for('profile'))
+    except Exception as e:
+        print(f"Error updating profile: {e}")
+        flash('An error occurred while updating your profile.', 'danger')
+        return redirect(url_for('profile'))
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)

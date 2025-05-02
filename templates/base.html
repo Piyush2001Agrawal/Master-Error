@@ -227,6 +227,41 @@
     body.executor-page .header-area {
       display: none;
     }
+
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .navbar {
+      background: linear-gradient(90deg, #333, #444);
+    }
+
+    body.dark-mode .nav-link {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .nav-link:hover {
+      color: #ffcc00;
+    }
+
+    body.dark-mode .footer {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .footer a {
+      color: #ffcc00;
+    }
+
+    body.dark-mode .btn {
+      background-color: #333;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .btn:hover {
+      background-color: #444;
+    }
   </style>
 </head>
 
@@ -256,8 +291,9 @@
                     </ul>
                   </li>
                   <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="userProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="fa fa-user-circle" style="font-size: 1.5rem;"></i> {{ current_user.username }}
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="{{ url_for('static', filename='images/' + (current_user.profile_picture or 'profile-placeholder.png')) }}" alt="Profile Picture" class="rounded-circle" style="width: 30px; height: 30px; margin-right: 10px;">
+                      <span>{{ current_user.username }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
                       <li><a class="dropdown-item" href="/profile">Profile</a></li>
@@ -265,7 +301,7 @@
                       <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
                   </li>
-                  <button id="darkModeToggle" class="btn btn-sm position-fixed" style="top: 20px; right: 20px; z-index: 1000;">
+                  <button id="darkModeToggle" class="btn btn-sm position-fixed btn-hover-effect" style="top: 20px; right: 20px; z-index: 1000; background-color: var(--primary-color); color: white;">
                     <i class="fas fa-moon"></i>
                   </button>
                 </ul>
