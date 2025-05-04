@@ -198,7 +198,7 @@ def signup():
         existing_user = User.query.filter((User.email == email) | (User.username == username)).first()
         if existing_user:
             flash('User already exists. Please log in.', 'danger')
-            return redirect(url_for('signup'))
+            return redirect(url_for('login'))
 
         # Hash password
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
