@@ -163,6 +163,7 @@ def clear_history():
 
 
 # Signup Route
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
@@ -170,6 +171,28 @@ def signup():
         email = request.form['email']
         password = request.form['password']
         user_type = request.form['user_type']
+        
+        # Validate required fields
+        if not all([username, email, password, user_type]):
+            flash('All fields are required', 'danger')
+            return redirect(url_for('signup'))
+
+        # Password validation
+        if len(password) < 8:
+            flash('Password must be at least 8 characters long', 'danger')
+            return redirect(url_for('signup'))
+        if not any(char.isdigit() for char in password):
+            flash('Password must contain at least one digit', 'danger')
+            return redirect(url_for('signup'))
+        if not any(char.isalpha() for char in password):
+            flash('Password must contain at least one letter', 'danger')
+            return redirect(url_for('signup'))
+        if not any(char in '!@#$%^&*()_+' for char in password):
+            flash('Password must contain at least one special character', 'danger')
+            return redirect(url_for('signup'))
+        if not any(char.isupper() for char in password):
+            flash('Password must contain at least one uppercase letter', 'danger')
+            return redirect(url_for('signup'))
 
         # Check if user exists
         existing_user = User.query.filter((User.email == email) | (User.username == username)).first()
