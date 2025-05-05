@@ -65,7 +65,7 @@
           <img src="{{ url_for('static', filename='images/' + (current_user.profile_picture or 'profile-placeholder.png')) }}" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
           <h2>{{ current_user.username }}</h2>
           <p>Email: {{ current_user.email }}</p>
-          <p>Member since: {{ current_user.date_joined }}</p>
+          
           <form method="POST" action="/update-profile" enctype="multipart/form-data">
             <div class="form-group">
               <label for="username">Username</label>
