@@ -421,6 +421,12 @@ def example():
 <script>
     // Tab switching functionality
     document.addEventListener('DOMContentLoaded', function() {
+        const codeMirrorEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+            mode: 'python',
+            lineNumbers: true,
+            theme: 'dracula'
+        });
+
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -429,6 +435,16 @@ def example():
                 this.classList.add('active');
                 document.getElementById(`${this.dataset.tab}-output`).classList.add('active');
             });
+        });
+
+        // Clear button functionality
+        document.getElementById('clear-btn').addEventListener('click', function() {
+            // Clear the CodeMirror editor
+            codeMirrorEditor.setValue('');
+
+            // Clear the output panels
+            document.getElementById('analysis-code-block').textContent = '';
+            document.getElementById('execution-output').innerHTML = '';
         });
     });
 </script>

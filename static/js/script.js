@@ -184,8 +184,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.message) {
+                        // Clear the CodeMirror editor
+                        codeEditor.setValue('');
+
+                        // Clear the output panels
                         analysisOutput.innerHTML = '';
                         executionOutput.innerHTML = '';
+                        
                         const successDiv = document.createElement('div');
                         successDiv.className = 'success';
                         successDiv.textContent = data.message;
