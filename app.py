@@ -117,8 +117,10 @@ def analyze_code():
 def execute_code():
     code = request.json.get("code", "")
     session_id = request.json.get("session_id", "default")
+    user_input = request.json.get("user_input", "")
+    is_input_response = request.json.get("is_input_response", False)
 
-    if not code.strip():
+    if not code.strip() and not is_input_response:
         return jsonify({"error": "Please enter code for execution."})
 
     try:
@@ -129,8 +131,15 @@ def execute_code():
                 "executor": executor_model.start_chat(),
             }
 
-        # Send message to executor
-        response = chat_sessions[session_id]["executor"].send_message(code)
+        # If this is the first request (not an input response)
+        if not is_input_response:
+            # Send initial code to executor
+            response = chat_sessions[session_id]["executor"].send_message(code)
+        else:
+            # Format the user input to make it clear to the model
+            formatted_input = f"User provided input: {user_input}"
+            # Send user input as a response to the executor's request
+            response = chat_sessions[session_id]["executor"].send_message(formatted_input)
 
         # Convert markdown to HTML with extensions
         html_response = markdown.markdown(
@@ -143,7 +152,14 @@ def execute_code():
             ],
         )
 
-        return jsonify({"text": response.text, "html": html_response})
+        # Check if the response is asking for input
+        requires_input = "USER_INPUT_REQUIRED:" in response.text
+        
+        return jsonify({
+            "text": response.text, 
+            "html": html_response,
+            "requires_input": requires_input
+        })
     except Exception as e:
         return jsonify({"error": f"Error during execution: {str(e)}"})
 
