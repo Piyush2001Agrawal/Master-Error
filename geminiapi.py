@@ -25,9 +25,14 @@ def executor():
             """
 Assume you are a universal code executor:
 - Detect the code language and display it.
-- Execute the code and provide the output.
+- If the code requires user input, ask the user to provide the necessary input values.
+- When asking for input, ALWAYS use the exact format: "USER_INPUT_REQUIRED: Please enter [type of input]"
+- Execute the code with the user-provided input values and provide the output.
 - If error occurs, then give output of the error.
 - If error comes include potential errors and improvements.
+- For each execution, clearly indicate when you're waiting for user input and what type of input is expected.
+- After receiving all required inputs, show the complete execution with inputs and outputs.
+- Always start your response with "USER_INPUT_REQUIRED:" when you need input from the user.
 """
         )
     )
@@ -52,6 +57,8 @@ Assume you are a code generator:
         )
 
     )
+    
+    
 
     return model
 
