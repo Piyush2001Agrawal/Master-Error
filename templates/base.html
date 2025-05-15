@@ -4,447 +4,845 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <title>Master Error</title>
-
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  
-
-  <!-- Additional CSS Files -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo-tale-seo-agency.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
-  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
   {% block css %}{% endblock %}
 
   <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
-    }
-    .navbar {
-      background: linear-gradient(90deg, #007bff, #0056b3);
-      color: white;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      transition: background-color 0.3s ease;
-    }
-    .navbar.scrolled {
-      background-color: #0056b3;
-    }
-    .nav-link {
-      position: relative;
-      color: white;
-      transition: color 0.3s ease;
-    }
-    .nav-link:hover {
-      color: #ffcc00;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -5px;
-      left: 0;
-      background-color: #ffcc00;
-      transition: width 0.3s ease;
-    }
-    .nav-link:hover::after {
-      width: 100%;
+    :root {
+      --primary: #0cebba;
+      --secondary: #0e85a6;
+      --accent: #acd711;
+      --light: #F4ECF7;
+      --dark: #1E1E2F;
+      --text-dark: #333;
+      --text-light: #f8f9fa;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --danger: #e74c3c;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-800: #343a40;
+      --radius-sm: 0.25rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 1rem;
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+      --section-spacing: 100px; /* Added section spacing variable */
+      
+      /* Font colors for themes */
+      --font-color: var(--text-dark);
+      --card-bg: #fff;
+      --card-header-bg: #f8f9fa;
+      --card-border: #eee;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+      --feature-text-color: #6c757d;
     }
 
-    /* Interactive elements */
-    :root {
-      --primary-color: #aa5cef;
-      --secondary-color: #000000;
-      --dark-color: #2a2a2a;
-      --light-color: #f8f9fa;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #f8f9fa;
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* General text color overrides */
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--text-dark);
+      transition: color 0.3s ease;
     }
     
-    /* Smooth scrolling */
-    html {
-      scroll-behavior: smooth;
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3, 
+    body.dark-mode h4, 
+    body.dark-mode h5, 
+    body.dark-mode h6 {
+      color: var(--text-light);
     }
     
-    /* Animated buttons */
-    .btn-hover-effect {
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      z-index: 1;
+    p {
+      color: #6c757d;
+      transition: color 0.3s ease;
     }
     
-    .btn-hover-effect::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
+    body.dark-mode p {
+      color: var(--gray-300);
+    }
+    
+    /* Better contrast for links and text */
+    a {
+      color: var(--primary);
+      transition: var(--transition);
+    }
+    
+    body.dark-mode a {
+      color: var(--accent);
+    }
+    
+    a:hover {
+      color: var(--secondary);
+    }
+    
+    body.dark-mode a:hover {
+      color: #D4A9EF;
+    }
+    
+    small.text-muted {
+      color: #6c757d !important;
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode small.text-muted {
+      color: var(--gray-300) !important;
+    }
+    
+    input::placeholder, 
+    textarea::placeholder {
+      color: #6c757d;
+      opacity: 0.7;
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode input::placeholder, 
+    body.dark-mode textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      background-color: #fff;
+      box-shadow: var(--shadow-sm);
+      padding: 1rem 2rem;
+      position: fixed;
       width: 100%;
-      height: 100%;
-      background: var(--primary-color);
-      z-index: -1;
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.3s ease;
+      top: 0;
+      z-index: 1000;
+      transition: var(--transition);
     }
-    
-    .btn-hover-effect:hover {
+
+    .navbar.scrolled {
+      padding: 0.75rem 2rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .navbar-logo {
+      margin-right: 0.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: white;
     }
-    
-    .btn-hover-effect:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
+
+    .nav-link {
+      font-weight: 600;
+      color: var(--gray-800);
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      transition: var(--transition);
     }
-    
-    /* Floating animation */
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary);
+      background-color: var(--light);
     }
-    
-    .floating {
-      animation: float 3s ease-in-out infinite;
+
+    .navbar-toggler {
+      border: none;
+      outline: none;
+      padding: 0.25rem 0.5rem;
     }
-    
-    /* Pulse animation */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+
+    .navbar-toggler:focus {
+      box-shadow: none;
     }
-    
-    .pulse:hover {
-      animation: pulse 1s infinite;
+
+    .dropdown-menu {
+      border: none;
+      box-shadow: var(--shadow-md);
+      border-radius: var(--radius-md);
+      overflow: hidden;
     }
-    
-    /* Dark mode toggle */
-    .dark-mode {
-      background-color: var(--dark-color);
+
+    .dropdown-item {
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .dropdown-item:hover, .dropdown-item:focus {
+      background-color: var(--light);
+      color: var(--primary);
+    }
+
+    /* User profile menu */
+    .user-menu {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .user-menu:hover {
+      background-color: var(--light);
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.5rem;
     }
-    
-    /* Tooltip */
-    .tooltip-container {
+
+    /* Theme toggle */
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--light);
+      color: var(--primary);
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      margin-left: 1rem;
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--gray-200);
+    }
+
+    /* Main content */
+    main {
+      margin-top: 90px;
+      min-height: calc(100vh - 270px);
+    }
+
+    /* Section Spacing */
+    .section {
+      padding: var(--section-spacing) 0;
       position: relative;
+    }
+
+    .section:first-of-type {
+      padding-top: calc(var(--section-spacing) + 80px); /* Extra padding for navbar */
+    }
+
+    .section:not(:first-of-type) {
+      margin-top: var(--section-spacing);
+    }
+
+    /* Responsive section spacing */
+    @media (max-width: 768px) {
+      :root {
+        --section-spacing: 60px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      :root {
+        --section-spacing: 40px;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: var(--text-light);
+      padding: 3rem 0 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 1rem;
       display: inline-block;
     }
-    
-    .tooltip {
-      visibility: hidden;
-      width: 200px;
-      background-color: var(--dark-color);
-      color: #fff;
+
+    .footer-text {
+      color: var(--gray-300);
+      margin-bottom: 1rem;
+    }
+
+    .footer-links h5 {
+      color: white;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--gray-300);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .social-icon:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
       text-align: center;
-      border-radius: 6px;
-      padding: 5px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s;
+      color: var(--gray-300);
+      font-size: 0.9rem;
     }
-    
-    .tooltip-container:hover .tooltip {
-      visibility: visible;
-      opacity: 1;
-    }
-    
+
     /* Back to top button */
     .back-to-top {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: none;
+      bottom: 2rem;
+      right: 2rem;
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background: var(--primary-color);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      text-align: center;
-      line-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      z-index: 999;
-      transition: all 0.3s;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 100;
+      box-shadow: var(--shadow-md);
     }
-    
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
     .back-to-top:hover {
       transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-    
-    /* Interactive nav */
-    .nav-link-effect {
-      position: relative;
-    }
-    
-    .nav-link-effect::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: 0;
-      left: 0;
-      background-color: var(--primary-color);
-      transition: width 0.3s ease;
-    }
-    
-    .nav-link-effect:hover::after {
-      width: 100%;
-    }
-    
-    /* Loading animation */
-    .loader {
-      display: none;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid var(--primary-color);
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
     }
 
-    /* Hide header in executor page */
-    body.executor-page .header-area {
-      display: none;
-    }
-
+    /* Dark mode styles */
     body.dark-mode {
-      background-color: #121212;
-      color: #e0e0e0;
+      background-color: var(--dark);
+      color: var(--text-light);
+      
+      /* Dark mode variables */
+      --font-color: var(--text-light);
+      --card-bg: #1e1e1e;
+      --card-header-bg: #2a2a2a;
+      --card-border: #444;
+      --card-shadow: rgba(0, 0, 0, 0.3);
+      --feature-text-color: var(--gray-300);
     }
 
     body.dark-mode .navbar {
-      background: linear-gradient(90deg, #333, #444);
+      background-color: #292941;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     body.dark-mode .nav-link {
-      color: #e0e0e0;
+      color: var(--gray-300);
     }
 
-    body.dark-mode .nav-link:hover {
-      color: #ffcc00;
+    body.dark-mode .nav-link:hover,
+    body.dark-mode .nav-link.active {
+      color: white;
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
-    body.dark-mode .footer {
+    body.dark-mode .dropdown-menu {
+      background-color: #292941;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    body.dark-mode .dropdown-item {
+      color: var(--gray-300);
+    }
+
+    body.dark-mode .dropdown-item:hover,
+    body.dark-mode .dropdown-item:focus {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    body.dark-mode .theme-toggle {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--gray-300);
+    }
+
+    body.dark-mode .user-menu:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Animation Classes */
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .slide-up {
+      animation: slideUp 0.6s ease-out;
+    }
+
+    .slide-down {
+      animation: slideDown 0.6s ease-out;
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 0.6s ease-out;
+    }
+
+    .slide-in-right {
+      animation: slideInRight 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(-30px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(30px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Media Queries */
+    @media (max-width: 992px) {
+      .navbar {
+        padding: 0.75rem 1rem;
+      }
+
+      .navbar-collapse {
+        background-color: #fff;
+        box-shadow: var(--shadow-md);
+        padding: 1rem;
+        border-radius: var(--radius-md);
+        margin-top: 0.5rem;
+      }
+
+      body.dark-mode .navbar-collapse {
+        background-color: #292941;
+      }
+
+      .theme-toggle {
+        margin: 1rem 0 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      footer {
+        text-align: center;
+      }
+
+      .footer-links {
+        margin-top: 2rem;
+      }
+
+      .social-links {
+        justify-content: center;
+      }
+    }
+
+    /* Card styles for both themes */
+    .card {
+      background-color: #fff;
+      border-color: #eee;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      height: 100%;
+    }
+    
+    body.dark-mode .card {
       background-color: #1e1e1e;
-      color: #e0e0e0;
+      border-color: #444;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      color: var(--text-light);
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+    
+    body.dark-mode .card:hover {
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+    
+    .card h3, .card h5 {
+      color: var(--text-dark);
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode .card h3,
+    body.dark-mode .card h5 {
+      color: var(--text-light);
+    }
+    
+    .card p {
+      color: #6c757d;
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode .card p {
+      color: var(--gray-300);
     }
 
-    body.dark-mode .footer a {
-      color: #ffcc00;
+    /* CTA cards */
+    .cta-card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 50px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+      background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95));
+      transition: all 0.3s ease;
     }
-
-    body.dark-mode .btn {
-      background-color: #333;
-      color: #e0e0e0;
+    
+    body.dark-mode .cta-card {
+      background-color: #1e1e1e;
+      background-image: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(30, 30, 30, 0.95));
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
-
-    body.dark-mode .btn:hover {
-      background-color: #444;
+    
+    /* Feature cards */
+    .feature-box {
+      height: 100%;
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 30px 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    body.dark-mode .feature-box {
+      background-color: #1e1e1e;
+      border-color: #444;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .feature-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+    
+    body.dark-mode .feature-box:hover {
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+    
+    .feature-box .card-body {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .feature-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+    }
+    
+    body.dark-mode .feature-title {
+      color: var(--text-light);
+    }
+    
+    .feature-text {
+      color: #6c757d;
+      font-size: 1.05rem;
+      flex-grow: 1;
+    }
+    
+    body.dark-mode .feature-text {
+      color: var(--gray-300);
     }
   </style>
 </head>
 
 <body>
-    <header class="header-area header-sticky">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <nav class="main-nav">
-                <!-- ***** Logo Start ***** -->
-                <!--<a href="index.html" class="logo">
-                  <img src="static\images\logo.png" alt="" style="max-width: 112px;">
-                </a>-->
-                <!-- ***** Logo End ***** -->
-                <!-- ***** Menu Start ***** -->
-                <ul class="nav">
-                  <li class="scroll-to-section"><a href="/" class="active">Home</a></li>
-                  <li class="scroll-to-section"><a href="/features">Features</a></li>
-                  <li><a href="/about">About Us</a></li>
-                  <li><a href="/faqs">Faqs</a></li>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Authenticate</a>
-                    <ul class="dropdown-menu">
-                      <li><a href="/signup">Signup</a></li>
-                      <li><a href="/login">Login</a></li>
-                      <li><a href="/logout" onclick="return confirm('Are you sure you want to log out?');">Logout</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <img src="{{ url_for('static', filename='images/' + (current_user.profile_picture or 'profile-placeholder.png')) }}" alt="Profile Picture" class="rounded-circle" style="width: 30px; height: 30px; margin-right: 10px;">
-                      <span>{{ current_user.username }}</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
-                      <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                    </ul>
-                  </li>
-                  <button id="darkModeToggle" class="btn btn-sm position-fixed btn-hover-effect" style="top: 20px; right: 20px; z-index: 1000; background-color: var(--primary-color); color: white;">
-                    <i class="fas fa-moon"></i>
-                  </button>
-                </ul>
-                <a class='menu-trigger'>
-                  <span>Menu</span>
-                </a>
-                <!-- ***** Menu End ***** -->
-              </nav>
-            </div>
-          </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <div class="navbar-logo">
+          <i class="fas fa-code"></i>
         </div>
-      </header>
+        Master Error
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/features">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/faqs">FAQs</a>
+          </li>
+          {% if not current_user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt me-1"></i>Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/signup"><i class="fas fa-user-plus me-1"></i>Sign Up</a>
+          </li>
+          {% endif %}
+          {% if current_user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="user-menu dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="user-avatar">
+                <i class="fas fa-user"></i>
+              </div>
+              <span>{{ current_user.username }}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="/profile"><i class="fas fa-user-circle me-2"></i>Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/logout" onclick="return confirm('Are you sure you want to log out?');"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+          {% endif %}
+          <button id="themeToggle" class="theme-toggle">
+            <i class="fas fa-moon"></i>
+          </button>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-
-
-  
-
+  <!-- Main Content -->
   <main>
     {% block content %}{% endblock %}
   </main>
 
+  <!-- Footer -->
   {% if request.endpoint != 'executor' %}
   <footer>
     <div class="container">
       <div class="row">
-        <div class="col-lg-12 text-center">
-          <div class="social-icons mb-3">
-            <a href="#" class="mx-2 tooltip-container"><i class="fab fa-facebook-f"></i><span class="tooltip">Follow us on Facebook</span></a>
-            <a href="#" class="mx-2 tooltip-container"><i class="fab fa-twitter"></i><span class="tooltip">Follow us on Twitter</span></a>
-            <a href="#" class="mx-2 tooltip-container"><i class="fab fa-linkedin-in"></i><span class="tooltip">Connect on LinkedIn</span></a>
-            <a href="#" class="mx-2 tooltip-container"><i class="fab fa-github"></i><span class="tooltip">Check our GitHub</span></a>
+        <div class="col-md-4">
+          <div class="footer-logo">
+            <i class="fas fa-code me-2"></i>
+            Master Error
           </div>
-          <p>Copyright © 2025 <a href="#" class="text-primary">Master Error</a>. All rights reserved.</p>
-          <div class="mt-2">
-            <a href="#" class="text-muted mx-2">Privacy Policy</a>
-            <a href="#" class="text-muted mx-2">Terms of Service</a>
-            <a href="#" class="text-muted mx-2">Contact Us</a>
+          <p class="footer-text">
+            Advanced debugging and error detection for developers of all skill levels.
+            Get explanations, solutions, and learn from your mistakes.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
           </div>
         </div>
+        <div class="col-md-2 footer-links">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/features">Features</a></li>
+            <li><a href="/faqs">FAQs</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2 footer-links">
+          <h5>Account</h5>
+          <ul>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/signup">Sign Up</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="#">Dashboard</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 footer-links">
+          <h5>Contact</h5>
+          <ul>
+            <li><i class="fas fa-phone me-2"></i> 7355995211 / 8840402886</li>
+            <li><i class="fas fa-envelope me-2"></i> mastererror@email.com</li>
+            <li><i class="fas fa-map-marker-alt me-2"></i> Lucknow, Uttar Pradesh, India</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 Master Error. All rights reserved.</p>
       </div>
     </div>
   </footer>
   {% endif %}
 
+  <!-- Back to top button -->
+  <div id="backToTop" class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
   <!-- Scripts -->
-  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/isotope.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/owl-carousel.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/tabs.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Dark mode toggle
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    darkModeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      if (document.body.classList.contains('dark-mode')) {
-        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        localStorage.setItem('darkMode', 'enabled');
-      } else {
-        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        localStorage.setItem('darkMode', 'disabled');
-      }
-    });
-
-    // Check for saved dark mode preference
-    if (localStorage.getItem('darkMode') === 'enabled') {
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const toggleIcon = themeToggle.querySelector('i');
+    
+    // Check for saved theme preference
+    if (localStorage.getItem('theme') === 'dark') {
       document.body.classList.add('dark-mode');
-      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      toggleIcon.classList.replace('fa-moon', 'fa-sun');
     }
-
-    // Back to top button
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        backToTop.style.display = 'block';
+    
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      
+      if (document.body.classList.contains('dark-mode')) {
+        toggleIcon.classList.replace('fa-moon', 'fa-sun');
+        localStorage.setItem('theme', 'dark');
       } else {
-        backToTop.style.display = 'none';
+        toggleIcon.classList.replace('fa-sun', 'fa-moon');
+        localStorage.setItem('theme', 'light');
       }
     });
-
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Tooltip initialization
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    });
-
-    // Add loading animation to all buttons with class 'btn-loading'
-    document.querySelectorAll('.btn-loading').forEach(button => {
-      button.addEventListener('click', function() {
-        const loader = document.createElement('span');
-        loader.className = 'loader';
-        this.innerHTML = '';
-        this.appendChild(loader);
-        this.disabled = true;
-      });
-    });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
-    });
-
-    // Animate elements when they come into view
-    const animateOnScroll = () => {
-      const elements = document.querySelectorAll('.animate-on-scroll');
-      elements.forEach(element => {
-        const elementPosition = element.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3;
-        
-        if (elementPosition < screenPosition) {
-          element.classList.add('animated');
-        }
-      });
-    };
-
-    window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll(); // Run once on page load
-
+    
     // Navbar scroll effect
-    document.addEventListener('DOMContentLoaded', function () {
-      const navbar = document.querySelector('.navbar');
-      window.addEventListener('scroll', function () {
-        if (window.scrollY > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
       });
+    });
+    
+    // Initialize Bootstrap tooltips
+    const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltips.forEach(tooltip => {
+      new bootstrap.Tooltip(tooltip);
+    });
+    
+    // Add active class to current nav link
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPath || (href === '/' && currentPath === '/')) {
+        link.classList.add('active');
+      }
     });
   </script>
-
+  
   {% block js %}{% endblock %}
 </body>
 </html>

@@ -1,241 +1,168 @@
 {% extends "base.html" %}
 {% block content %}
 
-
-  <div class="main-banner" id="top">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-7">
-          <div class="caption header-text">
-            <h1 style="color: rgb(224, 15, 144);">Master Error</h1>
-            <div class="line-dec"></div>
-            <h4 style="color: rgb(165, 42, 97);">Dive <em>Into The Code</em> World <span>With Master Error</span></h4>
-            <p> <a href="/">Home</a>, <a
-                href="/about">About</a>, and <a href="/faqs">FAQ</a>.</p>
-            <div class="main-button scroll-to-section"><a href="#services">Discover More</a></div>
-           <!--<span>or</span>--> 
-            <!--<div class="second-button"><a href="faqs.html">Check our FAQs</a></div>-->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="services section" id="services">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 offset-lg-6">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="section-heading">
-                <h2>Master Error <em>Identify, understand, and resolve programming errors with ease</em> 
-                  Whether you're a beginner or an experienced developer, Master Error is here to help.
-                </h2>
-                <div class="line-dec"></div>
-                <h3><em>Why Choose Master Error?.</em></h3>
-              </div>
-            </div>
-            <div class="col-lg-6 col-sm-6">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="static\images\services-01.jpg" alt="discover SEO" class="templatemo-feature">
-                </div>
-                <h4>Advanced Error Detection</h4>
-                  
-              </div>
-            </div>
-            <div class="col-lg-6 col-sm-6">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="static\images\services-02.jpg" alt="data analysis" class="templatemo-feature">
-                </div>
-                <h4>Detailed Explanations</h4>
-              </div>
-            </div>
-            <div class="col-lg-6 col-sm-6">
-              <div class="service-item">
-                <div class="icon">
-                  <img src="static\images\services-03.jpg" alt="precise data" class="templatemo-feature">
-                </div>
-                <h4>Multi-Language Support</h4>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<section>
-  <div class="projects section" id="projects">
+  <!-- Hero Section -->
+  <section class="hero">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6">
-          <div class="section-heading">
-            <h2>Master Error <em>Code Editor</em></h2>
-            <div class="line-dec"></div>
-            <p><b><i>Master Error's code editor is designed to provide a seamless coding experience. With features like syntax highlighting, auto-completion, and real-time error detection, you can write and debug your code efficiently.</i></b></p>
-            <p><b><i>Whether you're working on a small script or a large project, our code editor is equipped to handle it all. Plus, with support for multiple programming languages, you can switch between languages effortlessly.</i></b></p>
-            <p><b><i>Experience the power of Master Error's code editor and take your coding skills to the next level.</i></b></p>
+          <div class="hero-content fade-in">
+            <h1 class="hero-title">Master <span style="background: linear-gradient(45deg, #5e17eb, #aa5cef); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Error</span></h1>
+            <p class="hero-subtitle">Identify, understand, and resolve programming errors with ease. Whether you're a beginner or an experienced developer, Master Error is here to help.</p>
+            <div class="hero-btns">
+              <a href="#features" class="btn btn-primary">Explore Features</a>
+              <a href="/executor" class="btn btn-secondary ms-3">Start Coding</a>
+            </div>
           </div>
         </div>
-        <div class="col-lg-6 text-center">
-          <div class="code-editor-preview">
-            <img src="static/images/code-editor-preview.png" alt="Code Editor Preview" class="img-fluid rounded shadow">
-          </div>
-        </div>
-      </div>
-      <div class="row mt-4">
-        <div class="col-lg-12 text-center">
-          <div class="main-button">
-            <a href="/executor" class="btn btn-primary btn-lg" style="position: relative; overflow: hidden;">
-              Let's Code
-              <span class="btn-hover-effect" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.2); transform: scale(0); transition: transform 0.3s ease; border-radius: inherit;"></span>
-            </a>
+        <div class="col-lg-6">
+          <div class="text-center">
+            <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hero Image" class="hero-img floating">
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <script>
-    const letsCodeButton = document.querySelector('.main-button a');
-
-    if (letsCodeButton) {
-      letsCodeButton.addEventListener('mouseover', function() {
-        const hoverEffect = this.querySelector('.btn-hover-effect');
-        if (hoverEffect) hoverEffect.style.transform = 'scale(1)';
-      });
-
-      letsCodeButton.addEventListener('mouseout', function() {
-        const hoverEffect = this.querySelector('.btn-hover-effect');
-        if (hoverEffect) hoverEffect.style.transform = 'scale(0)';
-      });
-    }
-  </script>
-
-  <style>
-    .projects.section {
-      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-      padding: 60px 0;
-    }
-
-    .section-heading h2 {
-      font-size: 2.5rem;
-      color: #343a40;
-    }
-
-    .section-heading p {
-      font-size: 1.1rem;
-      color: #6c757d;
-    }
-
-    .code-editor-preview img {
-      max-width: 80%;
-      border: 2px solid #dee2e6;
-      border-radius: 10px;
-    }
-
-    .main-button a {
-      background: #007bff;
-      color: #fff;
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-    }
-
-    .main-button a:hover {
-      background: #0056b3;
-      transform: translateY(-3px);
-    }
-
-    .main-button {
-      text-align: right; /* Align the button to the right */
-    }
-
-    
-  </style>
-</section>
-
-  <div class="contact-us section" id="contact">
+  <!-- Features Section -->
+  <section class="section  " id="features">
     <div class="container">
+      <div class="section-title">
+        <h2>Why Choose <span style="color: #aa5cef;">Master Error</span></h2>
+        <p>Empower your coding journey with our cutting-edge tools and features</p>
+      </div>
       <div class="row">
-        <div class="col-lg-12">
-          <div class="contact-us-content">
-            <div class="row">
-              <div class="col-lg-4">
-                <!--<div id="map">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12469.776493332698!2d-80.14036379941481!3d25.907788681148624!2m3!1f357.26927939317244!2f20.870722720054623!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x88d9add4b4ac788f%3A0xe77469d09480fcdb!2sSunny%20Isles%20Beach!5e1!3m2!1sen!2sth!4v1642869952544!5m2!1sen!2sth"
-                    width="100%" height="670px" frameborder="0" style="border:0; border-radius: 23px;"
-                    allowfullscreen=""></iframe>-->
+        <div class="col-md-4">
+          <div class="card feature-box">
+            <div class="feature-icon">
+              <i class="fas fa-bug"></i>
+              </div>
+            <div class="card-body">
+              <h3 class="feature-title">Advanced Error Detection</h3>
+              <p class="feature-text">Our powerful algorithms can identify errors in your code with high accuracy, saving you debugging time.</p>
+            </div>
+          </div>
+                </div>
+        <div class="col-md-4">
+          <div class="card feature-box">
+            <div class="feature-icon">
+              <i class="fas fa-book"></i>
+              </div>
+            <div class="card-body">
+              <h3 class="feature-title">Detailed Explanations</h3>
+              <p class="feature-text">Get clear explanations of errors along with suggested fixes to help you understand and learn.</p>
+            </div>
                 </div>
               </div>
-              <div class="col-lg-8">
-                <form id="contact-form" action="" method="post">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="section-heading">
-                        <h2><em>Contact Us</em> &amp; Get In <span>Touch</span></h2>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <fieldset>
-                        <input type="name" name="name" id="name" placeholder="Your Name..." autocomplete="on" required>
-                      </fieldset>
-                    </div>
-                    <div class="col-lg-6">
-                      <fieldset>
-                        <input type="surname" name="surname" id="surname" placeholder="Your Surname..."
-                          autocomplete="on" required>
-                      </fieldset>
-                    </div>
-                    <div class="col-lg-6">
-                      <fieldset>
-                        <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail..."
-                          required="">
-                      </fieldset>
-                    </div>
-                    <div class="col-lg-6">
-                      <fieldset>
-                        <input type="subject" name="subject" id="subject" placeholder="Subject..." autocomplete="on">
-                      </fieldset>
-                    </div>
-                    <div class="col-lg-12">
-                      <fieldset>
-                        <textarea name="message" id="message" placeholder="Your Message"></textarea>
-                      </fieldset>
-                    </div>
-                    <div class="col-lg-12">
-                      <fieldset>
-                        <button type="submit" id="form-submit" class="orange-button">Send Message Now</button>
-                      </fieldset>
-                    </div>
+        <div class="col-md-4">
+          <div class="card feature-box">
+            <div class="feature-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <div class="card-body">
+              <h3 class="feature-title">Multi-Language Support</h3>
+              <p class="feature-text">Support for various programming languages, making it versatile for all your coding needs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Editor Section -->
+  <section class="section" id="code-editor">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="section-title text-start">
+            <h2>Powerful <span style="color: #aa5cef;">Code Editor</span></h2>
+            <div class="line-dec mb-4"></div>
+            <p class="mb-4">Master Error's code editor is designed to provide a seamless coding experience. With features like syntax highlighting, auto-completion, and real-time error detection, you can write and debug your code efficiently.</p>
+            <p class="mb-4">Whether you're working on a small script or a large project, our code editor is equipped to handle it all. Plus, with support for multiple programming languages, you can switch between languages effortlessly.</p>
+            <a href="/executor" class="btn btn-primary">Let's Code</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="code-editor-preview text-center">
+            <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Code Editor Preview" class="img-fluid rounded shadow-lg">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ 
+
+  <!-- Contact Section -->
+  <section class="section text-center" id="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Get In <span style="color: #aa5cef;">Touch</span></h2>
+        <p>Have questions or feedback? We'd love to hear from you!</p>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <form id="contact-form" action="" method="post">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
                   </div>
-                </form>
-                <div class="more-info">
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="info-item">
-                        <i class="fa fa-phone"></i>
-                        <h4><a href="#">7355995211 or 8840402886</a></h4>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="info-item">
-                        <i class="fa fa-envelope"></i>
-                        <h4><a href="#">mastererror@email.com</a></h4>
-                        
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="info-item">
-                        <i class="fa fa-map-marker"></i>
-                        <h4><a href="#">Lucknow, Uttar Pradesh, India</a></h4>
-                      </div>
-                    </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="surname" class="form-label">Your Surname</label>
+                    <input type="text" class="form-control" id="surname" name="surname" required>
                   </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" class="form-control" id="subject" name="subject">
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <label for="message" class="form-label">Your Message</label>
+                  <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary contact-btn w-100">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <h3 class="mb-4 text-center">Contact Information</h3>
+              <div class="d-flex align-items-center mb-4 justify-content-center">
+                <div class="feature-icon" style="width: 50px; height: 50px; min-width: 50px;">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div class="ms-3">
+                  <h5 class="contact-label">Phone</h5>
+                  <p class="contact-info">7355995211 or 8840402886</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-4 justify-content-center">
+                <div class="feature-icon" style="width: 50px; height: 50px; min-width: 50px;">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="ms-3">
+                  <h5 class="contact-label">Email</h5>
+                  <p class="contact-info">mastererror@email.com</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-center justify-content-center">
+                <div class="feature-icon" style="width: 50px; height: 50px; min-width: 50px;">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="ms-3">
+                  <h5 class="contact-label">Location</h5>
+                  <p class="contact-info">Lucknow, Uttar Pradesh, India</p>
                 </div>
               </div>
             </div>
@@ -243,35 +170,288 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
 {% endblock %}
+
 {% block css %}
+<style>
+  /* Hero section custom styles */
+  .hero {
+    padding-top: 180px;
+    padding-bottom: 100px;
+    background: linear-gradient(135deg, rgba(94, 23, 235, 0.05), rgba(170, 92, 239, 0.1));
+  }
+  
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  
+  .line-dec {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(45deg, #5e17eb, #aa5cef);
+    margin-bottom: 20px;
+  }
+  
+  .hero-img {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  body.dark-mode .hero-img {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .code-editor-preview img {
+    transform: perspective(1000px) rotateY(-15deg);
+    transition: all 0.5s ease;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  body.dark-mode .code-editor-preview img {
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .code-editor-preview img:hover {
+    transform: perspective(1000px) rotateY(0);
+  }
+  
+  /* Contact section styles */
+  .contact-btn {
+    background: linear-gradient(45deg, #5e17eb, #aa5cef);
+    border: none;
+    color: white !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(94, 23, 235, 0.3);
+  }
+  
+  .contact-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(94, 23, 235, 0.4);
+    background: linear-gradient(45deg, #7029fa, #bb7ef0);
+  }
+  
+  body.dark-mode .contact-btn {
+    box-shadow: 0 4px 8px rgba(170, 92, 239, 0.5);
+  }
+  
+  .contact-label {
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: 5px;
+    transition: color 0.3s ease;
+  }
+  
+  body.dark-mode .contact-label {
+    color: var(--text-light);
+  }
+  
+  .contact-info {
+    color: #6c757d;
+    margin-bottom: 0;
+    transition: color 0.3s ease;
+  }
+  
+  body.dark-mode .contact-info {
+    color: var(--gray-300);
+  }
+  
+  .form-label {
+    color: var(--text-dark);
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  
+  body.dark-mode .form-label {
+    color: var(--text-light);
+  }
+  
+  /* Form inputs in dark mode */
+  body.dark-mode .form-control {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+  }
+  
+  body.dark-mode .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  /* Feature styles */
+  .feature-box {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .feature-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #5e17eb, #aa5cef);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 25px;
+    box-shadow: 0 10px 20px rgba(170, 92, 239, 0.3);
+  }
+  
+  .feature-icon i {
+    font-size: 2rem;
+    color: white;
+  }
+  
+  .feature-title {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .feature-text {
+    text-align: center;
+    margin-bottom: 0;
+  }
+  
+  body.dark-mode .feature-icon {
+    box-shadow: 0 10px 20px rgba(170, 92, 239, 0.2);
+  }
+  
+  body.dark-mode .feature-icon i {
+    color: white;
+  }
 
+  /* Contact section styles */
+  .contact-btn {
+    background: linear-gradient(45deg, #5e17eb, #aa5cef);
+    border: none;
+    color: white !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(94, 23, 235, 0.3);
+  }
+  
+  .contact-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(94, 23, 235, 0.4);
+    background: linear-gradient(45deg, #7029fa, #bb7ef0);
+  }
+  
+  body.dark-mode .contact-btn {
+    box-shadow: 0 4px 8px rgba(170, 92, 239, 0.5);
+  }
+  
+  .contact-label {
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: 5px;
+    transition: color 0.3s ease;
+  }
+  
+  body.dark-mode .contact-label {
+    color: var(--text-light);
+  }
+  
+  .contact-info {
+    color: #6c757d;
+    margin-bottom: 0;
+    transition: color 0.3s ease;
+  }
+  
+  body.dark-mode .contact-info {
+    color: var(--gray-300);
+  }
+  
+  .feature-icon {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 8px rgba(94, 23, 235, 0.3);
+  }
+
+  body.dark-mode .feature-icon {
+    box-shadow: 0 4px 8px rgba(170, 92, 239, 0.5);
+  }
+
+  .card {
+    background-color: white;
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    height: 100%;
+  }
+
+  body.dark-mode .card {
+    background-color: #292941;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .form-control {
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    transition: var(--transition);
+  }
+
+  body.dark-mode .form-control {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+  }
+
+  .form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(94, 23, 235, 0.25);
+  }
+</style>
 {% endblock %}
+
 {% block js %}
-
-{% endblock %}
-{% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Master Error</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/signup">Signup</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<script>
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+  
+  // Animate elements when they come into view
+  function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.top + rect.height >= 0
+    );
+  }
+  
+  function handleScrollAnimation() {
+    document.querySelectorAll('.feature-box, .testimonial, .card').forEach(item => {
+      if (isInViewport(item) && !item.classList.contains('animated')) {
+        item.classList.add('animated', 'fade-in');
+      }
+    });
+  }
+  
+  window.addEventListener('scroll', handleScrollAnimation);
+  window.addEventListener('load', handleScrollAnimation);
+</script>
 {% endblock %}

@@ -5,8 +5,16 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 from geminiapi import executor, analyzer
 import markdown
 import os
+from dotenv import load_dotenv
+from werkzeug.utils import secure_filename
+from datetime import datetime, timedelta
+from authlib.integrations.flask_client import OAuth
+from urllib.parse import urlencode
+import secrets
+from flask_mail import Mail, Message
 
-
+# Load environment variables
+load_dotenv()
 
 chat_sessions = {}
 error_detector_model = analyzer()
@@ -16,9 +24,44 @@ executor_model = executor()
 app = Flask(__name__)
 app.secret_key = 'supersecretmre'
 
+# OAuth Configuration
+oauth = OAuth(app)
+
+# Google OAuth
+google = oauth.register(
+    name='google',
+    client_id='YOUR_GOOGLE_CLIENT_ID',
+    client_secret='YOUR_GOOGLE_CLIENT_SECRET',
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    access_token_params=None,
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    authorize_params=None,
+    api_base_url='https://www.googleapis.com/oauth2/v1/',
+    client_kwargs={'scope': 'openid email profile'},
+)
+
+# Facebook OAuth
+facebook = oauth.register(
+    name='facebook',
+    client_id='YOUR_FACEBOOK_CLIENT_ID',
+    client_secret='YOUR_FACEBOOK_CLIENT_SECRET',
+    access_token_url='https://graph.facebook.com/oauth/access_token',
+    access_token_params=None,
+    authorize_url='https://www.facebook.com/dialog/oauth',
+    authorize_params=None,
+    api_base_url='https://graph.facebook.com/',
+    client_kwargs={'scope': 'email'},
+)
+
 # Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'your-email@gmail.com')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'your-app-password')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME', 'your-email@gmail.com')
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
@@ -32,15 +75,34 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255), nullable=False)
     user_type = db.Column(db.String(20), nullable=False)
     profile_picture = db.Column(db.String(255), nullable=True)
+    bio = db.Column(db.Text, nullable=True)
+    location = db.Column(db.String(100), nullable=True)
+    skills = db.Column(db.String(255), nullable=True)
+    interests = db.Column(db.String(255), nullable=True)
+    posts = db.Column(db.Integer, default=0)
+    solutions = db.Column(db.Integer, default=0)
+    reputation = db.Column(db.Integer, default=0)
+    github_url = db.Column(db.String(255), nullable=True)
+    linkedin_url = db.Column(db.String(255), nullable=True)
+    twitter_url = db.Column(db.String(255), nullable=True)
+    website_url = db.Column(db.String(255), nullable=True)
     
     def __init__(self, username, email, password, user_type):
         self.username = username
         self.email = email
         self.password = password
         self.user_type = user_type
-    
+
+# Create database tables
 with app.app_context():
-    db.create_all()
+    # db.drop_all()  # Drop all existing tables - Commented out to preserve user data
+    db.create_all()  # Create new tables with updated schema
+
+# Email Configuration
+mail = Mail(app)
+
+# Password Reset Tokens
+password_reset_tokens = {}
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -133,26 +195,22 @@ def execute_code():
 
         # If this is the first request (not an input response)
         if not is_input_response:
-            # Send initial code to executor
             response = chat_sessions[session_id]["executor"].send_message(code)
         else:
-            # Format the user input to make it clear to the model
             formatted_input = f"User provided input: {user_input}"
-            # Send user input as a response to the executor's request
             response = chat_sessions[session_id]["executor"].send_message(formatted_input)
 
-        # Convert markdown to HTML with extensions
+        # Convert markdown to HTML
         html_response = markdown.markdown(
             response.text,
             extensions=[
-                "fenced_code",  # For code blocks
-                "tables",  # For tables
-                "nl2br",  # For converting newlines to line breaks
-                "sane_lists",  # For cleaner lists
+                "fenced_code",
+                "tables", 
+                "nl2br",
+                "sane_lists",
             ],
         )
 
-        # Check if the response is asking for input
         requires_input = "USER_INPUT_REQUIRED:" in response.text
         
         return jsonify({
@@ -253,58 +311,35 @@ def login():
     return render_template('login.html')
 
 # Forgot Password Route
-@app.route('/forgot_password', methods=['GET', 'POST'])
+@app.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
-    email_provided = None
-
     if request.method == 'POST':
-        if 'confirmed_email' in request.form:
-            # Handle password reset
-            email = request.form.get('confirmed_email')
-            new_password = request.form.get('new_password')
-            confirm_password = request.form.get('confirm_password')
-
-            if not email:
-                flash('Email is missing. Please try again.', 'danger')
-                return render_template('forgot_password.html', email_provided=None)
-
-            if not new_password or not confirm_password:
-                flash('Please fill out all password fields.', 'danger')
-                return render_template('forgot_password.html', email_provided=email)
-
-            if new_password != confirm_password:
-                flash('Passwords do not match!', 'danger')
-                return render_template('forgot_password.html', email_provided=email)
-
-            user = User.query.filter_by(email=email).first()
-            if user:
-                hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
-                user.password = hashed_password
+        email = request.form.get('email')
+        new_password = request.form.get('new_password')
+        confirm_password = request.form.get('confirm_password')
+        
+        user = User.query.filter_by(email=email).first()
+        
+        if user:
+            if new_password and confirm_password:
+                # Password reset phase
+                if new_password != confirm_password:
+                    flash('Passwords do not match.', 'danger')
+                    return render_template('forgot_password.html', email_provided=email)
+                
+                # Update password
+                user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
                 db.session.commit()
-                flash('Password has been reset successfully!', 'success')
+                flash('Your password has been updated! You can now log in.', 'success')
                 return redirect(url_for('login'))
             else:
-                flash('User not found!', 'danger')
-                return render_template('forgot_password.html', email_provided=None)
-
-        elif 'email' in request.form:
-            # Handle email verification
-            email = request.form.get('email')
-
-            if not email:
-                flash('Please provide an email address.', 'danger')
-                return render_template('forgot_password.html', email_provided=None)
-
-            user = User.query.filter_by(email=email).first()
-
-            if not user:
-                flash('Email not found in our system.', 'danger')
-                return render_template('forgot_password.html', email_provided=None)
-
-            email_provided = email
-            flash('Email verified. Set new password.', 'success')
-
-    return render_template('forgot_password.html', email_provided=email_provided)
+                # Email verification phase
+                flash('Please enter your new password.', 'info')
+                return render_template('forgot_password.html', email_provided=email)
+        else:
+            flash('No account found with that email address.', 'danger')
+    
+    return render_template('forgot_password.html')
 
 @app.route('/update_password', methods=['POST'])
 def update_password():
@@ -351,11 +386,14 @@ def profile():
     return render_template('profile.html')
 
 @app.route('/update-profile', methods=['POST'])
+@login_required
 def update_profile():
     username = request.form.get('username')
     email = request.form.get('email')
-    contact_no = request.form.get('contact_no')
     bio = request.form.get('bio')
+    location = request.form.get('location')
+    skills = request.form.get('skills')
+    interests = request.form.get('interests')
     profile_picture = request.files.get('profile_picture')
 
     if not username or not email:
@@ -366,14 +404,22 @@ def update_profile():
         # Update user details
         current_user.username = username
         current_user.email = email
-        current_user.contact_no = contact_no
         current_user.bio = bio
+        current_user.location = location
+        current_user.skills = skills
+        current_user.interests = interests
 
         # Handle profile picture upload
         if profile_picture:
-            picture_path = os.path.join('static/images', profile_picture.filename)
+            # Generate unique filename
+            filename = secure_filename(profile_picture.filename)
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            filename = f"{timestamp}_{filename}"
+            
+            # Save the file
+            picture_path = os.path.join('static/images', filename)
             profile_picture.save(picture_path)
-            current_user.profile_picture = profile_picture.filename
+            current_user.profile_picture = filename
 
         db.session.commit()
         flash('Profile updated successfully!', 'success')
@@ -382,6 +428,64 @@ def update_profile():
         print(f"Error updating profile: {e}")
         flash('An error occurred while updating your profile.', 'danger')
         return redirect(url_for('profile'))
+
+@app.route('/login/google')
+def google_login():
+    redirect_uri = url_for('google_authorize', _external=True)
+    return google.authorize_redirect(redirect_uri)
+
+@app.route('/login/google/authorize')
+def google_authorize():
+    token = google.authorize_access_token()
+    resp = google.get('userinfo')
+    user_info = resp.json()
+    
+    # Check if user exists
+    user = User.query.filter_by(email=user_info['email']).first()
+    
+    if not user:
+        # Create new user
+        user = User(
+            username=user_info['name'],
+            email=user_info['email'],
+            password=bcrypt.generate_password_hash(os.urandom(24)).decode('utf-8'),
+            user_type='beginner'
+        )
+        db.session.add(user)
+        db.session.commit()
+    
+    login_user(user)
+    flash('Successfully logged in with Google!', 'success')
+    return redirect(url_for('profile'))
+
+@app.route('/login/facebook')
+def facebook_login():
+    redirect_uri = url_for('facebook_authorize', _external=True)
+    return facebook.authorize_redirect(redirect_uri)
+
+@app.route('/login/facebook/authorize')
+def facebook_authorize():
+    token = facebook.authorize_access_token()
+    resp = facebook.get('me?fields=id,name,email')
+    user_info = resp.json()
+    
+    # Check if user exists
+    user = User.query.filter_by(email=user_info['email']).first()
+    
+    if not user:
+        # Create new user
+        user = User(
+            username=user_info['name'],
+            email=user_info['email'],
+            password=bcrypt.generate_password_hash(os.urandom(24)).decode('utf-8'),
+            user_type='beginner'
+        )
+        db.session.add(user)
+        db.session.commit()
+    
+    login_user(user)
+    flash('Successfully logged in with Facebook!', 'success')
+    return redirect(url_for('profile'))
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
