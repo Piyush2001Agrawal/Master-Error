@@ -12,9 +12,14 @@ from authlib.integrations.flask_client import OAuth
 from urllib.parse import urlencode
 import secrets
 from flask_mail import Mail, Message
+import random
+import string
 
 # Load environment variables
 load_dotenv()
+
+# Store OTPs with expiration time
+otp_store = {}
 
 chat_sessions = {}
 error_detector_model = analyzer()
@@ -59,9 +64,9 @@ app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'your-email@gmail.com')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'your-app-password')
-app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME', 'your-email@gmail.com')
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_USERNAME')
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
@@ -310,34 +315,99 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html')
 
+# Helper functions for OTP
+def generate_otp():
+    """Generate a 6-digit OTP"""
+    return ''.join(random.choices(string.digits, k=6))
+
+def send_otp_email(email, otp):
+    """Send OTP via email"""
+    body = f"""
+    Your OTP for password reset is: {otp}
+    This OTP is valid for 10 minutes.
+    
+    If you did not request this, please ignore this email.
+    
+    Regards,
+    MasterError Team
+    """
+    try:
+        msg = Message(
+            'Password Reset OTP - MasterError',
+            recipients=[email],
+            body=body
+        )
+        mail.send(msg)
+        return True
+    except Exception as e:
+        print(f"Error sending email: {e}")
+        return False
+
+def store_otp(email, otp):
+    """Store OTP with 10-minute expiration"""
+    expiration = datetime.now() + timedelta(minutes=10)
+    otp_store[email] = {'otp': otp, 'expiration': expiration}
+
+def verify_otp(email, otp):
+    """Verify OTP and check if it's not expired"""
+    if email not in otp_store:
+        return False
+    stored = otp_store[email]
+    if datetime.now() > stored['expiration']:
+        del otp_store[email]
+        return False
+    is_valid = stored['otp'] == otp
+    if is_valid:
+        del otp_store[email]
+    return is_valid
+
 # Forgot Password Route
 @app.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
         email = request.form.get('email')
+        otp = request.form.get('otp')
         new_password = request.form.get('new_password')
         confirm_password = request.form.get('confirm_password')
         
         user = User.query.filter_by(email=email).first()
         
-        if user:
-            if new_password and confirm_password:
-                # Password reset phase
-                if new_password != confirm_password:
-                    flash('Passwords do not match.', 'danger')
-                    return render_template('forgot_password.html', email_provided=email)
-                
-                # Update password
-                user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
-                db.session.commit()
-                flash('Your password has been updated! You can now log in.', 'success')
-                return redirect(url_for('login'))
-            else:
-                # Email verification phase
-                flash('Please enter your new password.', 'info')
-                return render_template('forgot_password.html', email_provided=email)
-        else:
+        if not user:
             flash('No account found with that email address.', 'danger')
+            return render_template('forgot_password.html')
+
+        # Step 1: User enters email and requests OTP
+        if not otp and not new_password:
+            # Generate and send OTP
+            new_otp = generate_otp()
+            if send_otp_email(email, new_otp):
+                store_otp(email, new_otp)
+                flash('OTP has been sent to your email. Please check your inbox.', 'success')
+                return render_template('forgot_password.html', email_provided=email, show_otp=True)
+            else:
+                flash('Error sending OTP. Please try again.', 'danger')
+                return render_template('forgot_password.html')
+        
+        # Step 2: User enters OTP
+        elif otp and not new_password:
+            if verify_otp(email, otp):
+                flash('OTP verified. Please enter your new password.', 'success')
+                return render_template('forgot_password.html', email_provided=email, otp_verified=True)
+            else:
+                flash('Invalid or expired OTP. Please try again.', 'danger')
+                return render_template('forgot_password.html', email_provided=email, show_otp=True)
+        
+        # Step 3: User enters new password
+        elif new_password and confirm_password:
+            if new_password != confirm_password:
+                flash('Passwords do not match.', 'danger')
+                return render_template('forgot_password.html', email_provided=email, otp_verified=True)
+            
+            # Update password
+            user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+            db.session.commit()
+            flash('Your password has been updated! You can now log in.', 'success')
+            return redirect(url_for('login'))
     
     return render_template('forgot_password.html')
 
