@@ -33,35 +33,37 @@ app.secret_key = 'supersecretmre'
 oauth = OAuth(app)
 
 # Google OAuth
+if not os.getenv('GOOGLE_CLIENT_ID') or not os.getenv('GOOGLE_CLIENT_SECRET'):
+    print("Warning: Google OAuth credentials not set. Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in .env file")
+
+# Define the redirect URI explicitly
+GOOGLE_REDIRECT_URI = 'http://127.0.0.1:5000/login/google/authorize'
+
 google = oauth.register(
     name='google',
-    client_id='YOUR_GOOGLE_CLIENT_ID',
-    client_secret='YOUR_GOOGLE_CLIENT_SECRET',
-    access_token_url='https://accounts.google.com/o/oauth2/token',
-    access_token_params=None,
-    authorize_url='https://accounts.google.com/o/oauth2/auth',
-    authorize_params=None,
-    api_base_url='https://www.googleapis.com/oauth2/v1/',
-    client_kwargs={'scope': 'openid email profile'},
+    client_id=os.getenv('GOOGLE_CLIENT_ID'),
+    client_secret=os.getenv('GOOGLE_CLIENT_SECRET'),
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+    authorize_url='https://accounts.google.com/o/oauth2/v2/auth',
+    access_token_url='https://oauth2.googleapis.com/token',
+    api_base_url='https://www.googleapis.com/oauth2/v3/',
+    userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo',
+    client_kwargs={
+        'scope': 'openid email profile',
+        'prompt': 'consent',
+        'response_type': 'code',
+        'token_endpoint_auth_method': 'client_secret_basic',
+        'redirect_uri': GOOGLE_REDIRECT_URI
+    }
 )
 
-# Facebook OAuth
-facebook = oauth.register(
-    name='facebook',
-    client_id='YOUR_FACEBOOK_CLIENT_ID',
-    client_secret='YOUR_FACEBOOK_CLIENT_SECRET',
-    access_token_url='https://graph.facebook.com/oauth/access_token',
-    access_token_params=None,
-    authorize_url='https://www.facebook.com/dialog/oauth',
-    authorize_params=None,
-    api_base_url='https://graph.facebook.com/',
-    client_kwargs={'scope': 'email'},
-)
+
 
 # Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['SESSION_COOKIE_SECURE'] = True
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
@@ -115,7 +117,10 @@ def load_user(user_id):
 
 @app.before_request
 def require_login():
-    allowed_routes = ['login', 'signup', 'forgot_password', 'update_password', 'static']
+    allowed_routes = [
+        'login', 'signup', 'forgot_password', 'update_password', 'static',
+        'google_login', 'google_authorize', 'facebook_login', 'facebook_authorize'
+    ]
     if not current_user.is_authenticated and request.endpoint not in allowed_routes:
         return redirect(url_for('login'))
 
@@ -501,32 +506,85 @@ def update_profile():
 
 @app.route('/login/google')
 def google_login():
-    redirect_uri = url_for('google_authorize', _external=True)
-    return google.authorize_redirect(redirect_uri)
+    if not os.getenv('GOOGLE_CLIENT_ID') or not os.getenv('GOOGLE_CLIENT_SECRET'):
+        flash('Google login is not configured. Please check your configuration.', 'danger')
+        return redirect(url_for('login'))
+
+    # Store the next URL if provided
+    next_url = request.args.get('next')
+    if next_url:
+        session['next_url'] = next_url
+
+    # Generate a random state
+    state = secrets.token_urlsafe(16)
+    session['oauth_state'] = state
+    
+    try:
+        return google.authorize_redirect(redirect_uri=GOOGLE_REDIRECT_URI, state=state)
+    except Exception as e:
+        print(f"Google login error: {str(e)}")
+        flash('An error occurred during Google login. Please try again.', 'danger')
+        return redirect(url_for('login'))
 
 @app.route('/login/google/authorize')
 def google_authorize():
-    token = google.authorize_access_token()
-    resp = google.get('userinfo')
-    user_info = resp.json()
-    
-    # Check if user exists
-    user = User.query.filter_by(email=user_info['email']).first()
-    
-    if not user:
-        # Create new user
-        user = User(
-            username=user_info['name'],
-            email=user_info['email'],
-            password=bcrypt.generate_password_hash(os.urandom(24)).decode('utf-8'),
-            user_type='beginner'
-        )
-        db.session.add(user)
-        db.session.commit()
-    
-    login_user(user)
-    flash('Successfully logged in with Google!', 'success')
-    return redirect(url_for('profile'))
+    try:
+        # Verify state
+        state = session.pop('oauth_state', None)
+        if not state or state != request.args.get('state'):
+            flash('Invalid state parameter. Please try again.', 'danger')
+            return redirect(url_for('login'))
+
+        token = google.authorize_access_token()
+        if not token:
+            flash('Failed to get token from Google', 'danger')
+            return redirect(url_for('login'))
+            
+        # Get user info using the userinfo endpoint
+        resp = google.get('userinfo', token=token)
+        if resp.status_code != 200:
+            flash('Failed to get user info from Google', 'danger')
+            return redirect(url_for('login'))
+            
+        user_info = resp.json()
+        
+        if not user_info.get('email'):
+            flash('Failed to get email from Google', 'danger')
+            return redirect(url_for('login'))
+        
+        # Check if user exists
+        user = User.query.filter_by(email=user_info['email']).first()
+        
+        if not user:
+            # Create new user
+            username = user_info.get('name', '').replace(' ', '_').lower()
+            # Ensure username is unique
+            base_username = username
+            counter = 1
+            while User.query.filter_by(username=username).first():
+                username = f"{base_username}_{counter}"
+                counter += 1
+                
+            user = User(
+                username=username,
+                email=user_info['email'],
+                password=bcrypt.generate_password_hash(os.urandom(24)).decode('utf-8'),
+                user_type='beginner'
+            )
+            db.session.add(user)
+            db.session.commit()
+        
+        login_user(user)
+        flash('Successfully logged in with Google!', 'success')
+        
+        # Redirect to next_url if it exists
+        next_url = session.pop('next_url', None)
+        return redirect(next_url or url_for('profile'))
+        
+    except Exception as e:
+        print(f"Google login error: {str(e)}")
+        flash('An error occurred during Google login. Please try again.', 'danger')
+        return redirect(url_for('login'))
 
 @app.route('/login/facebook')
 def facebook_login():
