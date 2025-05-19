@@ -1,123 +1,241 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- About Hero Section -->
+<section class="hero about-hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="about-content fade-in">
+          <h1 class="hero-title">About <span style="background: linear-gradient(45deg, #5e17eb, #aa5cef); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Master Error</span></h1>
+          <div class="line-dec mb-4"></div>
+          <p class="about-text">Master Error is a comprehensive platform designed to help developers identify, understand, and resolve programming errors efficiently. Our mission is to make coding more accessible, efficient, and educational for everyone.</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="text-center">
+          <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="About Master Error" class="about-img">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mission & Vision Section -->
+<section class="section  ">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="text-center mb-4 mb-lg-0">
+          <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Mission" class="mission-img img-fluid rounded shadow-lg">
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="mission-content">
+          <div class="section-title text-start">
+            <h2>Our <span style="color: #aa5cef;">Mission</span></h2>
+            <div class="line-dec mb-4"></div>
+            <p class="mb-5">Our mission is to empower developers of all skill levels by providing tools and resources to debug code effectively and learn from their mistakes.</p>
+            
+            <h2>Our <span style="color: #aa5cef;">Vision</span></h2>
+            <div class="line-dec mb-4"></div>
+            <p>We envision a world where every developer can write error-free code with confidence and ease. Through innovative technology and educational resources, we aim to reduce the frustration and time spent debugging, allowing developers to focus on creating amazing solutions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <h2>How <span style="color: #aa5cef;">It Works</span></h2>
+      <p>Experience the simplicity and power of Master Error</p>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <div class="how-it-works">
+          <div class="work-step d-flex align-items-start mb-5">
+            <div class="step-number">
+              <span>1</span>
+            </div>
+            <div class="step-content ms-4">
+              <h3 class="mb-3">Upload Your Code</h3>
+              <p>Simply paste or upload your code to our platform. We support multiple programming languages including Python, JavaScript, Java, C++, and more.</p>
+            </div>
+          </div>
+          
+          <div class="work-step d-flex align-items-start mb-5">
+            <div class="step-number">
+              <span>2</span>
+            </div>
+            <div class="step-content ms-4">
+              <h3 class="mb-3">Detect Errors</h3>
+              <p>Our advanced system will analyze your code and identify syntax errors, logical issues, performance bottlenecks, and other common programming mistakes.</p>
+            </div>
+          </div>
+          
+          <div class="work-step d-flex align-items-start">
+            <div class="step-number">
+              <span>3</span>
+            </div>
+            <div class="step-content ms-4">
+              <h3 class="mb-3">Get Solutions</h3>
+              <p>Receive detailed solutions and explanations to fix the errors. Learn from your mistakes and improve your coding skills with each correction.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="text-center">
+          <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="How It Works" class="how-it-works-img img-fluid rounded shadow-lg">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h2 class="mb-3">Ready to elevate your coding experience?</h2>
+          <p class="mb-0 mb-md-0">Join Master Error today and transform the way you debug your code!</p>
+        </div>
+        <div class="col-lg-4 text-center text-lg-end">
+          <a href="/" class="btn btn-primary btn-lg contact-btn">Contact Us Now!</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block css %}
 <style>
-  .about-section {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    padding: 60px 0;
+  /* About page specific styles */
+  .about-hero {
+    padding-top: 180px;
+    padding-bottom: 100px;
+    background: linear-gradient(135deg, rgba(94, 23, 235, 0.05), rgba(170, 92, 239, 0.1));
   }
-  .about-section h2 {
-    font-size: 2.5rem;
-    color: #343a40;
+  
+  .about-content {
+    padding-right: 20px;
   }
-  .about-section p {
+  
+  .about-text {
     font-size: 1.1rem;
-    color: #6c757d;
+    line-height: 1.8;
+    color: var(--feature-text-color);
+  }
+  
+  .about-img, .mission-img, .how-it-works-img {
+    border-radius: 15px;
+    box-shadow: 0 20px 40px var(--card-shadow);
+    max-width: 100%;
+    transition: all 0.5s ease;
+  }
+  
+  .about-img:hover, .mission-img:hover, .how-it-works-img:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 50px var(--card-shadow);
+  }
+  
+  /* Contact button with better visibility in both themes */
+  .contact-btn {
+    background: linear-gradient(45deg, #5e17eb, #aa5cef);
+    border: none;
+    color: white !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(94, 23, 235, 0.3);
+  }
+  
+  .contact-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(94, 23, 235, 0.4);
+    background: linear-gradient(45deg, #7029fa, #bb7ef0);
+  }
+  
+  body.dark-mode .contact-btn {
+    box-shadow: 0 4px 8px rgba(170, 92, 239, 0.5);
+  }
+  
+  .step-number {
+    min-width: 50px;
+  }
+  
+  .step-number span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, #5e17eb, #aa5cef);
+    color: white;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: 600;
+    box-shadow: 0 10px 20px rgba(170, 92, 239, 0.3);
+  }
+  
+  .step-content h3 {
+    font-size: 1.5rem;
+    color: var(--font-color);
+    font-weight: 600;
+  }
+  
+  .step-content p {
+    color: var(--feature-text-color);
+    font-size: 1.05rem;
+  }
+  
+  .cta-section {
+    background: linear-gradient(135deg, rgba(94, 23, 235, 0.03), rgba(170, 92, 239, 0.07));
+  }
+  
+  .cta-card {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 50px;
+    box-shadow: 0 15px 30px var(--card-shadow);
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95)), url('https://images.unsplash.com/photo-1484417894907-623942c8ee29?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  body.dark-mode .cta-card {
+    background-image: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(30, 30, 30, 0.95)), url('https://images.unsplash.com/photo-1484417894907-623942c8ee29?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
   }
 </style>
+{% endblock %}
 
-<div class="page-heading about-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-5 align-self-center">
-        <img src="static/images/about-us-image.jpg" alt="" class="img-fluid">
-      </div>
-      <div class="col-lg-7 align-self-center">
-        <div class="caption header-text">
-          <h2>Master Error</h2>
-          <div class="line-dec"></div>
-          <h1>About Master Error</h1>
-          <p>Master Error is a comprehensive platform designed to help developers identify, understand, and resolve programming errors efficiently. Our mission is to make coding more accessible, efficient, and educational for everyone.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+{% block js %}
+<script>
+  // Animate elements when they come into view
+  function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.top + rect.height >= 0
+    );
+  }
   
-  <div class="video-info section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="video-thumb">
-            <img src="static/images/mission.jpg" alt="">
-            <!--<a href="http://youtube.com" target="_blank"><i class="fa fa-play"></i></a>-->
-          </div>
-        </div>
-        <div class="col-lg-6 align-self-center">
-          <div class="section-heading">
-            <h2>Our Mission</h2>
-              <p>Our mission is to empower developers of all skill levels by providing tools and resources to debug code effectively and learn from their mistakes.</p>
-      
-            <div class="line-dec"></div>
-            <h2>Our Vision</h2>
-              <p>We envision a world where every developer can write error-free code with confidence and ease.</p>
-          </div>
-          <!--<div class="skills">
-            <div class="skill-slide marketing">
-              <div class="fill"></div>
-              <h6>SEO Marketing</h6>
-              <span>90%</span>
-            </div>
-            <div class="skill-slide digital">
-              <div class="fill"></div>
-              <h6>Digital Marketing</h6>
-              <span>80%</span>
-            </div>
-            <div class="skill-slide media">
-              <div class="fill"></div>
-              <h6>Social Media Management</h6>
-              <span>95%</span>
-            </div>
-          </div>-->
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="happy-clients section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-7">
-          <div class="section-heading">
-            <h2><span>How to work</span></h2>
-            <div class="line-dec"></div>
-            <div class="work-steps">
-              <span>1</span>
-              <h3>Upload Your Code</h3>
-              <p>Paste or upload your code to the platform.</p>
-              
-              <span>2</span>
-              <h3>Detect Errors</h3>
-              <p>Our system will analyze your code and identify errors.</p>
-              
-              <span>3</span>
-              <h3>Get Solutions</h3>
-              <p>Receive detailed solutions and explanations to fix the errors.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-5 align-self-center">
-          <img src="static/images/master-error.jpg" alt="" class="img-fluid">
-        </div>
-      </div>
-    </div>
-</div>
+  function handleScrollAnimation() {
+    document.querySelectorAll('.work-step, .about-img, .mission-img, .how-it-works-img').forEach(item => {
+      if (isInViewport(item) && !item.classList.contains('animated')) {
+        item.classList.add('animated', 'fade-in');
+      }
+    });
+  }
   
-        
-
-  <div class="cta section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8">
-          <h4>Are You Ready To Work &amp; Develop With Us ?<br>Don't Hesitate &amp; Contact Us !</h4>
-        </div>
-        <div class="col-lg-4">
-          <div class="main-button">
-            <a href="/">Contact Us Now!</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-{%  endblock %}
+  window.addEventListener('scroll', handleScrollAnimation);
+  window.addEventListener('load', handleScrollAnimation);
+</script>
+{% endblock %}

@@ -1,435 +1,744 @@
 {% extends "base.html" %}
-{% block content %}
-
-<style>
-    .main-content {
-        padding-top: 80px; /* Adjust this value based on the height of the navbar */
-    }
-</style>
-
-<div class="main-content">
-<section>
-<!-- IDE Container -->
-<div class="ide-container">
-    <!-- IDE Header -->
-    <div class="ide-header">
-        <div class="logo">Master Error IDE</div>
-        <div class="ide-controls">
-            <button id="analyze-btn" class="ide-btn analyze-btn">
-                <i class="fas fa-search"></i> Analyze
-            </button>
-            <button id="execute-btn" class="ide-btn execute-btn">
-                <i class="fas fa-play"></i> Execute
-            </button>
-            <button id="clear-btn" class="ide-btn clear-btn">
-                <i class="fas fa-trash"></i> Clear
-            </button>
-        </div>
-    </div>
-
-    <!-- Editor + Output Panels -->
-    <div class="ide-panels">
-        <!-- Editor Panel -->
-        <div class="editor-panel">
-            <textarea id="code-editor"># Start coding here...
-def example():
-    print("Hello Master Error!")
-</textarea>
-        </div>
-    
-    
-        </div>
-    </section>
-    <section>    
-        <!-- Output Panel -->
-        <div class="output-panel">
-            <div class="panel-tabs">
-                <button class="tab-btn active" data-tab="analysis">Analysis</button>
-                <button class="tab-btn" data-tab="execution">Execution</button>
-            </div>
-            <div class="panel-content">
-                <div id="analysis-output" class="tab-content active" data-tab="analysis" style="border: 2px solid #4caf50; border-radius: 5px; padding: 10px;">
-                    <h4>Code Analysis</h4>
-                    <pre id="analysis-code-block">
-                      
-                    </pre>
-                    <p>Code analysis will appear here...</p>
-                </div>
-                <div id="execution-output" class="tab-content" data-tab="execution" style="border: 2px solid #2196f3; border-radius: 5px; padding: 10px;">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</section>
-</div>
-{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/hint/show-hint.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/lint/lint.min.css"/>    
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/dialog/dialog.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/scroll/simplescrollbars.min.css"/>
+
 <style>
-    /* IDE Container */
-    .ide-container {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        background: #282a36;
-        background: #2f47cb;
-        color: #171715;
-        font-family: "Fira Code", monospace;
-        
-    }
-
-    /* IDE Header */
-    .ide-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-        background: #28065f;
-        border-bottom: 1px solid #333;
-    }
-
-    .logo {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #f8fbfa;
-    }
-
-    .ide-controls {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
-
-    .ide-btn {
-        padding: 8px 16px;
-        border-radius: 4px;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-family: "Segoe UI", sans-serif;
-        font-weight: 600;
-        transition: all 0.2s;
-    }
-
-    .ide-btn:hover {
-        transform: translateY(-2px);
-    }
-
-    .analyze-btn {
-        background: #2196f3;
-        color: white;
-    }
-    
-    .execute-btn {
-        background: #4caf50;
-        color: white;
-    }
-    
-    .clear-btn {
-        background: #f44336;
-        color: white;
-    }
-
-    /* IDE Panels */
+  .executor-section {
+    padding: 50px 0;
+    background-color: var(--gray-100);
+    min-height: calc(100vh - 90px);
+  }
+  
+  body.dark-mode .executor-section {
+    background-color: var(--dark);
+  }
+  
+  .executor-header {
+    margin-bottom: 2rem;
+  }
+  
+  .executor-title {
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+  
+  .executor-subtitle {
+    color: var(--gray-600);
+    margin-bottom: 2rem;
+  }
+  
+  body.dark-mode .executor-subtitle {
+    color: var(--gray-200);
+  }
+  
+  .ide-container {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    background-color: white;
+    transition: var(--transition);
+  }
+  
+  body.dark-mode .ide-container {
+    background-color: #1E1E2F;
+  }
+  
+  .ide-container:hover {
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .ide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+  }
+  
+  .ide-logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+  }
+  
+  .ide-logo i {
+    margin-right: 0.75rem;
+    font-size: 1.5rem;
+  }
+  
+  .ide-controls {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .ide-btn {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    transition: var(--transition);
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+  }
+  
+  .ide-btn:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+  }
+  
+  .ide-btn i {
+    margin-right: 0.5rem;
+  }
+  
+  .analyze-btn {
+    background-color: #4361ee;
+  }
+  
+  .execute-btn {
+    background-color: #4caf50;
+  }
+  
+  .clear-btn {
+    background-color: #e74c3c;
+  }
+  
+  .ide-panels {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+  }
+  
+  @media (min-width: 992px) {
     .ide-panels {
-        display: flex;
-        flex: 1;
-        overflow: hidden;
+      flex-direction: row;
     }
-
-    .editor-panel {
-        flex: 1;
-        position: relative;
-    }
-
+  }
+  
+  .editor-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--gray-300);
+  }
+  
+  body.dark-mode .editor-panel {
+    border-right-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .editor-wrapper {
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .CodeMirror {
+    height: 100% !important;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+  }
+  
+  .CodeMirror-linenumber {
+    padding-right: 12px;
+  }
+  
+  .output-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-top: 1px solid var(--gray-300);
+  }
+  
+  @media (min-width: 992px) {
     .output-panel {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        background: #ece7f8;
-        border-left: 2px solid #0f0e0e;
-        border: 5px solid #b2dab2; /* Add a green border for code suggestions */
+      max-width: 50%;
+      border-top: none;
     }
-
-    /* Output Panel Enhancements */
-    .output-panel .suggested-code {
-        background: #1e1e2e;
-        border: 2px solid #4caf50;
-        border-radius: 5px;
-        padding: 10px;
-        margin-top: 10px;
-        font-family: "Consolas", monospace;
-        font-size: 14px;
-        color: #e0e0e0;
-        white-space: pre-wrap;
-        overflow-x: auto;
-    }
-
-    .output-panel .suggested-code h4 {
-        color: #8be9fd;
-        margin-bottom: 5px;
-    }
-
-    .output-panel .suggested-code pre {
-        margin: 0;
-        padding: 0;
-        background: transparent;
-    }
-
-    .output-panel .suggested-code code {
-        background: #44475a;
-        padding: 5px;
-        border-radius: 3px;
-        display: inline-block;
-    }
-
-    .output-panel .suggested-code .error-snippet {
-        color: #ff5555;
-        background: rgba(255, 85, 85, 0.1);
-        padding: 5px;
-        border-radius: 3px;
-        margin: 5px 0;
-    }
-
-    .output-panel .suggested-code .success-snippet {
-        color: #50fa7b;
-        background: rgba(80, 250, 123, 0.1);
-        padding: 5px;
-        border-radius: 3px;
-        margin: 5px 0;
-    }
-
-    /* Suggested Code Block with Border */
-    .output-panel .suggested-code {
-        background: #2d2d2d; /* Dark background */
-        border: 1px solid #4caf50; /* Green border */
-        border-radius: 8px; /* Rounded corners */
-        padding: 15px; /* Padding inside the block */
-        margin: 10px 0; /* Space around the block */
-        font-family: "Consolas", monospace; /* Monospace font */
-        font-size: 14px; /* Font size */
-        color: #f8f8f2; /* Light text color */
-        overflow-x: auto; /* Horizontal scrolling for long lines */
-        white-space: pre-wrap; /* Preserve whitespace and wrap lines */
-    }
-
-    .output-panel .suggested-code h4 {
-        color: #8be9fd; /* Highlighted title color */
-        margin-bottom: 10px; /* Space below the title */
-    }
-
-    .output-panel .suggested-code code {
-        display: block; /* Block display for code */
-        background: #44475a; /* Slightly lighter background for code */
-        padding: 10px; /* Padding inside the code block */
-        border-radius: 5px; /* Rounded corners for code block */
-        color: #f8f8f2; /* Code text color */
-    }
-
-    /* CodeMirror Overrides */
-    .CodeMirror {
-        height: 100% !important;
-        font-family: "Fira Code", monospace;
-        font-size: 14px;
-        line-height: 1.5;
-    }
-
-    /* Panel Tabs */
-    .panel-tabs {
-        display: flex;
-        border-bottom: 1px solid #333;
-    }
-
-    .tab-btn {
-        padding: 10px 20px;
-        background: transparent;
-        border: none;
-        color: #1c1b1b;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.2s;
-    }
-
-    .tab-btn.active {
-        color: rgb(67, 56, 56);
-        border-bottom: 2px solid #077660;
-    }
-
-    .tab-content {
-        display: none;
-        padding: 15px;
-        overflow-y: auto;
-        height: calc(100% - 40px);
-        font-family: "Consolas", monospace;
-        white-space: pre-wrap;
-    }
-
-    .tab-content.active {
-        display: block;
+  }
+  
+  body.dark-mode .output-panel {
+    background-color: #1E1E2F;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .panel-tabs {
+    display: flex;
+    background-color: var(--gray-100);
+    border-bottom: 1px solid var(--gray-300);
+  }
+  
+  body.dark-mode .panel-tabs {
+    background-color: #292941;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .tab-btn {
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: none;
+    color: var(--text-dark);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    border-bottom: 2px solid transparent;
+  }
+  
+  body.dark-mode .tab-btn {
+    color: var(--text-light);
+  }
+  
+  .tab-btn:hover {
+    color: var(--primary);
+  }
+  
+  .tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+  
+  .panel-content {
+    flex: 1;
+    overflow: auto;
+    padding: 0;
+  }
+  
+  .tab-content {
+    display: none;
+    padding: 1rem;
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  .text-muted {
+    color: var(--gray-600);
+  }
+  
+  body.dark-mode .text-muted {
+    color: var(--gray-300);
+  }
+  
+  .execution-result-item {
+    background-color: var(--gray-100);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-family: 'Consolas', monospace;
+    white-space: pre-wrap;
+    overflow-x: auto;
+  }
+  
+  body.dark-mode .execution-result-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--gray-200);
+  }
+  
+  .execution-result-item h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  
+  body.dark-mode .execution-result-item h3 {
+    color: var(--secondary);
+  }
+  
+  .error {
+    color: #e74c3c;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border-left: 3px solid #e74c3c;
+    background-color: rgba(231, 76, 60, 0.1);
+    border-radius: var(--radius-sm);
+  }
+  
+  body.dark-mode .error {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #ff6b6b;
+  }
+  
+  .success {
+    color: #2ecc71;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border-left: 3px solid #2ecc71;
+    background-color: rgba(46, 204, 113, 0.1);
+    border-radius: var(--radius-sm);
+  }
+  
+  body.dark-mode .success {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #5df593;
+  }
+  
+  /* Input Form Styles */
+  .input-form {
+    margin-top: 1rem;
+  }
+  
+  .input-prompt {
+    padding: 0.75rem;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-left: 3px solid #3498db;
+    margin-bottom: 0.75rem;
+    border-radius: var(--radius-sm);
+  }
+  
+  body.dark-mode .input-prompt {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: #66b3ff;
+  }
+  
+  .input-container {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  
+  .user-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    font-family: 'Consolas', monospace;
+    font-size: 0.875rem;
+    background-color: white;
+  }
+  
+  body.dark-mode .user-input {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--gray-200);
+  }
+  
+  .submit-input {
+    padding: 0.75rem 1.25rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .submit-input:hover {
+    background-color: var(--secondary);
+  }
+  
+  .user-input-display {
+    padding: 0.75rem;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: var(--radius-sm);
+    margin-bottom: 1rem;
+  }
+  
+  body.dark-mode .user-input-display {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--gray-200);
+  }
+  
+  /* Card styles */
+  body.dark-mode .card {
+    background-color: #1E1E2F;
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  body.dark-mode .card-title {
+    color: var(--gray-100);
+  }
+  
+  body.dark-mode .card-text {
+    color: var(--gray-300);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .executor-section {
+      padding: 30px 0;
     }
     
-    .error {
-        color: #ff5555;
-        padding: 10px;
-        margin: 5px 0;
-        border-left: 3px solid #ff5555;
-        background: rgba(255, 85, 85, 0.1);
+    .ide-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
     }
     
-    .success {
-        color: #50fa7b;
-        padding: 10px;
-        margin: 5px 0;
-        border-left: 3px solid #50fa7b;
-        background: rgba(80, 250, 123, 0.1);
+    .ide-controls {
+      width: 100%;
+      justify-content: space-between;
     }
     
-    .execution-result-item {
-        background: #e6e3e3; /* Dark background for output */
-        border: 1px solid #4caf50; /* Green border */
-        border-radius: 8px; /* Rounded corners */
-        padding: 15px; /* Padding inside the block */
-        margin: 10px 0; /* Space around the block */
-        font-family: "Consolas", monospace; /* Monospace font */
-        font-size: 14px; /* Font size */
-        color: #0c0c0c; /* Light text color */
-        overflow-x: auto; /* Horizontal scrolling for long lines */
-        white-space: pre-wrap; /* Preserve whitespace and wrap lines */
-    }
-    .panel-content{
-        height: 100vh;
-        
+    .ide-btn {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
     }
     
-    /* User Input Styles */
-    .input-container {
-        display: flex;
-        margin-top: 10px;
-        margin-bottom: 15px;
+    .ide-panels {
+      height: auto;
     }
     
-    .user-input {
-        flex: 1;
-        padding: 8px 12px;
-        border: 2px solid #4caf50;
-        border-radius: 4px;
-        font-family: "Consolas", monospace;
-        font-size: 14px;
-        background-color: #f8f8f8;
+    .editor-panel, .output-panel {
+      height: 50vh;
     }
-    
-    .submit-input {
-        padding: 8px 16px;
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        margin-left: 8px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-    
-    .submit-input:hover {
-        background-color: #3d8b40;
-    }
-    
-    .user-input-display {
-        margin-top: 10px;
-        padding: 8px;
-        background-color: #f0f0f0;
-        border-left: 3px solid #4caf50;
-        font-style: italic;
-    }
-    
-    .input-form {
-        margin-top: 10px;
-    }
-    
-    .input-prompt {
-        margin-bottom: 10px;
-        padding: 10px;
-        background-color: #e8f5e9;
-        border-left: 4px solid #4caf50;
-        font-weight: bold;
-        color: #2e7d32;
-    }
-
-    pre code {
-        font-size: inherit;
-        color: inherit;
-        font-family: inherit;
-        word-break: normal;
-        background: #dbd9d9; /* Dark background for code block */
-        border: 1px solid #4caf50; /* Green border */
-        border-radius: 8px; /* Rounded corners */
-        padding: 15px; /* Padding inside the block */
-        display: block; /* Ensure block display */
-        overflow-x: auto; /* Horizontal scrolling for long lines */
-        white-space: pre-wrap; /* Preserve whitespace and wrap lines */
-    }
-
-    pre {
-        display: block;
-        margin-top: 0;
-        margin-bottom: 1rem;
-        overflow: auto;
-        font-size: large;
-       /* Match background with code block */
-        border: 1px solid #4caf50; /* Green border for pre block */
-        border-radius: 8px; /* Rounded corners */
-        padding: 15px; /* Padding inside the block */
-    }
-
-    /* Sticky Header */
-    .header-area {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .ide-panels {
-            flex-direction: column;
-        }
-
-        .output-panel {
-            width: 100%;
-            height: 100vh;
-        }
-    }
+  }
 </style>
 {% endblock %}
 
+{% block content %}
+<section class="executor-section">
+  <div class="container">
+    <div class="executor-header">
+      <h2 class="executor-title">Code Executor</h2>
+      <p class="executor-subtitle">Write, analyze and execute code in real-time with Master Error's intelligent debugging system</p>
+    </div>
+    
+    <div class="ide-container slide-up">
+      <div class="ide-header">
+        <div class="ide-logo">
+          <i class="fas fa-code"></i>
+          <span>Master Error IDE</span>
+        </div>
+        <div class="ide-controls">
+          <button id="analyze-btn" class="ide-btn analyze-btn">
+            <i class="fas fa-search"></i> Analyze
+          </button>
+          <button id="execute-btn" class="ide-btn execute-btn">
+            <i class="fas fa-play"></i> Execute
+          </button>
+          <button id="clear-btn" class="ide-btn clear-btn">
+            <i class="fas fa-trash"></i> Clear
+          </button>
+        </div>
+      </div>
+      
+      <div class="ide-panels">
+        <div class="editor-panel">
+          <div class="editor-wrapper">
+            <textarea id="code-editor"># Start coding here...
+def example():
+    print("Hello Master Error!")
+    
+example()</textarea>
+          </div>
+        </div>
+        
+        <div class="output-panel">
+          <div class="panel-tabs">
+            <button class="tab-btn active" data-tab="analysis">Analysis</button>
+            <button class="tab-btn" data-tab="execution">Execution</button>
+          </div>
+          <div class="panel-content">
+            <div id="analysis-output" class="tab-content active" data-tab="analysis">
+              <p class="text-muted">Code analysis will appear here...</p>
+            </div>
+            <div id="execution-output" class="tab-content" data-tab="execution">
+              <p class="text-muted">Code execution results will appear here...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-4">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 slide-up">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-lightbulb text-warning me-2"></i>Smart Analysis</h5>
+              <p class="card-text">Our AI identifies errors, bugs, and optimization opportunities in your code.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 slide-up" style="animation-delay: 0.1s;">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-bolt text-primary me-2"></i>Real-time Execution</h5>
+              <p class="card-text">Run your code directly in the browser and see results immediately.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 slide-up" style="animation-delay: 0.2s;">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-brain text-danger me-2"></i>Learning Focused</h5>
+              <p class="card-text">Get detailed explanations of errors and suggestions to improve your code.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
 {% block js %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/codemirror.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/python/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
 <script src="/static/js/script.js"></script>
+
 <script>
-    // Tab switching functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                this.classList.add('active');
-                document.getElementById(`${this.dataset.tab}-output`).classList.add('active');
-            });
-        });
+  document.addEventListener('DOMContentLoaded', function() {
+    // Generate a session ID
+    const sessionId = uuid.v4();
+    
+    // Initialize CodeMirror
+    const codeEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+      mode: 'python',
+      lineNumbers: true,
+      theme: 'dracula',
+      indentUnit: 4,
+      tabSize: 4,
+      lineWrapping: true,
+      autoCloseBrackets: true,
+      matchBrackets: true
     });
+    
+    // Tab switching functionality
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        this.classList.add('active');
+        document.getElementById(`${this.dataset.tab}-output`).classList.add('active');
+      });
+    });
+    
+    // Analysis button functionality
+    const analyzeBtn = document.getElementById('analyze-btn');
+    const analysisOutput = document.getElementById('analysis-output');
+    
+    analyzeBtn.addEventListener('click', function() {
+      const code = codeEditor.getValue();
+      
+      if (!code.trim()) {
+        showError(analysisOutput, 'Please enter code for analysis.');
+        return;
+      }
+      
+      // Switch to analysis tab
+      document.querySelector('[data-tab="analysis"]').click();
+      
+      // Show loading state
+      analysisOutput.innerHTML = '<div class="execution-result-item"><p>Analyzing code...</p></div>';
+      
+      // Send code for analysis
+      fetch('/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          code: code,
+          session_id: sessionId
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          showError(analysisOutput, data.error);
+        } else {
+          analysisOutput.innerHTML = `<div class="execution-result-item">${data.html}</div>`;
+        }
+      })
+      .catch(error => {
+        showError(analysisOutput, 'Failed to analyze code: ' + error.message);
+      });
+    });
+    
+    // Execute button functionality
+    const executeBtn = document.getElementById('execute-btn');
+    const executionOutput = document.getElementById('execution-output');
+    
+    executeBtn.addEventListener('click', function() {
+      const code = codeEditor.getValue();
+      
+      if (!code.trim()) {
+        showError(executionOutput, 'Please enter code for execution.');
+        return;
+      }
+      
+      // Switch to execution tab
+      document.querySelector('[data-tab="execution"]').click();
+      
+      // Create a new execution result element
+      const resultDiv = document.createElement('div');
+      resultDiv.className = 'execution-result-item';
+      resultDiv.innerHTML = '<h3>Executing code...</h3>';
+      resultDiv.dataset.sessionId = sessionId;
+      resultDiv.dataset.code = code;
+      executionOutput.prepend(resultDiv);
+      
+      executeCode(resultDiv, code, sessionId);
+    });
+    
+    // Function to handle code execution and user input
+    function executeCode(resultDiv, code, sessionId, userInput = '', isInputResponse = false) {
+      fetch('/execute', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          code: code,
+          session_id: sessionId,
+          user_input: userInput,
+          is_input_response: isInputResponse
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          resultDiv.innerHTML = `<div class="error">${data.error}</div>`;
+        } else if (data.requires_input) {
+          // Extract the input prompt from the response
+          let inputPrompt = data.text;
+          if (inputPrompt.includes("USER_INPUT_REQUIRED:")) {
+            inputPrompt = inputPrompt.split("USER_INPUT_REQUIRED:")[1].trim();
+          }
+          
+          // Create input form
+          const inputForm = document.createElement('div');
+          inputForm.className = 'input-form';
+          inputForm.innerHTML = `
+            <div class="input-prompt">${inputPrompt}</div>
+            <div class="input-container">
+              <input type="text" class="user-input" placeholder="Enter your input here...">
+              <button class="submit-input">Submit</button>
+            </div>
+          `;
+          
+          // Replace the current content with the input form
+          resultDiv.innerHTML = '<h3>Input Required</h3>';
+          resultDiv.appendChild(inputForm);
+          
+          // Focus on the input field
+          const inputField = inputForm.querySelector('.user-input');
+          inputField.focus();
+          
+          // Handle input submission
+          const submitBtn = inputForm.querySelector('.submit-input');
+          submitBtn.addEventListener('click', function() {
+            const userInputValue = inputField.value;
+            
+            // Disable the input form
+            inputField.disabled = true;
+            submitBtn.disabled = true;
+            
+            // Show the input that was provided
+            const inputDisplay = document.createElement('div');
+            inputDisplay.className = 'user-input-display';
+            inputDisplay.innerHTML = `<strong>You entered:</strong> ${userInputValue}`;
+            inputForm.appendChild(inputDisplay);
+            
+            // Continue execution with the provided input
+            executeCode(resultDiv, code, sessionId, userInputValue, true);
+          });
+          
+          // Allow pressing Enter to submit
+          inputField.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+              submitBtn.click();
+            }
+          });
+        } else {
+          // Regular response, just show the result
+          resultDiv.innerHTML = `<h3>Execution Result</h3><div>${data.html}</div>`;
+        }
+      })
+      .catch(error => {
+        resultDiv.innerHTML = `<div class="error">Failed to execute code: ${error.message}</div>`;
+      });
+    }
+    
+    // Clear button functionality
+    const clearBtn = document.getElementById('clear-btn');
+    
+    clearBtn.addEventListener('click', function() {
+      // Clear the CodeMirror editor
+      codeEditor.setValue('');
+      
+      // Clear the output panels
+      analysisOutput.innerHTML = '<p class="text-muted">Code analysis will appear here...</p>';
+      executionOutput.innerHTML = '<p class="text-muted">Code execution results will appear here...</p>';
+      
+      // Reset the chat sessions
+      fetch('/clear', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          session_id: sessionId
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
+          const successDiv = document.createElement('div');
+          successDiv.className = 'success';
+          successDiv.textContent = data.message;
+          analysisOutput.innerHTML = '';
+          analysisOutput.appendChild(successDiv);
+        }
+      })
+      .catch(error => {
+        showError(analysisOutput, 'Failed to clear history: ' + error.message);
+      });
+    });
+    
+    // Helper function to show errors
+    function showError(container, message) {
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error';
+      errorDiv.textContent = message;
+      container.innerHTML = '';
+      container.appendChild(errorDiv);
+    }
+    
+    // Apply dark theme to CodeMirror when site is in dark mode
+    const updateEditorTheme = () => {
+      if (document.body.classList.contains('dark-mode')) {
+        codeEditor.setOption('theme', 'dracula');
+      } else {
+        codeEditor.setOption('theme', 'default');
+      }
+    };
+    
+    // Initial theme check
+    updateEditorTheme();
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.attributeName === 'class') {
+          updateEditorTheme();
+        }
+      });
+    });
+    
+    observer.observe(document.body, { attributes: true });
+  });
 </script>
 {% endblock %}

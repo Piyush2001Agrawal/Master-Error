@@ -1,174 +1,379 @@
 {% extends 'base.html' %}
 {% block content %}
-<section>
-<div class="infos section features-section" id="infos">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="main-content">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="left-image">
-                  <img src="static\images\feature.jpg" alt="">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="section-heading">
-                  <h2><em>Features</em></h2>
-                  <div class="line-dec"></div>
-                  <div class="feature-list">
-                    <div class="feature-item">
-                        <h3 style="color: black;">Advanced Error Detection</h3>
-                        <p style="color: black;">Pinpoint issues in your code with our advanced error detection mechanisms.</p>
-                    </div>
-        
-                </div>
-                <div class="feature-item">
-                  <h3 style="color: black;">Detailed Explanations</h3>
-                  <p style="color: black;">Get detailed explanations for each fix to enhance your understanding.</p>
-              </div>
-              <div class="feature-item">
-                <h3 style="color: black;">Multi-Language Support</h3>
-                <p style="color: black;">Supports multiple programming languages for seamless switching.</p>
-            </div>
-            </div>
-            </div>
-            </div>
-        </section>
-        <div class="col-lg-12">
-          <div class="main-content">
-        
-        
-    <section>
-        <div class="container">
-            <h1>Master Error vs. Competitors</h1>
-            
-            <div class="table-responsive">
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th class="feature-col">Feature</th>
-                            <th class="master-error-col">Master Error 🚀</th>
-                            <th>Traditional Debuggers (VS Code, PyCharm)</th>
-                            <th>Stack Overflow</th>
-                            <th>Other AI Tools (GitHub Copilot)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="feature-col">Error Detection</td>
-                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> AI-powered, real-time analysis</td>
-                            <td>Basic syntax highlighting</td>
-                            <td>Manual search required</td>
-                            <td>Limited to suggestions</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-col">Multi-Language Support</td>
-                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Python, JavaScript, Java, C++, etc.</td>
-                            <td>Language-specific plugins needed</td>
-                            <td>Varies by question</td>
-                            <td>Primarily focused on popular languages</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-col">Beginner Explanations</td>
-                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Simple, jargon-free breakdowns</td>
-                            <td>Technical documentation only</td>
-                            <td>Complex answers</td>
-                            <td>Minimal explanation</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-col">Multiple Solutions</td>
-                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> 3-5 fixes per error with pros/cons</td>
-                            <td>Single solution (if any)</td>
-                            <td>Depends on responses</td>
-                            <td>1-2 suggestions</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-col">Learning Tools</td>
-                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Linked programming concepts + examples</td>
-                            <td>None</td>
-                            <td>No structured learning</td>
-                            <td>No educational focus</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-col">Code Privacy</td>
-                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> No storage, optional offline mode</td>
-                            <td>Local but may collect analytics</td>
-                            <td>Public posts</td>
-                            <td>Cloud-based processing</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-col">Collaboration</td>
-                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Team workspaces & shared debugging</td>
-                            <td>Limited to IDE features</td>
-                            <td>Forum-style</td>
-                            <td>Individual use only</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-col">Performance Tips</td>
-                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Optimized code suggestions</td>
-                            <td>Basic linting</td>
-                            <td>Rarely addressed</td>
-                            <td>Occasional optimizations</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-col">Cost</td>
-                            <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Freemium model</td>
-                            <td>Free (with paid IDE tiers)</td>
-                            <td>Free</td>
-                            <td>Paid subscription</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+
+<!-- Features Hero Section -->
+<section class="hero features-hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="features-content fade-in">
+          <h1 class="hero-title">Our <span style="background: linear-gradient(45deg, #5e17eb, #aa5cef); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Features</span></h1>
+          <div class="line-dec mb-4"></div>
+          <p class="features-text">Discover the powerful tools and capabilities that make Master Error the ultimate debugging companion for developers of all skill levels.</p>
         </div>
-    </section>
-            
-            <p>Master Error stands out as a comprehensive solution for developers, offering advanced error detection, multi-language support, and a focus on learning. While traditional tools and platforms have their strengths, they often lack the depth and breadth of features that Master Error provides.</p>
-    </section>
+      </div>
+      <div class="col-lg-6">
+        <div class="text-center">
+          <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Master Error Features" class="features-img">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Key Features Section -->
+<section class="section  " id="key-features">
+  <div class="container">
+    <div class="section-title">
+      <h2>Key <span style="color: #aa5cef;">Features</span></h2>
+      <p>Tools designed to enhance your coding experience</p>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card feature-box">
+          <div class="feature-icon">
+            <i class="fas fa-bug"></i>
+          </div>
+          <div class="card-body">
+            <h3 class="feature-title">Advanced Error Detection</h3>
+            <p class="feature-text">Our AI-powered system can identify syntax errors, logical issues, and performance bottlenecks in your code with high accuracy.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card feature-box">
+          <div class="feature-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="card-body">
+            <h3 class="feature-title">Detailed Explanations</h3>
+            <p class="feature-text">Get comprehensive explanations of errors and fixes, helping you understand the underlying principles and improve your coding skills.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card feature-box">
+          <div class="feature-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <div class="card-body">
+            <h3 class="feature-title">Multi-Language Support</h3>
+            <p class="feature-text">Comprehensive support for Python, JavaScript, Java, C++, and many other programming languages.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-4">
+        <div class="card feature-box">
+          <div class="feature-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="card-body">
+            <h3 class="feature-title">Learning Tools</h3>
+            <p class="feature-text">Access to educational resources and examples to help reinforce concepts and improve your understanding.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-4">
+        <div class="card feature-box">
+          <div class="feature-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <div class="card-body">
+            <h3 class="feature-title">Code Privacy</h3>
+            <p class="feature-text">Your code remains private with no storage retention and optional offline mode for sensitive projects.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mt-4">
+        <div class="card feature-box">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="card-body">
+            <h3 class="feature-title">Collaboration</h3>
+            <p class="feature-text">Team workspaces and shared debugging sessions make it easy to collaborate with colleagues.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison Section -->
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <h2>How We <span style="color: #aa5cef;">Compare</span></h2>
+      <p>See how Master Error stacks up against other developer tools</p>
+    </div>
+    <div class="comparison-table-wrapper">
+      <div class="table-responsive">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th class="feature-col">Feature</th>
+              <th class="master-error-col">Master Error 🚀</th>
+              <th>Traditional Debuggers</th>
+              <th>Stack Overflow</th>
+              <th>AI Assistants</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="feature-col">Error Detection</td>
+              <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> AI-powered, real-time analysis</td>
+              <td>Basic syntax highlighting</td>
+              <td>Manual search required</td>
+              <td>Limited to suggestions</td>
+            </tr>
+            <tr>
+              <td class="feature-col">Multi-Language Support</td>
+              <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Python, JavaScript, Java, C++, etc.</td>
+              <td>Language-specific plugins needed</td>
+              <td>Varies by question</td>
+              <td>Primarily focused on popular languages</td>
+            </tr>
+            <tr>
+              <td class="feature-col">Beginner Explanations</td>
+              <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Simple, jargon-free breakdowns</td>
+              <td>Technical documentation only</td>
+              <td>Complex answers</td>
+              <td>Minimal explanation</td>
+            </tr>
+            <tr>
+              <td class="feature-col">Multiple Solutions</td>
+              <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> 3-5 fixes per error with pros/cons</td>
+              <td>Single solution (if any)</td>
+              <td>Depends on responses</td>
+              <td>1-2 suggestions</td>
+            </tr>
+            <tr>
+              <td class="feature-col">Learning Tools</td>
+              <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Linked programming concepts + examples</td>
+              <td>None</td>
+              <td>No structured learning</td>
+              <td>No educational focus</td>
+            </tr>
+            <tr>
+              <td class="feature-col">Code Privacy</td>
+              <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> No storage, optional offline mode</td>
+              <td>Local but may collect analytics</td>
+              <td>Public posts</td>
+              <td>Cloud-based processing</td>
+            </tr>
+            <tr>
+              <td class="feature-col">Collaboration</td>
+              <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Team workspaces & shared debugging</td>
+              <td>Limited to IDE features</td>
+              <td>Forum-style</td>
+              <td>Individual use only</td>
+            </tr>
+            <tr>
+              <td class="feature-col">Cost</td>
+              <td class="master-error-col"><i class="fas fa-check-circle icon-check"></i> Freemium model</td>
+              <td>Free (with paid IDE tiers)</td>
+              <td>Free</td>
+              <td>Paid subscription</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="comparison-summary mt-4">
+      <p>Master Error stands out as a comprehensive solution for developers, offering advanced error detection, multi-language support, and a focus on learning. While traditional tools and platforms have their strengths, they often lack the depth and breadth of features that Master Error provides.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Try Now CTA Section -->
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h2 class="mb-3">Ready to experience these features?</h2>
+          <p class="mb-0 mb-md-0">Start coding with Master Error and see the difference for yourself!</p>
+        </div>
+        <div class="col-lg-4 text-center text-lg-end">
+          <a href="/executor" class="btn btn-primary btn-lg">Try Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 {% endblock %}
 
 {% block css%}
 <style>
-    .comparison-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-    }
+  /* Features page specific styles */
+  .features-hero {
+    padding-top: 180px;
+    padding-bottom: 100px;
+    background: linear-gradient(135deg, rgba(94, 23, 235, 0.05), rgba(170, 92, 239, 0.1));
+  }
+  
+  .features-content {
+    padding-right: 20px;
+  }
+  
+  .features-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--feature-text-color);
+  }
+  
+  .features-img {
+    border-radius: 15px;
+    box-shadow: 0 20px 40px var(--card-shadow);
+    max-width: 100%;
+    transition: all 0.5s ease;
+  }
+  
+  .features-img:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 50px var(--card-shadow);
+  }
+  
+  /* Feature icon styles */
+  .feature-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, var(--secondary-color, #5e17eb), var(--primary-color, #aa5cef));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 25px;
+    box-shadow: 0 10px 20px rgba(170, 92, 239, 0.3);
+  }
+  
+  .feature-icon i {
+    font-size: 2rem;
+    color: white;
+  }
+  
+  body.dark-mode .feature-icon {
+    box-shadow: 0 10px 20px rgba(170, 92, 239, 0.2);
+  }
+  
+  body.dark-mode .feature-icon i {
+    color: white;
+  }
     
-    .comparison-table th, .comparison-table td {
-        padding: 15px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-    
-    .comparison-table th {
-        background-color: #f2f2f2;
-    }
-    
-    .feature-col {
-        width: 30%;
-    }
-    
-    .master-error-col {
-        background-color: #e0ffe0;
-    }
-    
-    .icon-check {
-        color: green;
-    }
-
-    .features-section {
-        background: linear-gradient(135deg, #e3f2fd, #6336f7);
-        padding: 60px 0;
-    }
-    .features-section h2 {
-        font-size: 2.5rem;
-        color: #0d47a1;
-    }
-    .features-section p {
-        font-size: 1.1rem;
-        color: #1e88e5;
-    }
+  /* Comparison table styles */
+  .comparison-table-wrapper {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px var(--card-shadow);
+    padding: 30px;
+    margin-top: 30px;
+    transition: var(--transition);
+  }
+  
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+  }
+  
+  .comparison-table th, .comparison-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--card-border);
+  }
+  
+  .comparison-table th {
+    background-color: var(--card-header-bg);
+    font-weight: 600;
+    color: var(--font-color);
+  }
+  
+  .feature-col {
+    width: 20%;
+    font-weight: 600;
+  }
+  
+  .master-error-col {
+    background-color: rgba(170, 92, 239, 0.05);
+    font-weight: 500;
+  }
+  
+  .icon-check {
+    color: #aa5cef;
+    margin-right: 5px;
+  }
+  
+  .comparison-summary {
+    font-size: 1.1rem;
+    color: var(--feature-text-color);
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  /* CTA section styles */
+  .cta-section {
+    background: linear-gradient(135deg, rgba(94, 23, 235, 0.03), rgba(170, 92, 239, 0.07));
+  }
+  
+  .cta-card {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 50px;
+    box-shadow: 0 15px 30px var(--card-shadow);
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95)), url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  body.dark-mode .comparison-table-wrapper {
+    background-color: #1e1e1e;
+  }
+  
+  body.dark-mode .comparison-table th {
+    background-color: #333;
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .comparison-table td {
+    border-bottom: 1px solid #444;
+  }
+  
+  body.dark-mode .master-error-col {
+    background-color: rgba(170, 92, 239, 0.1);
+  }
+  
+  body.dark-mode .cta-card {
+    background-image: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(30, 30, 30, 0.95)), url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+  }
+  
+  body.dark-mode .features-text {
+    color: var(--gray-300);
+  }
 </style> 
+{% endblock %}
+
+{% block js %}
+<script>
+  // Animate elements when they come into view
+  function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.top + rect.height >= 0
+    );
+  }
+  
+  function handleScrollAnimation() {
+    document.querySelectorAll('.feature-box, .comparison-table-wrapper, .features-img').forEach(item => {
+      if (isInViewport(item) && !item.classList.contains('animated')) {
+        item.classList.add('animated', 'fade-in');
+      }
+    });
+  }
+  
+  window.addEventListener('scroll', handleScrollAnimation);
+  window.addEventListener('load', handleScrollAnimation);
+</script>
 {% endblock %}

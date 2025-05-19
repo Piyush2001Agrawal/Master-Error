@@ -1,219 +1,579 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block css %}
 <style>
-  .profile-page {
-    background: linear-gradient(135deg,#e3f2fd, #6336f7);
-    padding: 50px 0;
-    color: #0d47a1;
-    padding-top: 80px;
-    margin-bottom: 80px;
-    z-index: 100;
-    margin-top: 100px; /* Ensures the profile page starts below the navbar */
+  .profile-section {
+    padding-top: 60px;
+    padding-bottom: 80px;
+    background-color: var(--gray-100);
   }
-  .profile-card {
+  
+  body.dark-mode .profile-section {
+    background-color: var(--dark);
+  }
+  
+  .profile-header {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding: 3rem 2rem;
+    position: relative;
+    color: white;
+    margin-bottom: 0;
+  }
+  
+  .profile-content {
+    background-color: white;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 2rem;
+    position: relative;
+    transition: var(--transition);
+  }
+  
+  body.dark-mode .profile-content {
+    background-color: #292941;
+  }
+  
+  .profile-container:hover .profile-content {
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 4px;
+    position: absolute;
+    bottom: -75px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    border: 4px solid white;
+    box-shadow: var(--shadow-md);
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .profile-avatar:hover {
+    transform: translateX(-50%) scale(1.05);
+  }
+  
+  body.dark-mode .profile-avatar {
+    border-color: #292941;
+  }
+  
+  .profile-name {
+    font-weight: 800;
+    margin-top: 80px;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    color: var(--text-dark);
   }
-  .profile-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  
+  body.dark-mode .profile-name {
+    color: var(--text-light);
   }
-  .profile-card h2 {
-    color: #007bff;
+  
+  .profile-email {
+    text-align: center;
+    color: var(--gray-600);
+    margin-bottom: 2rem;
   }
-  .profile-card p {
-    color: #6c757d;
+  
+  body.dark-mode .profile-email {
+    color: var(--gray-400);
   }
-  .profile-card .btn {
-    background: #007bff;
+
+  .profile-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+  }
+
+  body.dark-mode .profile-stats {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+  }
+
+  body.dark-mode .stat-label {
+    color: var(--gray-400);
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--gray-700);
+  }
+  
+  body.dark-mode .form-label {
+    color: var(--gray-300);
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    background-color: white;
+    transition: var(--transition);
+    margin-bottom: 1.5rem;
+  }
+  
+  body.dark-mode .form-control {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+  }
+  
+  .form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(125, 60, 152, 0.25);
+    outline: none;
+  }
+  
+  .form-control:disabled,
+  .form-control[readonly] {
+    background-color: var(--gray-200);
+    opacity: 0.7;
+  }
+  
+  body.dark-mode .form-control:disabled,
+  body.dark-mode .form-control[readonly] {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .file-upload {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .file-upload-label {
+    flex-shrink: 0;
+    font-weight: 600;
+    color: var(--gray-700);
+    width: 140px;
+  }
+  
+  body.dark-mode .file-upload-label {
+    color: var(--gray-300);
+  }
+  
+  .file-upload-control {
+    position: relative;
+    flex-grow: 1;
+  }
+  
+  .file-upload-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    background-color: var(--gray-100);
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  body.dark-mode .file-upload-input {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+  }
+  
+  .file-upload-input:hover {
+    background-color: var(--gray-200);
+  }
+  
+  body.dark-mode .file-upload-input:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .file-upload-text {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    margin-top: 0.25rem;
+  }
+  
+  body.dark-mode .file-upload-text {
+    color: var(--gray-400);
+  }
+  
+  .submit-btn {
+    padding: 0.75rem 2rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background 0.3s ease, transform 0.3s ease;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
   }
-  .profile-card .btn:hover {
-    background: #0056b3;
-    transform: scale(1.1);
+  
+  .submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
   }
-  .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1030;
-    background-color: #af74f1;
-    transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
   }
-  .navbar.hidden {
-    transform: translateY(-100%);
+
+  .social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-100);
+    color: var(--gray-700);
+    transition: var(--transition);
   }
-  .navbar.scrolled {
-    background-color: af74f1;
+
+  .social-link:hover {
+    transform: translateY(-3px);
+    background: var(--primary);
+    color: white;
+  }
+
+  body.dark-mode .social-link {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--gray-300);
+  }
+
+  .alert {
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  
+  .alert-success {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+    border-left: 4px solid #2ecc71;
+  }
+  
+  .alert-danger {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border-left: 4px solid #e74c3c;
+  }
+  
+  body.dark-mode .alert-success {
+    background-color: rgba(46, 204, 113, 0.2);
+  }
+  
+  body.dark-mode .alert-danger {
+    background-color: rgba(231, 76, 60, 0.2);
+  }
+
+  /* Remove all contact information related styles */
+  .contact-info-section,
+  .contact-info-header,
+  .contact-info-item,
+  .contact-info-icon,
+  .contact-info-content,
+  .contact-info-label,
+  .contact-info-value {
+    display: none;
+  }
+
+  /* Contact Information Styles */
+  .contact-label {
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: 5px;
+    transition: color 0.3s ease;
+  }
+  
+  body.dark-mode .contact-label {
+    color: var(--text-light);
+  }
+  
+  .contact-info {
+    color: #6c757d;
+    margin-bottom: 0;
+    transition: color 0.3s ease;
+  }
+  
+  body.dark-mode .contact-info {
+    color: var(--gray-300);
+  }
+
+  .feature-icon {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 8px rgba(94, 23, 235, 0.3);
+  }
+
+  body.dark-mode .feature-icon {
+    box-shadow: 0 4px 8px rgba(170, 92, 239, 0.5);
+  }
+
+  .card {
+    background-color: white;
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+  }
+
+  body.dark-mode .card {
+    background-color: #292941;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
   }
 </style>
+{% endblock %}
 
-<div class="profile-page">
+{% block content %}
+<div class="profile-section">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="profile-card">
-          <img src="{{ url_for('static', filename='images/' + (current_user.profile_picture or 'profile-placeholder.png')) }}" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
-          <h2>{{ current_user.username }}</h2>
-          <p>Email: {{ current_user.email }}</p>
+      <div class="col-lg-8">
+      
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} mb-4 slide-up">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        
+        <div class="profile-container slide-up">
+          <div class="profile-header">
+            <img src="{{ url_for('static', filename='images/' + (current_user.profile_picture or 'profile-placeholder.png')) }}" alt="Profile Picture" class="profile-avatar" id="profileAvatar">
+          </div>
           
-          <form method="POST" action="/update-profile" enctype="multipart/form-data">
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" class="form-control" id="username" name="username" value="{{ current_user.username }}">
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" name="email" value="{{ current_user.email }}">
-            </div>
-            <div class="form-group">
-              <label for="user_type">User Type</label>
-              <input type="text" class="form-control" id="user_type" name="user_type" value="{{ current_user.user_type }}" readonly>
-            </div>
-            <div class="form-group d-flex align-items-center">
-              <label for="profile_picture" class="me-3">Profile Picture</label>
-              <div class="d-flex align-items-center border p-2 rounded" style="border: 1px solid #ccc;">
-                <input type="file" class="form-control-file" id="profile_picture" name="profile_picture">
-                <span class="ms-3 text-muted">No file chosen</span>
+          <div class="profile-content">
+            <h2 class="profile-name">{{ current_user.username }}</h2>
+            <p class="profile-email">{{ current_user.email }}</p>
+
+            <div class="profile-stats">
+              <div class="stat-item">
+                <div class="stat-value">{{ current_user.posts|default(0) }}</div>
+                <div class="stat-label">Posts</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">{{ current_user.solutions|default(0) }}</div>
+                <div class="stat-label">Solutions</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">{{ current_user.reputation|default(0) }}</div>
+                <div class="stat-label">Reputation</div>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-          </form>
+            
+            <form method="POST" action="/update-profile" enctype="multipart/form-data">
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="username" name="username" value="{{ current_user.username }}">
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" value="{{ current_user.email }}">
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="user_type" class="form-label">User Type</label>
+                  <input type="text" class="form-control" id="user_type" name="user_type" value="{{ current_user.user_type }}" readonly>
+                </div>
+                <div class="col-md-6">
+                  <label for="location" class="form-label">Location</label>
+                  <input type="text" class="form-control" id="location" name="location" value="{{ current_user.location or '' }}" placeholder="Enter your location">
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-12">
+                  <label for="bio" class="form-label">Bio</label>
+                  <textarea class="form-control" id="bio" name="bio" rows="3" placeholder="Tell us about yourself...">{{ current_user.bio or '' }}</textarea>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="skills" class="form-label">Skills</label>
+                  <input type="text" class="form-control" id="skills" name="skills" value="{{ current_user.skills or '' }}" placeholder="e.g., Python, JavaScript, React">
+                </div>
+                <div class="col-md-6">
+                  <label for="interests" class="form-label">Interests</label>
+                  <input type="text" class="form-control" id="interests" name="interests" value="{{ current_user.interests or '' }}" placeholder="e.g., Web Development, AI, Data Science">
+                </div>
+              </div>
+              
+              <div class="file-upload">
+                <label for="profile_picture" class="file-upload-label">Profile Picture</label>
+                <div class="file-upload-control">
+                  <input type="file" id="profile_picture" name="profile_picture" class="file-upload-input" accept="image/*">
+                  <div class="file-upload-text">Choose a file or drag it here</div>
+                </div>
+              </div>
+              
+              <div class="text-center mt-4">
+                <button type="submit" class="submit-btn">Save Changes</button>
+              </div>
+            </form>
+
+            <!-- Contact Information Section -->
+            <div class="card mt-4">
+              <div class="card-body">
+                <h3 class="mb-4">Contact Information</h3>
+                <div class="d-flex align-items-center mb-4">
+                  <div class="feature-icon" style="width: 50px; height: 50px; min-width: 50px;">
+                    <i class="fas fa-envelope"></i>
+                  </div>
+                  <div class="ms-3">
+                    <h5 class="contact-label">Email</h5>
+                    <p class="contact-info">{{ current_user.email }}</p>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center mb-4">
+                  <div class="feature-icon" style="width: 50px; height: 50px; min-width: 50px;">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                  <div class="ms-3">
+                    <h5 class="contact-label">Location</h5>
+                    <p class="contact-info">{{ current_user.location or 'Not specified' }}</p>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <div class="feature-icon" style="width: 50px; height: 50px; min-width: 50px;">
+                    <i class="fas fa-user"></i>
+                  </div>
+                  <div class="ms-3">
+                    <h5 class="contact-label">User Type</h5>
+                    <p class="contact-info">{{ current_user.user_type }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <a href="#" class="social-link" title="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="#" class="social-link" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" class="social-link" title="Twitter">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="social-link" title="Website">
+                <i class="fas fa-globe"></i>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal for editing profile -->
-<div class="modal" id="editProfileModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Profile</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" value="{{ current_user.username }}">
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" value="{{ current_user.email }}">
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Leave blank to keep current password">
-          </div>
-          <div class="form-group">
-            <label for="confirm_password">Confirm Password</label>
-            <input type="password" class="form-control" id="confirm_password" placeholder="Leave blank to keep current password">
-          </div>
-          <div class="form-group">
-            <label for="profile_picture">Profile Picture</label>
-            <input type="file" class="form-control-file" id="profile_picture">
-          </div>
-          <div class="form-group">
-            <label for="bio">Bio</label>
-            <textarea class="form-control" id="bio" rows="3">{{ current_user.bio }}</textarea>
-          </div>
-          <div class="form-group">
-            <label for="user_type">User Type</label>
-            <input type="text" class="form-control" id="user_type" value="{{ current_user.user_type }}" readonly>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
-  let lastScrollTop = 0;
-  const navbar = document.querySelector('.navbar');
-
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (scrollTop > lastScrollTop) {
-      // Scrolling down
-      navbar.classList.add('hidden');
-    } else {
-      // Scrolling up
-      navbar.classList.remove('hidden');
-    }
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For mobile or negative scrolling
-
-    // Change navbar color on scroll
-    if (scrollTop > 50) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-  });
-
-  document.addEventListener('DOMContentLoaded', function () {
-    const editProfileBtn = document.getElementById('editProfileBtn');
-    const saveChangesBtn = document.querySelector('.btn-primary');
-    const usernameInput = document.getElementById('username');
-    const emailInput = document.getElementById('email');
-
-    // Open the modal when Edit Profile button is clicked
-    editProfileBtn.addEventListener('click', () => {
-      const editProfileModal = document.getElementById('editProfileModal');
-      editProfileModal.style.display = 'block';
-    });
-
-    // Save changes when Save Changes button is clicked
-    saveChangesBtn.addEventListener('click', async () => {
-      const updatedUsername = usernameInput.value;
-      const updatedEmail = emailInput.value;
-
-      try {
-        const response = await fetch('/update-profile', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: updatedUsername,
-            email: updatedEmail,
-          }),
-        });
-
-        if (response.ok) {
-          alert('Profile updated successfully!');
-          location.reload(); // Reload the page to reflect changes
-        } else {
-          alert('Failed to update profile. Please try again.');
+  // Update file input display
+  document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('profile_picture');
+    const fileText = document.querySelector('.file-upload-text');
+    const profileAvatar = document.getElementById('profileAvatar');
+    
+    fileInput.addEventListener('change', function() {
+      if (fileInput.files.length > 0) {
+        fileText.textContent = fileInput.files[0].name;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profileAvatar.src = e.target.result;
         }
-      } catch (error) {
-        console.error('Error updating profile:', error);
-        alert('An error occurred. Please try again later.');
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        fileText.textContent = 'Choose a file or drag it here';
       }
     });
 
-    // Close the modal when Close button is clicked
-    document.querySelectorAll('.close, .btn-secondary').forEach(button => {
-      button.addEventListener('click', () => {
-        const editProfileModal = document.getElementById('editProfileModal');
-        editProfileModal.style.display = 'none';
-      });
+    // Add drag and drop functionality
+    const dropZone = document.querySelector('.file-upload-control');
+    
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, preventDefaults, false);
     });
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight(e) {
+      dropZone.classList.add('highlight');
+    }
+
+    function unhighlight(e) {
+      dropZone.classList.remove('highlight');
+    }
+
+    dropZone.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      fileInput.files = files;
+      if (files.length > 0) {
+        fileText.textContent = files[0].name;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profileAvatar.src = e.target.result;
+        }
+        reader.readAsDataURL(files[0]);
+      }
+    }
   });
 </script>
 {% endblock %}

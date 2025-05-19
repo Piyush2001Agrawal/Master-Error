@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Execution <span style="color: #aa5cef;">History</span></h2>
+            <p>View your past code executions and their results</p>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        {% if executions %}
+                            {% for execution in executions %}
+                                <div class="execution-item mb-4">
+                                    <div class="execution-header">
+                                        <h5 class="mb-2">Execution #{{ execution.id }}</h5>
+                                        <small class="text-muted">{{ execution.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                                    </div>
+                                    
+                                    <div class="code-block mb-3">
+                                        <h6>Code:</h6>
+                                        <pre><code>{{ execution.code }}</code></pre>
+                                    </div>
+
+                                    {% if execution.result %}
+                                    <div class="result-block mb-3">
+                                        <h6>Result:</h6>
+                                        <div class="result-content">
+                                            {{ execution.result|safe }}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if execution.error %}
+                                    <div class="error-block mb-3">
+                                        <h6>Error:</h6>
+                                        <div class="text-danger">{{ execution.error }}</div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if execution.user_input %}
+                                    <div class="input-block">
+                                        <h6>User Input:</h6>
+                                        <div>{{ execution.user_input }}</div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <hr class="mb-4">
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center">No execution history found. Start coding to see your executions here!</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block css %}
+<style>
+    .execution-item {
+        background-color: white;
+        border-radius: var(--radius-md);
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    body.dark-mode .execution-item {
+        background-color: #1E1E2F;
+    }
+
+    .code-block pre {
+        background-color: var(--gray-100);
+        padding: 1rem;
+        border-radius: var(--radius-sm);
+        margin: 0;
+    }
+
+    body.dark-mode .code-block pre {
+        background-color: #2A2A3F;
+    }
+
+    .execution-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .result-content {
+        padding: 1rem;
+        background-color: var(--gray-100);
+        border-radius: var(--radius-sm);
+    }
+
+    body.dark-mode .result-content {
+        background-color: #2A2A3F;
+    }
+
+    .error-block {
+        padding: 1rem;
+        background-color: rgba(231, 76, 60, 0.1);
+        border-radius: var(--radius-sm);
+    }
+
+    body.dark-mode .error-block {
+        background-color: rgba(231, 76, 60, 0.2);
+    }
+</style>
+{% endblock %}

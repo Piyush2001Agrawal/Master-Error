@@ -1,97 +1,327 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Sign Up - Master Error</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/auth.css') }}"
-    />
-  </head>
-  <body>
-    <div class="background">
-      <div class="shape"></div>
-      <div class="shape"></div>
-    </div>
-    <form method="POST" action="{{ url_for('signup') }}">
-      <h3>Sign Up Here</h3>
+{% extends "base.html" %}
 
-      {% with messages = get_flashed_messages(with_categories=true) %} {% if
-      messages %} {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">{{ message }}</div>
-      {% endfor %} {% endif %} {% endwith %}
+{% block css %}
+<style>
+  .signup-section {
+    padding-top: 50px;
+    padding-bottom: 80px;
+    background-color: var(--gray-100);
+    min-height: calc(100vh - 90px - 270px);
+    display: flex;
+    align-items: center;
+  }
 
-      <label for="username" style="color: rgb(40, 39, 39)">Username</label>
-      <input
-        type="text"
-        name="username"
-        placeholder="Username"
-        id="username"
-        required
-      />
+  body.dark-mode .signup-section {
+    background-color: var(--dark);
+  }
 
-      <label for="email">Email</label>
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        id="email"
-        required
-      />
+  .signup-container {
+    background-color: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 3rem;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+    transition: var(--transition);
+  }
 
-      <label for="password">Password</label>
-      <div class="password-container">
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          id="password"
-          required
-        />
-        <i
-          class="fas fa-eye toggle-password"
-          onclick="togglePasswordVisibility('password', this)"
-        ></i>
+  body.dark-mode .signup-container {
+    background-color: #292941;
+  }
+
+  .signup-container:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .signup-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .signup-header h2 {
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .signup-header p {
+    color: var(--gray-800);
+    opacity: 0.8;
+  }
+
+  body.dark-mode .signup-header p {
+    color: var(--gray-300);
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--gray-800);
+  }
+
+  body.dark-mode .form-group label {
+    color: var(--gray-300);
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    background-color: white;
+    transition: var(--transition);
+  }
+
+  body.dark-mode .form-control {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+  }
+
+  .form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(125, 60, 152, 0.25);
+    outline: none;
+  }
+
+  .password-container {
+    position: relative;
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--gray-800);
+    transition: var(--transition);
+  }
+
+  body.dark-mode .toggle-password {
+    color: var(--gray-300);
+  }
+
+  .toggle-password:hover {
+    color: var(--primary);
+  }
+
+  .form-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    background-color: white;
+    transition: var(--transition);
+    color: var(--gray-800);
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px 12px;
+    margin-bottom: 0.5rem;
+  }
+
+  body.dark-mode .form-select {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23f8f9fa' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  }
+
+  .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(125, 60, 152, 0.25);
+    outline: none;
+  }
+
+  .form-select option {
+    padding: 0.5rem;
+    font-size: 1rem;
+    background-color: white;
+    color: var(--gray-800);
+  }
+
+  body.dark-mode .form-select option {
+    background-color: #292941;
+    color: var(--text-light);
+  }
+
+  .signup-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .signup-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .auth-links {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+
+  .auth-links a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  body.dark-mode .auth-links a {
+    color: var(--accent);
+  }
+
+  .auth-links a:hover {
+    text-decoration: underline;
+  }
+
+  .auth-links p {
+    color: var(--font-color);
+  }
+
+  .text-muted {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--gray-600);
+  }
+
+  body.dark-mode .text-muted {
+    color: var(--gray-400);
+  }
+
+  .alert {
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .alert-danger {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border-left: 4px solid #e74c3c;
+  }
+
+  .alert-success {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+    border-left: 4px solid #2ecc71;
+  }
+
+  body.dark-mode .alert-danger {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #ff6b6b;
+  }
+
+  body.dark-mode .alert-success {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="signup-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="signup-container slide-up">
+          <div class="signup-header">
+            <h2>Create Account</h2>
+            <p>Join Master Error to simplify your debugging process</p>
+          </div>
+
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} mb-4">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+
+          <form method="POST" action="{{ url_for('signup') }}">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" name="username" id="username" placeholder="Choose a username" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div class="password-container">
+                <input type="password" class="form-control" name="password" id="password" placeholder="Create a password" required>
+                <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('password', this)"></i>
+              </div>
+              <small class="text-muted">Password must be at least 8 characters with at least one digit, one letter, one special character, and one uppercase letter.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="user_type">User Type</label>
+              <select class="form-select" name="user_type" id="user_type" required>
+                <option value="" disabled selected>Select your experience level</option>
+                <option value="beginner">Beginner - New to programming</option>
+                <option value="intermediate">Intermediate - Some programming experience</option>
+                <option value="experienced">Experienced - Professional developer</option>
+              </select>
+              <small class="text-muted">This helps us customize your experience and provide relevant content.</small>
+            </div>
+
+            <button type="submit" class="signup-btn">Sign Up</button>
+          </form>
+
+          <div class="auth-links">
+            <p>Already have an account? <a href="{{ url_for('login') }}">Log In</a></p>
+            {% if current_user.is_authenticated %}
+            <p><a href="{{ url_for('logout') }}" onclick="return confirm('Are you sure you want to log out?');">Logout</a></p>
+            {% endif %}
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <label for="user_type" style="color: black">User Type</label>
-      <select name="user_type" id="user_type" required style="color: black">
-        <option value="beginner" style="color: black">Beginner</option>
-        <option value="experienced" style="color: black">Experienced</option>
-      </select>
-
-      <button type="submit">Sign Up</button>
-      <p style="text-align: center; margin-top: 20px">
-        Already have an account?
-        <a href="{{ url_for('login') }}" style="color: #23a2f6">Login</a>
-      </p>
-      {% if current_user.is_authenticated %}
-      <p style="text-align: center; margin-top: 10px">
-        <a href="{{ url_for('logout') }}" style="color: #23a2f6">Logout</a>
-      </p>
-      {% endif %}
-    </form>
-    <script>
-      function togglePasswordVisibility(inputId, icon) {
-        const input = document.getElementById(inputId);
-        if (input.type === "password") {
-          input.type = "text";
-          icon.classList.remove("fa-eye");
-          icon.classList.add("fa-eye-slash");
-        } else {
-          input.type = "password";
-          icon.classList.remove("fa-eye-slash");
-          icon.classList.add("fa-eye");
-        }
-      }
-    </script>
-  </body>
-</html>
+<script>
+  function togglePasswordVisibility(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.remove("fa-eye");
+      icon.classList.add("fa-eye-slash");
+    } else {
+      input.type = "password";
+      icon.classList.remove("fa-eye-slash");
+      icon.classList.add("fa-eye");
+    }
+  }
+</script>
+{% endblock %}
