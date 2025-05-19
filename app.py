@@ -37,7 +37,7 @@ if not os.getenv('GOOGLE_CLIENT_ID') or not os.getenv('GOOGLE_CLIENT_SECRET'):
     print("Warning: Google OAuth credentials not set. Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in .env file")
 
 # Define the redirect URI explicitly
-GOOGLE_REDIRECT_URI = 'http://127.0.0.1:5000/login/google/authorize'
+GOOGLE_REDIRECT_URI = 'https://master-error.onrender.com/login/google/authorize'
 
 google = oauth.register(
     name='google',
